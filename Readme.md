@@ -1,7 +1,7 @@
 # Личный проект «Шесть городов»
 
-* Студент: [Evgeny Mufteev](https://up.htmlacademy.ru/react/14/user/1850191).
-* Наставник: `Неизвестно`.
+- Студент: [Evgeny Mufteev](https://up.htmlacademy.ru/react/14/user/1850191).
+- Наставник: `Вероника Синицына`.
 
 ---
 
