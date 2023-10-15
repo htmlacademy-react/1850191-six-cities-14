@@ -1,5 +1,3 @@
-import React from 'react';
-
 interface PlaceCardProps {
   imageSrc: string;
   price: number;
