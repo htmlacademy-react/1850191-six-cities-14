@@ -1,26 +1,25 @@
 import { IPlaceCardProps } from '../../../types';
 
-const PlaceCard = ({ imageSrc, price, description, type, isPremium, isBookmarked, rating }: IPlaceCardProps) => {
-
+const FavoriteCard = ({ imageSrc, price, description, type, isPremium, isBookmarked, rating }: IPlaceCardProps) => {
   return (
-    <article className="cities__card place-card">
+    <article className="favorites__card place-card">
       {isPremium && (
         <div className="place-card__mark">
           <span>Premium</span>
         </div>
       )}
-      <div className="cities__image-wrapper place-card__image-wrapper">
+      <div className="favorites__image-wrapper place-card__image-wrapper">
         <a href="#">
           <img
             className="place-card__image"
             src={imageSrc}
-            width={260}
-            height={200}
+            width={150}
+            height={110}
             alt="Place image"
           />
         </a>
       </div>
-      <div className="place-card__info">
+      <div className="favorites__card-info place-card__info">
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">€{price}</b>
@@ -37,7 +36,7 @@ const PlaceCard = ({ imageSrc, price, description, type, isPremium, isBookmarked
             >
               <use xlinkHref="#icon-bookmark" />
             </svg>
-            <span className="visually-hidden">To bookmarks</span>
+            <span className="visually-hidden">In bookmarks</span>
           </button>
         </div>
         {rating && (
@@ -49,9 +48,7 @@ const PlaceCard = ({ imageSrc, price, description, type, isPremium, isBookmarked
           </div>
         )}
         <h2 className="place-card__name">
-          <a href="#">
-            {description}
-          </a>
+          <a href="#">{description}</a>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>
@@ -59,4 +56,4 @@ const PlaceCard = ({ imageSrc, price, description, type, isPremium, isBookmarked
   );
 };
 
-export default PlaceCard;
+export default FavoriteCard;
