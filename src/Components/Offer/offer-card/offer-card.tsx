@@ -1,6 +1,6 @@
 import { IPlaceCardProps } from '../../../types';
 
-const OfferCard = ({ imageSrc, price, description, type, isPremium, isBookmarked, rating }: IPlaceCardProps) => {
+export const OfferCard = ({ imageSrc, price, description, type, isPremium, isBookmarked, rating }: IPlaceCardProps) => {
   return (
     <article className="near-places__card place-card">
       {isPremium && (
@@ -55,5 +55,3 @@ const OfferCard = ({ imageSrc, price, description, type, isPremium, isBookmarked
     </article>
   );
 };
-
-export default OfferCard;

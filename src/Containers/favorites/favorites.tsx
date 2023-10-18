@@ -1,7 +1,7 @@
-import FavoriteLocation from '../../Components/Favorites/favorite-location/favorite-location ';
+import { FavoriteLocation } from '../../Components/Favorites/favorite-location/favorite-location ';
 import data from '../../assets/data.json';
 
-const FavoritesPage = () => {
+const Favorites = () => {
   return (
     <div className="page__favorites-container container">
       <section className="favorites">
@@ -16,4 +16,4 @@ const FavoritesPage = () => {
   );
 };
 
-export default FavoritesPage;
+export default Favorites;

@@ -1,4 +1,4 @@
-export interface IPlaceCardProps {
+export type IPlaceCardProps = {
   id?: number;
   imageSrc: string;
   price: number;
@@ -7,9 +7,9 @@ export interface IPlaceCardProps {
   isPremium?: boolean;
   isBookmarked?: boolean;
   rating?: number;
-}
+};
 
-export interface ICityData {
+export type ICityData = {
   city: string;
   places: IPlaceCardProps[];
-}
+};

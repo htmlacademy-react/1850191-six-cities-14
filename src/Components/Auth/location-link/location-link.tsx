@@ -1,9 +1,9 @@
-interface LocationLinkProps {
+type LocationLinkProps = {
   city: string;
 }
 
 
-const LocationLink = ({ city }: LocationLinkProps) => (
+export const LocationLink = ({ city }: LocationLinkProps) => (
   <section className="locations locations--login locations--current">
     <div className="locations__item">
       <a className="locations__item-link" href="#">
@@ -13,4 +13,4 @@ const LocationLink = ({ city }: LocationLinkProps) => (
   </section>
 );
 
-export default LocationLink;
+

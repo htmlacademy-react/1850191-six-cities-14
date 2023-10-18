@@ -1,6 +1,6 @@
 import ReviewsForm from '../../Components/Commons/reviews-form/reviews-form';
 import ReviewsItem from '../../Components/Commons/reviews-item/reviews-item';
-import OfferCard from '../../Components/Offer/offer-card/offer-card';
+import { OfferCard } from '../../Components/Offer/offer-card/offer-card';
 import OfferGallery from '../../Components/Offer/offer-gallery/offer-gallery';
 import OfferHost from '../../Components/Offer/offer-host/offer-host';
 import OfferMap from '../../Components/Offer/offer-map/offer-map';
@@ -8,7 +8,7 @@ import OfferPlace from '../../Components/Offer/offer-place/offer-place';
 import data from '../../assets/data.json';
 import { ICityData, IPlaceCardProps } from '../../types/index';
 
-const OfferPage = () => {
+const Offer = () => {
 
   const amsterdamPlaceData = data.Places.find((place: ICityData) => place.city === 'Amsterdam');
   const amsterdamPlaces: IPlaceCardProps[] = amsterdamPlaceData?.places ?? [];
@@ -51,4 +51,4 @@ const OfferPage = () => {
   );
 };
 
-export default OfferPage;
+export default Offer;

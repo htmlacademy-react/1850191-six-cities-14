@@ -1,6 +1,6 @@
 import { IPlaceCardProps } from '../../../types';
 
-const FavoriteCard = ({ imageSrc, price, description, type, isPremium, isBookmarked, rating }: IPlaceCardProps) => {
+export const FavoriteCard = ({ imageSrc, price, description, type, isPremium, isBookmarked, rating }: IPlaceCardProps) => {
   return (
     <article className="favorites__card place-card">
       {isPremium && (
@@ -56,4 +56,4 @@ const FavoriteCard = ({ imageSrc, price, description, type, isPremium, isBookmar
   );
 };
 
-export default FavoriteCard;
+

@@ -1,4 +1,4 @@
-const CityTabs = () => {
+export const CityTabs = () => {
   return (
     <div className="tabs">
       <section className="locations container">
@@ -39,4 +39,3 @@ const CityTabs = () => {
   );
 };
 
-export default CityTabs;

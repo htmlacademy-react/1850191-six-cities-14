@@ -1,4 +1,4 @@
-const PlacesSorting = () => {
+export const PlacesSorting = () => {
   return (
     <form className="places__sorting" action="#" method="get">
       <span className="places__sorting-caption">Sort by</span>
@@ -26,4 +26,3 @@ const PlacesSorting = () => {
   );
 };
 
-export default PlacesSorting;
