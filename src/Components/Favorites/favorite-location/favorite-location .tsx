@@ -1,8 +1,8 @@
 import { ICityData } from '../../../types';
-import { FavoriteCard } from '../favorite-card/favorite-card';
+import { FavoriteCard } from '../favorite-card';
 
 
-export const FavoriteLocation = ({ city, places }: ICityData) => { // добавлен places
+export const FavoriteLocation = ({ city, places }: ICityData) => {
   return (
     <li className="favorites__locations-items">
       <div className="favorites__locations locations locations--current">

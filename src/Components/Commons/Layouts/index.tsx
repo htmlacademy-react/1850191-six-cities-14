@@ -1,6 +1,5 @@
 import { Footer } from '../footer/footer';
-import { Header } from '../header/Header';
-
+import { Header } from '../header/header';
 
 interface TProps {
   children: JSX.Element;

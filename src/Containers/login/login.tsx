@@ -1,6 +1,5 @@
-import { LocationLink } from '../../Components/Auth/location-link/location-link';
-import { LoginForm } from '../../Components/Auth/login-form/login-form';
-
+import { LocationLink } from '../../components/auth/location-link/location-link';
+import { LoginForm } from '../../components/auth/login-form/login-form';
 
 const Login = () => {
   return (
@@ -11,5 +10,4 @@ const Login = () => {
 
   );
 };
-
 export default Login;

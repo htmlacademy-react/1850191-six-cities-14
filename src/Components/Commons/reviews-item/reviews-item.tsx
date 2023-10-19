@@ -1,4 +1,4 @@
-const ReviewsItem = () => {
+export const ReviewsItem = () => {
   return (
     <li className="reviews__item">
       <div className="reviews__user user">
@@ -32,5 +32,3 @@ const ReviewsItem = () => {
     </li>
   );
 };
-
-export default ReviewsItem;

@@ -1,5 +1,4 @@
-
-const OfferGallery = () => {
+export const OfferGallery = () => {
   return (
     <div className="offer__gallery-container container">
       <div className="offer__gallery">
@@ -45,5 +44,3 @@ const OfferGallery = () => {
     </div>
   );
 };
-
-export default OfferGallery;

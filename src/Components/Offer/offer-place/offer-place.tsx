@@ -1,4 +1,4 @@
-const OfferPlace = () => {
+export const OfferPlace = () => {
   return (
     <>
       <div className="offer__mark">
@@ -54,4 +54,3 @@ const OfferPlace = () => {
   );
 };
 
-export default OfferPlace;

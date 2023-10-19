@@ -55,5 +55,3 @@ export const FavoriteCard = ({ imageSrc, price, description, type, isPremium, is
     </article>
   );
 };
-
-

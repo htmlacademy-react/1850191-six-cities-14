@@ -1,12 +1,12 @@
-import ReviewsForm from '../../Components/Commons/reviews-form/reviews-form';
-import ReviewsItem from '../../Components/Commons/reviews-item/reviews-item';
-import { OfferCard } from '../../Components/Offer/offer-card/offer-card';
-import OfferGallery from '../../Components/Offer/offer-gallery/offer-gallery';
-import OfferHost from '../../Components/Offer/offer-host/offer-host';
-import OfferMap from '../../Components/Offer/offer-map/offer-map';
-import OfferPlace from '../../Components/Offer/offer-place/offer-place';
-import data from '../../assets/data.json';
+import { ReviewsForm } from '../../components/commons/reviews-form/reviews-form';
+import { ReviewsItem } from '../../components/commons/reviews-item/reviews-item';
+import { OfferCard } from '../../components/offer/offer-card/offer-card';
+import { OfferGallery } from '../../components/offer/offer-gallery/offer-gallery';
+import { OfferHost } from '../../components/offer/offer-host/offer-host';
+import { OfferMap } from '../../components/offer/offer-map/offer-map';
+import { OfferPlace } from '../../components/offer/offer-place/offer-place';
 import { ICityData, IPlaceCardProps } from '../../types/index';
+import data from '../../assets/data.json';
 
 const Offer = () => {
 

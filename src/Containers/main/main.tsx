@@ -1,9 +1,7 @@
-
-
-import { CityTabs } from '../../Components/Main/sity-tabs/sity-tabs.tsx';
-import { PlacesSorting } from '../../Components/Main/places-sorting/places-sorting.tsx';
-import { PlaceCard } from '../../Components/Main/place-card/place-card.tsx';
-import { CityMap } from '../../Components/Main/city-map/city-map.tsx';
+import { CityTabs } from '../../components/main/sity-tabs/sity-tabs.tsx';
+import { PlacesSorting } from '../../components/main/places-sorting/places-sorting.tsx';
+import { PlaceCard } from '../../components/main/place-card/place-card.tsx';
+import { CityMap } from '../../components/main/city-map/city-map.tsx';
 
 import { IPlaceCardProps } from '../../types/index.ts';
 import placesData from '../../assets/data.json';
@@ -45,5 +43,4 @@ const Main = () => {
 
   );
 };
-
 export default Main;

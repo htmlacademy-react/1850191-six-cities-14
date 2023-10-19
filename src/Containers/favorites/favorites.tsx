@@ -1,4 +1,4 @@
-import { FavoriteLocation } from '../../Components/Favorites/favorite-location/favorite-location ';
+import { FavoriteLocation } from '../../components/favorites/favorite-location/favorite-location ';
 import data from '../../assets/data.json';
 
 const Favorites = () => {
@@ -15,5 +15,4 @@ const Favorites = () => {
     </div>
   );
 };
-
 export default Favorites;

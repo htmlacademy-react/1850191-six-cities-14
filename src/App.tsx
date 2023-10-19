@@ -1,15 +1,16 @@
 import { lazy, Suspense } from 'react';
-
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import PrivateRoute from './Components/Commons/private-route/private-route';
-import Layout from './Components/Commons/layouts';
-import { AppRoute } from './utils/constants/routes';
 
-const Main = lazy(() => import('./Containers/main/main'));
-const Favorites = lazy(() => import('./Containers/favorites/favorites'));
-const Offer = lazy(() => import('./Containers/offer/offer'));
-const Login = lazy(() => import('./Containers/login/login'));
-const NotFound = lazy(() => import('./Containers/not-found/not-found'));
+import { AppRoute } from './const/routes';
+import Layout from './components/commons/layouts';
+import { PrivateRoute } from './components/commons/private-route/private-route';
+
+
+const Main = lazy(() => import('../src/containers/main/main'));
+const Favorites = lazy(() => import('./containers/favorites/favorites'));
+const Offer = lazy(() => import('./containers/offer/offer'));
+const Login = lazy(() => import('./containers/login/login'));
+const NotFound = lazy(() => import('./containers/not-found/not-found'));
 
 const App = (): JSX.Element => (
   <BrowserRouter>
