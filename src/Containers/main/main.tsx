@@ -1,12 +1,13 @@
-import CityMap from '../../Components/Main/city-map/city-map.tsx';
-import PlaceCard from '../../Components/Main/place-card/place-card.tsx';
-import PlacesSorting from '../../Components/Main/places-sorting/places__sorting.tsx';
-import CityTabs from '../../Components/Main/sity-tabs/sity-tabs.tsx';
+import { CityTabs } from '../../components/main/sity-tabs/sity-tabs.tsx';
+import { PlacesSorting } from '../../components/main/places-sorting/places-sorting.tsx';
+import { PlaceCard } from '../../components/main/place-card/place-card.tsx';
+import { CityMap } from '../../components/main/city-map/city-map.tsx';
+
 import { IPlaceCardProps } from '../../types/index.ts';
 import placesData from '../../assets/data.json';
 
 
-const MainPage = () => {
+const Main = () => {
   const amsterdamData = placesData.Places.find((place) => place.city === 'Amsterdam');
   const amsterdamPlaces: IPlaceCardProps[] = amsterdamData ? amsterdamData.places : [];
 
@@ -42,5 +43,4 @@ const MainPage = () => {
 
   );
 };
-
-export default MainPage;
+export default Main;

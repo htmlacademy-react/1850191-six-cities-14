@@ -1,7 +1,3 @@
-const OfferMap = () => {
-  return (
-    <section className="offer__map map" />
-  );
-};
-
-export default OfferMap;
+export const OfferMap = () => (
+  <section className="offer__map map" />
+);

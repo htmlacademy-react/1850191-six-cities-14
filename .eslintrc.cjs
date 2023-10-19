@@ -18,14 +18,11 @@ module.exports = {
   plugins: ['react-refresh'],
   rules: {
     'react-refresh/only-export-components': 'warn',
-    'arrow-body-style': 'off',
   },
   overrides: [
     {
       files: ['*test*'],
-      rules: {
-        'react-refresh/only-export-components': 'warn',
-      },
+      rules: { '@typescript-eslint/unbound-method': 'off' },
     },
   ],
 };
