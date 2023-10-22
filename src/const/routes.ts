@@ -5,3 +5,9 @@ export enum AppRoute {
   Login = '/login',
   NotFound = '*',
 }
+
+export enum AuthorixationStatus {
+  Auth = 'AUTH',
+  NoAuth = 'NO_AUTH',
+  Unknown = 'UNKNOWN',
+}

@@ -5,6 +5,7 @@ import { CityMap } from '../../components/main/city-map/city-map.tsx';
 
 import { IPlaceCardProps } from '../../types/index.ts';
 import placesData from '../../assets/data.json';
+import { Helmet } from 'react-helmet-async';
 
 
 const Main = () => {
@@ -13,6 +14,9 @@ const Main = () => {
 
   return (
     <>
+      <Helmet>
+        <title>{'6 cities'}</title>
+      </Helmet>
       <h1 className="visually-hidden">Cities</h1>
       <CityTabs />
       <div className="cities">

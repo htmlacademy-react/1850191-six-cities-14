@@ -7,6 +7,7 @@ import { OfferMap } from '../../components/offer/offer-map/offer-map';
 import { OfferPlace } from '../../components/offer/offer-place/offer-place';
 import { ICityData, IPlaceCardProps } from '../../types/index';
 import data from '../../assets/data.json';
+import { Helmet } from 'react-helmet-async';
 
 const Offer = () => {
 
@@ -16,6 +17,9 @@ const Offer = () => {
 
   return (
     <>
+      <Helmet>
+        <title>{'6 cities-Offer'}</title>
+      </Helmet>
       <section className="offer">
         <OfferGallery />
         <div className="offer__container container">
