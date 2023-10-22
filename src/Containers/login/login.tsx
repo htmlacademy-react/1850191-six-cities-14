@@ -1,6 +1,7 @@
 import { Helmet } from 'react-helmet-async';
-import { LocationLink } from '../../components/auth/location-link/location-link';
 import { LoginForm } from '../../components/auth/login-form/login-form';
+import { LocationLink } from '../../components/auth/location-link';
+
 
 const Login = () => (
   <div className="page__login-container container">

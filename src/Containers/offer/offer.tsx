@@ -1,10 +1,11 @@
-import { ReviewsForm } from '../../components/commons/reviews-form/reviews-form';
-import { ReviewsItem } from '../../components/commons/reviews-item/reviews-item';
-import { OfferCard } from '../../components/offer/offer-card/offer-card';
-import { OfferGallery } from '../../components/offer/offer-gallery/offer-gallery';
-import { OfferHost } from '../../components/offer/offer-host/offer-host';
-import { OfferMap } from '../../components/offer/offer-map/offer-map';
-import { OfferPlace } from '../../components/offer/offer-place/offer-place';
+import { OfferGallery } from '../../components/offer/offer-gallery';
+import { OfferPlace } from '../../components/offer/offer-place';
+import { OfferHost } from '../../components/offer/offer-host';
+import { ReviewsItem } from '../../components/commons/reviews-item';
+import { ReviewsForm } from '../../components/commons/reviews-form';
+import { OfferMap } from '../../components/offer/offer-map';
+import { OfferCard } from '../../components/offer/offer-card';
+
 import { ICityData, IPlaceCardProps } from '../../types/index';
 import data from '../../assets/data.json';
 import { Helmet } from 'react-helmet-async';
