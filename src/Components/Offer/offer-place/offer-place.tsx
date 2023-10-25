@@ -1,4 +1,4 @@
-export const OfferPlace = () => (
+export const OfferPlace = (): JSX.Element => (
   <>
     <div className="offer__mark">
       <span>Premium</span>

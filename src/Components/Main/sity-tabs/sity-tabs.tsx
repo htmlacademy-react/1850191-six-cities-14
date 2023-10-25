@@ -1,4 +1,4 @@
-export const CityTabs = () => (
+export const CityTabs = (): JSX.Element => (
   <div className="tabs">
     <section className="locations container">
       <ul className="locations__list tabs__list">

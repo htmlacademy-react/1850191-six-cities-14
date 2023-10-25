@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 import { Link, useLocation } from 'react-router-dom';
 
-const NotFound = () => {
+const NotFound = (): JSX.Element => {
   const location = useLocation();
   const readablePath = decodeURIComponent(location.pathname);
 

@@ -1,6 +1,8 @@
+import { Link } from 'react-router-dom';
+import { AppRoute } from '../../../const/routes';
 import { IPlaceCardProps } from '../../../types';
 
-export const OfferCard = ({ imageSrc, price, description, type, isPremium, isBookmarked, rating }: IPlaceCardProps) => (
+export const OfferCard = ({ imageSrc, price, description, type, isPremium, isBookmarked, rating }: IPlaceCardProps): JSX.Element => (
   <article className="near-places__card place-card">
     {isPremium && (
       <div className="place-card__mark">
@@ -8,7 +10,7 @@ export const OfferCard = ({ imageSrc, price, description, type, isPremium, isBoo
       </div>
     )}
     <div className="near-places__image-wrapper place-card__image-wrapper">
-      <a href="#">
+      <Link to={AppRoute.Offer}>
         <img
           className="place-card__image"
           src={imageSrc}
@@ -16,7 +18,7 @@ export const OfferCard = ({ imageSrc, price, description, type, isPremium, isBoo
           height={200}
           alt="Place image"
         />
-      </a>
+      </Link>
     </div>
     <div className="place-card__info">
       <div className="place-card__price-wrapper">
@@ -47,7 +49,9 @@ export const OfferCard = ({ imageSrc, price, description, type, isPremium, isBoo
         </div>
       )}
       <h2 className="place-card__name">
-        <a href="#">{description}</a>
+        <Link to={AppRoute.Offer}>
+          {description}
+        </Link>
       </h2>
       <p className="place-card__type">{type}</p>
     </div>

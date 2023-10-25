@@ -1,4 +1,4 @@
-export const OfferGallery = () => (
+export const OfferGallery = (): JSX.Element => (
   <div className="offer__gallery-container container">
     <div className="offer__gallery">
       <div className="offer__image-wrapper">

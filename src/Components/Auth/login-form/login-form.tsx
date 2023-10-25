@@ -1,4 +1,4 @@
-export const LoginForm = () => (
+export const LoginForm = (): JSX.Element => (
   <section className="login">
     <h1 className="login__title">Sign in</h1>
     <form className="login__form form" action="#" method="post">

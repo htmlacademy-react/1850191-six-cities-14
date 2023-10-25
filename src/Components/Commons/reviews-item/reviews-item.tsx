@@ -1,4 +1,4 @@
-export const ReviewsItem = () => (
+export const ReviewsItem = (): JSX.Element => (
   <li className="reviews__item">
     <div className="reviews__user user">
       <div className="reviews__avatar-wrapper user__avatar-wrapper">

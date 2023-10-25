@@ -7,10 +7,10 @@ import { OfferMap } from '../../components/offer/offer-map';
 import { OfferCard } from '../../components/offer/offer-card';
 
 import { ICityData, IPlaceCardProps } from '../../types/index';
-import data from '../../assets/data.json';
+import data from '../../mocks/data.json';
 import { Helmet } from 'react-helmet-async';
 
-const Offer = () => {
+const Offer = (): JSX.Element => {
 
   const amsterdamPlaceData = data.Places.find((place: ICityData) => place.city === 'Amsterdam');
   const amsterdamPlaces: IPlaceCardProps[] = amsterdamPlaceData?.places ?? [];

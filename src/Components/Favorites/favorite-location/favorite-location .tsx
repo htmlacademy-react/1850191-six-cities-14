@@ -1,22 +1,25 @@
-import { ICityData } from '../../../types';
 import { FavoriteCard } from '../favorite-card';
+import { OfferType } from '../../../mocks/offers';
 
+type FavoriteLocationProps = {
+  offers: OfferType[];
+};
 
-export const FavoriteLocation = ({ city, places }: ICityData) => (
-  <li className="favorites__locations-items">
-    <div className="favorites__locations locations locations--current">
-      <div className="locations__item">
-        <a className="locations__item-link" href="#">
-          <span>{city}</span>
-        </a>
-      </div>
-    </div>
-    <div className="favorites__places">
-      {places.filter((place) => place.isBookmarked).map((place) => (
-        <FavoriteCard key={place.id} {...place} />
-      ))}
-    </div>
-  </li>
+export const FavoriteLocation = ({ offers }: FavoriteLocationProps): JSX.Element => (
+  <ul className="favorites__list">
+    {offers.filter((offer) => offer.isFavorite).map((offer) => (
+      <li key={offer.id} className="favorites__locations-items">
+        <div className="favorites__locations locations locations--current">
+          <div className="locations__item">
+            <a className="locations__item-link" href="#">
+              <span>{offer.city.name}</span>
+            </a>
+          </div>
+        </div>
+        <div className="favorites__places">
+          <FavoriteCard offer={offer} />
+        </div>
+      </li>
+    ))}
+  </ul>
 );
-
-

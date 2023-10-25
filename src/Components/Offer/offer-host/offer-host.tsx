@@ -1,4 +1,4 @@
-export const OfferHost = () => (
+export const OfferHost = (): JSX.Element => (
   <div className="offer__host">
     <h2 className="offer__host-title">Meet the host</h2>
     <div className="offer__host-user user">
