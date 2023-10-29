@@ -1,4 +1,6 @@
-import { OfferType } from '../../../mocks/offers';
+import { Link } from 'react-router-dom';
+import { OfferType } from '../../../types/offer-preview';
+import { AppRoute } from '../../../const/routes';
 
 type FavoriteCardProps = {
   offer: OfferType;
@@ -51,7 +53,9 @@ export const FavoriteCard = ({ offer }: FavoriteCardProps): JSX.Element => (
         </div>
       )}
       <h2 className="place-card__name">
-        <a href="#">{offer.title}</a>
+        <Link to={AppRoute.Offer}>
+          {offer.title}
+        </Link>
       </h2>
       <p className="place-card__type">{offer.type}</p>
     </div>

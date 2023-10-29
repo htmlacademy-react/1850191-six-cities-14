@@ -1,19 +1,23 @@
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../../const/routes';
-import { IPlaceCardProps } from '../../../types';
+import { OfferType } from '../../../types/offer-preview';
 
-export const OfferCard = ({ imageSrc, price, description, type, isPremium, isBookmarked, rating }: IPlaceCardProps): JSX.Element => (
+type OfferDistrictCardProps = {
+  offer: OfferType;
+};
+
+export const OfferDistrictCard = ({ offer }: OfferDistrictCardProps): JSX.Element => (
   <article className="near-places__card place-card">
-    {isPremium && (
+    {offer.isPremium && (
       <div className="place-card__mark">
         <span>Premium</span>
       </div>
     )}
     <div className="near-places__image-wrapper place-card__image-wrapper">
-      <Link to={AppRoute.Offer}>
+      <Link to={`${AppRoute.Offer}/${offer.id}`}>
         <img
           className="place-card__image"
-          src={imageSrc}
+          src={offer.previewImage}
           width={260}
           height={200}
           alt="Place image"
@@ -23,11 +27,11 @@ export const OfferCard = ({ imageSrc, price, description, type, isPremium, isBoo
     <div className="place-card__info">
       <div className="place-card__price-wrapper">
         <div className="place-card__price">
-          <b className="place-card__price-value">€{price}</b>
+          <b className="place-card__price-value">€{offer.price}</b>
           <span className="place-card__price-text">/&nbsp;night</span>
         </div>
         <button
-          className={`place-card__bookmark-button button ${isBookmarked ? 'place-card__bookmark-button--active' : ''}`}
+          className={`place-card__bookmark-button button ${offer.isFavorite ? 'place-card__bookmark-button--active' : ''}`}
           type="button"
         >
           <svg
@@ -40,20 +44,20 @@ export const OfferCard = ({ imageSrc, price, description, type, isPremium, isBoo
           <span className="visually-hidden">To bookmarks</span>
         </button>
       </div>
-      {rating && (
+      {offer.rating && (
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{ width: `${(rating / 5) * 100}%` }} />
+            <span style={{ width: `${(offer.rating / 5) * 100}%` }} />
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
       )}
       <h2 className="place-card__name">
-        <Link to={AppRoute.Offer}>
-          {description}
+        <Link to={`${AppRoute.Offer}/${offer.id}`}>
+          {offer.title}
         </Link>
       </h2>
-      <p className="place-card__type">{type}</p>
+      <p className="place-card__type">{offer.type}</p>
     </div>
   </article>
 );

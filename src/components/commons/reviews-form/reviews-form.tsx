@@ -1,27 +1,20 @@
 import React, { useState, ChangeEvent } from 'react';
 import { ReviewSymbolLength } from '../../../const/routes';
 
-type ReviewFormState = {
-  rating: number | null;
-  review: string;
-};
-
 export const ReviewsForm = (): JSX.Element => {
 
-  const [formState, setFormState] = useState<ReviewFormState>({
-    rating: null,
-    review: ''
-  });
-
-  const handleRatingChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const rating = Number(event.target.value);
-    setFormState((prevState) => ({ ...prevState, rating }));
-  };
-
-  const handleReviewChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
-    const review = event.target.value;
-    setFormState((prevState) => ({ ...prevState, review }));
-  };
+  const [comment, setComment] = useState('');
+  const [rating, setRating] = useState('');
+  const isValid =
+    comment.length >= ReviewSymbolLength.MIN &&
+    comment.length <= ReviewSymbolLength.MAX &&
+    rating !== '';
+  function HandleTextAreaChange(event: ChangeEvent<HTMLTextAreaElement>) {
+    setComment(event.target.value);
+  }
+  function HandleInputChange(event: ChangeEvent<HTMLInputElement>) {
+    setRating(event.target.value);
+  }
 
   return (
     <form className="reviews__form form" action="#" method="post">
@@ -29,7 +22,7 @@ export const ReviewsForm = (): JSX.Element => {
         Your review
       </label>
       <div className="reviews__rating-form form__rating">
-        {[1, 2, 3, 4, 5]?.map((star) => (
+        {[5, 4, 3, 2, 1]?.map((star) => (
           <React.Fragment key={star}>
             <input
               className="form__rating-input visually-hidden"
@@ -37,7 +30,7 @@ export const ReviewsForm = (): JSX.Element => {
               value={star.toString()}
               id={`${star}-stars`}
               type="radio"
-              onChange={handleRatingChange}
+              onChange={HandleInputChange}
             />
             <label
               htmlFor={`${star}-stars`}
@@ -56,8 +49,8 @@ export const ReviewsForm = (): JSX.Element => {
         id="review"
         name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
-        value={formState.review}
-        onChange={handleReviewChange}
+        value={comment}
+        onChange={HandleTextAreaChange}
       />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
@@ -69,7 +62,7 @@ export const ReviewsForm = (): JSX.Element => {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={formState.rating === null || formState.review.length < ReviewSymbolLength.MIN}
+          disabled={!isValid}
         >
           Submit
         </button>

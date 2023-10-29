@@ -1,22 +1,30 @@
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../../const/routes';
+import { OfferType } from '../../../types/offer-preview';
+import { capitalize } from '../../../utils/common';
 
-import { OfferType } from '../../../mocks/offers';
 
 type OfferCardProps = {
   offer: OfferType;
-  onMouseEnter?: () => void;
-  onMouseLeave?: () => void;
+  onCardHover?: (id: OfferType['id'] | null) => void;
 };
 
-export const OfferCard = ({ offer, onMouseEnter, onMouseLeave }: OfferCardProps): JSX.Element => {
-  const { previewImage, price, title, isFavorite, type, isPremium, rating } = offer;
+export const OfferCard = ({ offer, onCardHover }: OfferCardProps): JSX.Element => {
+  const { previewImage, price, title, isFavorite, type, isPremium, rating, id } = offer;
+
+  function HandlemouseEnter() {
+    onCardHover?.(id);
+  }
+
+  function HandlemouseLeave() {
+    onCardHover?.(null);
+  }
 
   return (
     <article
       className="cities__card place-card"
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
+      onMouseEnter={HandlemouseEnter}
+      onMouseLeave={HandlemouseLeave}
     >
       {isPremium && (
         <div className="place-card__mark">
@@ -24,13 +32,13 @@ export const OfferCard = ({ offer, onMouseEnter, onMouseLeave }: OfferCardProps)
         </div>
       )}
       <div className="cities__image-wrapper place-card__image-wrapper">
-        <Link to={AppRoute.Offer}>
+        <Link to={`${AppRoute.Offer}/${id}`}>
           <img
             className="place-card__image"
             src={previewImage}
             width={260}
             height={200}
-            alt="Place image"
+            alt={title}
           />
         </Link>
       </div>
@@ -63,11 +71,11 @@ export const OfferCard = ({ offer, onMouseEnter, onMouseLeave }: OfferCardProps)
           </div>
         )}
         <h2 className="place-card__name">
-          <Link to={AppRoute.Offer}>
+          <Link to={`${AppRoute.Offer}/${id}`}>
             {title}
           </Link>
         </h2>
-        <p className="place-card__type">{type}</p>
+        <p className="place-card__type">{capitalize(type)}</p>
       </div>
     </article>
   );

@@ -1,5 +1,6 @@
+import { OfferType } from '../../../types/offer-preview';
 import { FavoriteCard } from '../favorite-card';
-import { OfferType } from '../../../mocks/offers';
+
 
 type FavoriteLocationProps = {
   offers: OfferType[];

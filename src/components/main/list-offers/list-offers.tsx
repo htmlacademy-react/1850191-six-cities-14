@@ -1,33 +1,19 @@
 import { useState } from 'react';
 import { OfferCard } from '../offer-card';
-
-import { OfferType } from '../../../mocks/offers';
+import { OfferType } from '../../../types/offer-preview';
 
 type ListOffersProps = {
   offers: OfferType[];
 };
 
-type SetActiveOfferFunction = (offer: OfferType | null) => void;
-
-const createHandleOfferMouseEnter = (setActiveOffer: SetActiveOfferFunction) =>
-  (offer: OfferType) =>
-    () => {
-      // eslint-disable-next-line no-console
-      console.log(offer.id);
-      setActiveOffer(offer);
-    };
-
-const createHandleOfferMouseLeave = (setActiveOffer: SetActiveOfferFunction) =>
-  () => {
-    setActiveOffer(null);
-  };
-
 export const ListOffers = ({ offers }: ListOffersProps): JSX.Element => {
 
-  const [activeOffer, setActiveOffer] = useState<OfferType | null>(null);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [hoveredOfferId, setHoveredOfferId] = useState<OfferType['id'] | null>(null);
 
-  const handleOfferMouseEnter = createHandleOfferMouseEnter(setActiveOffer);
-  const handleOfferMouseLeave = createHandleOfferMouseLeave(setActiveOffer);
+  function handleCardHover(id: OfferType['id'] | null) {
+    setHoveredOfferId(id);
+  }
 
   return (
     <>
@@ -35,8 +21,7 @@ export const ListOffers = ({ offers }: ListOffersProps): JSX.Element => {
         <OfferCard
           key={offer.id}
           offer={offer}
-          onMouseEnter={createHandleOfferMouseEnter(setActiveOffer)(offer)}
-          onMouseLeave={handleOfferMouseLeave}
+          onCardHover={handleCardHover}
         />
       ))}
     </>

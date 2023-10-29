@@ -1,6 +1,7 @@
 import { FavoriteLocation } from '../../components/favorites/favorite-location/favorite-location ';
 import { Helmet } from 'react-helmet-async';
-import { OfferType } from '../../mocks/offers';
+import { OfferType } from '../../types/offer-preview';
+
 
 type FavoritesProps = {
   offers: OfferType[];

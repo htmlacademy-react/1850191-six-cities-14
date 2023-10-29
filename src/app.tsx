@@ -5,7 +5,7 @@ import { HelmetProvider } from 'react-helmet-async';
 import { AppRoute } from './const/routes';
 import Layout from './components/commons/layouts';
 import { PrivateRoute } from './components/commons/private-route/private-route';
-import { OfferType } from './mocks/offers';
+import { OfferType } from './types/offer-preview';
 
 
 const Main = lazy(() => import('./containers/main/main'));
@@ -33,8 +33,7 @@ const App = ({ offers }: AppProps): JSX.Element => (
             </Suspense>
           }
           />
-          <Route path={AppRoute.Offer} element={<Suspense fallback={<p>Loading...</p>}><Offer /></Suspense>} />
-          <Route path={AppRoute.OfferId} element={<Suspense fallback={<p>Loading...</p>}><Offer /></Suspense>} />
+          <Route path={`${AppRoute.Offer}/:id`} element={<Suspense fallback={<p>Loading...</p>}><Offer offers={offers} /></Suspense>} />
           <Route path={AppRoute.Login} element={<Suspense fallback={<p>Loading...</p>}><Login /></Suspense>} />
           <Route path={AppRoute.NotFound} element={<Suspense fallback={<p>Loading...</p>}><NotFound /></Suspense>} />
         </Routes>

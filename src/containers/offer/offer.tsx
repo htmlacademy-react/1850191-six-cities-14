@@ -4,17 +4,25 @@ import { OfferHost } from '../../components/offer/offer-host';
 import { ReviewsItem } from '../../components/commons/reviews-item';
 import { ReviewsForm } from '../../components/commons/reviews-form';
 import { OfferMap } from '../../components/offer/offer-map';
-import { OfferCard } from '../../components/offer/offer-card';
 
-import { ICityData, IPlaceCardProps } from '../../types/index';
-import data from '../../mocks/data.json';
 import { Helmet } from 'react-helmet-async';
+import { OfferType } from '../../types/offer-preview';
+import { OfferDistrictCardList } from '../../components/offer/offer-district-card-list';
+import { Navigate, useParams } from 'react-router-dom';
+import { AppRoute } from '../../const/routes';
 
-const Offer = (): JSX.Element => {
+type OfferProps = {
+  offers: OfferType[];
+};
 
-  const amsterdamPlaceData = data.Places.find((place: ICityData) => place.city === 'Amsterdam');
-  const amsterdamPlaces: IPlaceCardProps[] = amsterdamPlaceData?.places ?? [];
-  const threePlaces: IPlaceCardProps[] = amsterdamPlaces.slice(0, 3);
+const Offer = ({ offers }: OfferProps): JSX.Element => {
+
+  const { id } = useParams();
+  const offer = id ? offers.find((item) => item.id === +id) : undefined;
+
+  if (!offer) {
+    return <Navigate to={AppRoute.NotFound} />;
+  }
 
   return (
     <>
@@ -39,21 +47,18 @@ const Offer = (): JSX.Element => {
           </div>
         </div>
         <OfferMap />
-
       </section>
       <div className="container">
         <section className="near-places places">
           <h2 className="near-places__title">Other places in the neighbourhood</h2>
           <div className="near-places__list places__list">
-            {threePlaces?.map((place) => (
-              <OfferCard key={place.id} {...place} />
-            ))}
+            <OfferDistrictCardList offers={offers} />
           </div>
         </section>
       </div>
     </>
-
   );
 };
+
 
 export default Offer;
