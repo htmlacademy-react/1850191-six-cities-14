@@ -7,7 +7,7 @@ type FavoriteLocationProps = {
 
 export const FavoriteLocation = ({ offers }: FavoriteLocationProps): JSX.Element => (
   <ul className="favorites__list">
-    {offers.filter((offer) => offer.isFavorite).map((offer) => (
+    {offers.filter((offer) => offer.isFavorite)?.map((offer) => (
       <li key={offer.id} className="favorites__locations-items">
         <div className="favorites__locations locations locations--current">
           <div className="locations__item">

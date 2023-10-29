@@ -1,4 +1,5 @@
 import React, { useState, ChangeEvent } from 'react';
+import { ReviewSymbolLength } from '../../../const/routes';
 
 type ReviewFormState = {
   rating: number | null;
@@ -28,7 +29,7 @@ export const ReviewsForm = (): JSX.Element => {
         Your review
       </label>
       <div className="reviews__rating-form form__rating">
-        {[5, 4, 3, 2, 1].map((star) => (
+        {[1, 2, 3, 4, 5]?.map((star) => (
           <React.Fragment key={star}>
             <input
               className="form__rating-input visually-hidden"
@@ -41,7 +42,7 @@ export const ReviewsForm = (): JSX.Element => {
             <label
               htmlFor={`${star}-stars`}
               className="reviews__rating-label form__rating-label"
-              title={['perfect', 'good', 'not bad', 'badly', 'terribly'][5 - star]}
+              title={['terribly', 'badly', 'not bad', 'good', 'perfect'][star - 1]}
             >
               <svg className="form__star-image" width={37} height={33}>
                 <use xlinkHref="#icon-star" />
@@ -68,7 +69,7 @@ export const ReviewsForm = (): JSX.Element => {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={formState.rating === null || formState.review.length < 50}
+          disabled={formState.rating === null || formState.review.length < ReviewSymbolLength.MIN}
         >
           Submit
         </button>

@@ -12,3 +12,8 @@ export enum AuthorixationStatus {
   NoAuth = 'NO_AUTH',
   Unknown = 'UNKNOWN',
 }
+
+export const ReviewSymbolLength = {
+  MIN: 50,
+  MAX: 300
+} as const;
