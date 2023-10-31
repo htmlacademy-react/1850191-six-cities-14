@@ -41,5 +41,4 @@ const App = ({ offers }: AppProps): JSX.Element => (
     </BrowserRouter>
   </HelmetProvider>
 );
-
 export default App;
