@@ -2,11 +2,11 @@ import { Link } from 'react-router-dom';
 import { AppRoute } from '../../../const/routes';
 import { OfferType } from '../../../types/offer-preview';
 
-type OfferDistrictCardProps = {
+type OfferCardNearbyProps = {
   offer: OfferType;
 };
 
-export const OfferDistrictCard = ({ offer }: OfferDistrictCardProps): JSX.Element => (
+export const OfferCardNearby = ({ offer }: OfferCardNearbyProps): JSX.Element => (
   <article className="near-places__card place-card">
     {offer.isPremium && (
       <div className="place-card__mark">
