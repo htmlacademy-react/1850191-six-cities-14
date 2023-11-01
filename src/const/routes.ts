@@ -31,4 +31,3 @@ export const MapMarkerSVG = {
   CURRENT: '../../markup/img/pin-active.svg',
 } as const;
 
-export const MAP_HEIGHT = '817px';

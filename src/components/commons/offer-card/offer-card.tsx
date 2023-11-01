@@ -3,17 +3,15 @@ import { AppRoute } from '../../../const/routes';
 import { OfferType } from '../../../types/offer-preview';
 import { capitalize } from '../../../utils/common';
 
-
 type OfferCardProps = {
   offer: OfferType;
   onCardHover?: (id: OfferType['id'] | null) => void;
+  className?: string;
 };
 
-export const OfferCard = ({ offer, onCardHover }: OfferCardProps): JSX.Element => {
-  const { previewImage, price, title, isFavorite, type, isPremium, rating, id } = offer;
-
+export const OfferCard = ({ offer, onCardHover, className }: OfferCardProps): JSX.Element => {
   function HandlemouseEnter() {
-    onCardHover?.(id);
+    onCardHover?.(offer.id);
   }
 
   function HandlemouseLeave() {
@@ -22,34 +20,34 @@ export const OfferCard = ({ offer, onCardHover }: OfferCardProps): JSX.Element =
 
   return (
     <article
-      className="cities__card place-card"
+      className={`${className ? className : 'cities__card'} place-card`}
       onMouseEnter={HandlemouseEnter}
       onMouseLeave={HandlemouseLeave}
     >
-      {isPremium && (
+      {offer.isPremium && (
         <div className="place-card__mark">
           <span>Premium</span>
         </div>
       )}
-      <div className="cities__image-wrapper place-card__image-wrapper">
-        <Link to={`${AppRoute.Offer}/${id}`}>
+      <div className={`${className ? className.replace('card', 'image-wrapper') : 'cities__image-wrapper'} place-card__image-wrapper`}>
+        <Link to={`${AppRoute.Offer}/${offer.id}`}>
           <img
             className="place-card__image"
-            src={previewImage}
+            src={offer.previewImage}
             width={260}
             height={200}
-            alt={title}
+            alt="Place image"
           />
         </Link>
       </div>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
-            <b className="place-card__price-value">€{price}</b>
+            <b className="place-card__price-value">€{offer.price}</b>
             <span className="place-card__price-text">/&nbsp;night</span>
           </div>
           <button
-            className={`place-card__bookmark-button button ${isFavorite ? 'place-card__bookmark-button--active' : ''}`}
+            className={`place-card__bookmark-button button ${offer.isFavorite ? 'place-card__bookmark-button--active' : ''}`}
             type="button"
           >
             <svg
@@ -62,20 +60,20 @@ export const OfferCard = ({ offer, onCardHover }: OfferCardProps): JSX.Element =
             <span className="visually-hidden">To bookmarks</span>
           </button>
         </div>
-        {rating && (
+        {offer.rating && (
           <div className="place-card__rating rating">
             <div className="place-card__stars rating__stars">
-              <span style={{ width: `${(rating / 5) * 100}%` }} />
+              <span style={{ width: `${(offer.rating / 5) * 100}%` }} />
               <span className="visually-hidden">Rating</span>
             </div>
           </div>
         )}
         <h2 className="place-card__name">
-          <Link to={`${AppRoute.Offer}/${id}`}>
-            {title}
+          <Link to={`${AppRoute.Offer}/${offer.id}`}>
+            {offer.title}
           </Link>
         </h2>
-        <p className="place-card__type">{capitalize(type)}</p>
+        <p className="place-card__type">{capitalize(offer.type)}</p>
       </div>
     </article>
   );

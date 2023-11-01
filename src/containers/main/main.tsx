@@ -2,10 +2,10 @@ import { useState } from 'react';
 import { CityTabs } from '../../components/main/sity-tabs';
 import { PlacesSorting } from '../../components/main/places-sorting';
 import { Helmet } from 'react-helmet-async';
-import { ListOffers } from '../../components/main/list-offers';
+import { ListOffers } from '../../components/commons/list-offers';
 import { OfferType } from '../../types/offer-preview';
 import { addPluralEnding } from '../../utils/common';
-import { Map } from '../../components/main/map';
+import { Map } from '../../components/commons/map';
 
 type MainProps = {
   offers: OfferType[];
@@ -18,7 +18,7 @@ const Main = ({ offers }: MainProps): JSX.Element => {
     setHoveredOfferId(id);
   }
 
-  const city = offers.length > 0 ? offers[0].city : undefined;
+  const city = offers[0]?.city;
   return (
 
     <>
@@ -34,11 +34,11 @@ const Main = ({ offers }: MainProps): JSX.Element => {
             <b className="places__found">{offers.length} place{addPluralEnding(offers.length)} to stay in Amsterdam</b>
             <PlacesSorting />
             <div className="cities__places-list places__list tabs__content">
-              <ListOffers offers={offers} onCardHover={handleCardHover} />
+              <ListOffers offers={offers} onCardHover={handleCardHover} className="cities__card" />
             </div>
           </section>
           <div className="cities__right-section">
-            {city ? <Map city={city} offers={offers} hoveredOfferId={hoveredOfferId} /> : null}
+            {city && <Map city={city} offers={offers} hoveredOfferId={hoveredOfferId} className="cities__map" />}
           </div>
         </div>
       </div>
