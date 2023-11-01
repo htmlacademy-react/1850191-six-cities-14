@@ -5,14 +5,14 @@ import { OfferGallery } from '../../components/offer/offer-gallery';
 import { OfferPlace } from '../../components/offer/offer-place';
 import { OfferHost } from '../../components/offer/offer-host';
 import { ReviewsForm } from '../../components/offer/reviews-form';
-import { OfferMap } from '../../components/offer/offer-map';
-import { ListOffersNearby } from '../../components/offer/list-offers-nearby';
+import { ListOffers } from '../../components/commons/list-offers';
 import { ReviewsList } from '../../components/offer/reviews-list';
+import { Map } from '../../components/commons/map';
 
 import { OfferType } from '../../types/offer-preview';
 import { AppRoute } from '../../const/routes';
 import { ReviewType } from '../../types/review-type';
-
+import { useState } from 'react';
 
 type OfferProps = {
   offers: OfferType[];
@@ -20,6 +20,13 @@ type OfferProps = {
 };
 
 const Offer = ({ offers, reviews }: OfferProps): JSX.Element => {
+  const [hoveredOfferId, setHoveredOfferId] = useState<OfferType['id'] | null>(null);
+
+  function handleCardHover(id: OfferType['id'] | null) {
+    setHoveredOfferId(id);
+  }
+
+  const city = offers[0]?.city;
 
   const { id } = useParams();
   const offer = id ? offers.find((item) => item.id === +id) : undefined;
@@ -48,13 +55,13 @@ const Offer = ({ offers, reviews }: OfferProps): JSX.Element => {
             </section>
           </div>
         </div>
-        <OfferMap />
+        {city && <Map city={city} offers={offers} hoveredOfferId={hoveredOfferId} className="offer__map" />}
       </section>
       <div className="container">
         <section className="near-places places">
           <h2 className="near-places__title">Other places in the neighbourhood</h2>
           <div className="near-places__list places__list">
-            <ListOffersNearby offers={offers} />
+            <ListOffers offers={offers.slice(0, 3)} onCardHover={handleCardHover} className="near-places__card" />
           </div>
         </section>
       </div>
