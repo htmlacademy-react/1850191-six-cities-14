@@ -57,59 +57,6 @@ export const offers: OfferType[] = [
   },
   {
     'city': {
-      'name': 'Brussels',
-      'location': {
-        'latitude': 50.846557,
-        'longitude': 4.351697,
-        'zoom': 13
-      }
-    },
-    'previewImage': 'https://14.react.pages.academy/static/offer/15.jpg',
-    'images': [
-      'https://14.react.pages.academy/static/offer/12.jpg',
-      'https://14.react.pages.academy/static/offer/1.jpg',
-      'https://14.react.pages.academy/static/offer/10.jpg',
-      'https://14.react.pages.academy/static/offer/5.jpg',
-      'https://14.react.pages.academy/static/offer/11.jpg',
-      'https://14.react.pages.academy/static/offer/18.jpg',
-      'https://14.react.pages.academy/static/offer/8.jpg',
-      'https://14.react.pages.academy/static/offer/3.jpg',
-      'https://14.react.pages.academy/static/offer/13.jpg',
-      'https://14.react.pages.academy/static/offer/16.jpg',
-      'https://14.react.pages.academy/static/offer/9.jpg',
-      'https://14.react.pages.academy/static/offer/6.jpg',
-      'https://14.react.pages.academy/static/offer/15.jpg',
-      'https://14.react.pages.academy/static/offer/2.jpg'
-    ],
-    'title': 'The Pondhouse - A Magical Place',
-    'isFavorite': false,
-    'isPremium': false,
-    'rating': 4.5,
-    'type': 'room',
-    'bedrooms': 1,
-    'maxAdults': 1,
-    'price': 135,
-    'goods': [
-      'Breakfast',
-      'Laptop friendly workspace',
-      'Washer'
-    ],
-    'host': {
-      'id': 25,
-      'name': 'Angelina',
-      'isPro': true,
-      'avatarUrl': 'img/avatar-angelina.jpg'
-    },
-    'description': 'Peaceful studio in the most wanted area in town. Quiet house Near of everything. Completely renovated. Lovely neighbourhood, lot of trendy shops, restaurants and bars in a walking distance.',
-    'location': {
-      'latitude': 50.849557,
-      'longitude': 4.374696999999999,
-      'zoom': 16
-    },
-    'id': 2
-  },
-  {
-    'city': {
       'name': 'Paris',
       'location': {
         'latitude': 48.85661,
@@ -165,6 +112,59 @@ export const offers: OfferType[] = [
       'zoom': 16
     },
     'id': 3
+  },
+  {
+    'city': {
+      'name': 'Brussels',
+      'location': {
+        'latitude': 50.846557,
+        'longitude': 4.351697,
+        'zoom': 13
+      }
+    },
+    'previewImage': 'https://14.react.pages.academy/static/offer/15.jpg',
+    'images': [
+      'https://14.react.pages.academy/static/offer/12.jpg',
+      'https://14.react.pages.academy/static/offer/1.jpg',
+      'https://14.react.pages.academy/static/offer/10.jpg',
+      'https://14.react.pages.academy/static/offer/5.jpg',
+      'https://14.react.pages.academy/static/offer/11.jpg',
+      'https://14.react.pages.academy/static/offer/18.jpg',
+      'https://14.react.pages.academy/static/offer/8.jpg',
+      'https://14.react.pages.academy/static/offer/3.jpg',
+      'https://14.react.pages.academy/static/offer/13.jpg',
+      'https://14.react.pages.academy/static/offer/16.jpg',
+      'https://14.react.pages.academy/static/offer/9.jpg',
+      'https://14.react.pages.academy/static/offer/6.jpg',
+      'https://14.react.pages.academy/static/offer/15.jpg',
+      'https://14.react.pages.academy/static/offer/2.jpg'
+    ],
+    'title': 'The Pondhouse - A Magical Place',
+    'isFavorite': false,
+    'isPremium': false,
+    'rating': 4.5,
+    'type': 'room',
+    'bedrooms': 1,
+    'maxAdults': 1,
+    'price': 135,
+    'goods': [
+      'Breakfast',
+      'Laptop friendly workspace',
+      'Washer'
+    ],
+    'host': {
+      'id': 25,
+      'name': 'Angelina',
+      'isPro': true,
+      'avatarUrl': 'img/avatar-angelina.jpg'
+    },
+    'description': 'Peaceful studio in the most wanted area in town. Quiet house Near of everything. Completely renovated. Lovely neighbourhood, lot of trendy shops, restaurants and bars in a walking distance.',
+    'location': {
+      'latitude': 50.849557,
+      'longitude': 4.374696999999999,
+      'zoom': 16
+    },
+    'id': 2
   },
   {
     'city': {
