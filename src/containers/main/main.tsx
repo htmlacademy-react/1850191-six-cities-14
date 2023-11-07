@@ -6,6 +6,7 @@ import { ListOffers } from '../../components/commons/list-offers';
 import { OfferType } from '../../types/offer-preview';
 import { addPluralEnding } from '../../utils/common';
 import { Map } from '../../components/commons/map';
+import { cities } from '../../const/routes';
 
 type MainProps = {
   offers: OfferType[];
@@ -26,14 +27,14 @@ const Main = ({ offers }: MainProps): JSX.Element => {
         <title>{'6 cities'}</title>
       </Helmet>
       <h1 className="visually-hidden">Cities</h1>
-      <CityTabs />
+      <CityTabs locations={cities} />
       <div className="cities">
         <div className="cities__places-container container">
           <section className="cities__places places">
             <h2 className="visually-hidden">Places</h2>
             <b className="places__found">{offers.length} place{addPluralEnding(offers.length)} to stay in Amsterdam</b>
             <PlacesSorting />
-            <div className="cities__places-list places__list tabs__content">
+            <div className="cities__places-list places__list tabs__content" style={{ maxHeight: '666px' }}>
               <ListOffers offers={offers} onCardHover={handleCardHover} className="cities__card" />
             </div>
           </section>
