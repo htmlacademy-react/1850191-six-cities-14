@@ -27,7 +27,7 @@ const App = ({ offers, reviews }: AppProps): JSX.Element => (
     <BrowserRouter>
       <Layout>
         <Routes>
-          <Route path={AppRoute.Main} element={<Suspense fallback={<p>Loading...</p>}><Main offers={offers} /></Suspense>} />
+          <Route path={AppRoute.Main} element={<Suspense fallback={<p>Loading...</p>}><Main /></Suspense>} />
           <Route path={AppRoute.Favorites} element={
             <Suspense fallback={<p>Loading...</p>}>
               <PrivateRoute>

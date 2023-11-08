@@ -34,7 +34,9 @@ export const Map = (props: MapProps): JSX.Element => {
 
   useEffect(() => {
     if (map) {
-      const markerLayer = layerGroup().addTo(map);
+      map.setView([city.location.latitude, city.location.longitude], city.location.zoom);
+
+      const markerLayer = layerGroup();
       offers.forEach((offer) => {
         const marker = new Marker({
           lat: offer.location.latitude,
@@ -50,13 +52,15 @@ export const Map = (props: MapProps): JSX.Element => {
           .addTo(markerLayer);
       });
 
+      markerLayer.addTo(map);
+
       return () => {
-        map.removeLayer(markerLayer);
+        markerLayer.clearLayers();
       };
     }
-  }, [map, offers, hoveredOfferId]);
+  }, [city, offers, hoveredOfferId, map]);
 
   return <section className={`${className} map`} ref={mapRef}></section>;
 };
 
-export default Map;
+

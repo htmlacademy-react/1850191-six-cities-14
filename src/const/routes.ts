@@ -17,14 +17,14 @@ export const ReviewSymbolLength = {
   MAX: 300
 } as const;
 
-export enum CityName {
-  Paris = 'Paris',
-  Cologne= 'Cologne',
-  Brussels= 'Brussels',
-  Amsterdam= 'Amsterdam',
-  Humburg= 'Humburg',
-  Dusseldorf= 'Dusseldorf',
-}
+export const cities = [
+  'Paris',
+  'Cologne',
+  'Brussels',
+  'Amsterdam',
+  'Hamburg',
+  'Dusseldorf',
+];
 
 export const MapMarkerSVG = {
   DEFAULT: '../../markup/img/pin.svg',
