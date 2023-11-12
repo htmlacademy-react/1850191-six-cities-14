@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 
 import { CityTabs } from '../../components/main/sity-tabs';
-import { PlacesSorting } from '../../components/main/places-sorting';
+import { Sorting } from '../../components/main/sorting';
 import { ListOffers } from '../../components/commons/list-offers';
 import { Map } from '../../components/commons/map';
 
@@ -11,9 +11,11 @@ import { addPluralEnding } from '../../utils/common';
 import { cities } from '../../const/routes';
 import { useAppDispatch, useAppSelector } from '../../hooks/store-hooks';
 import { updateOffers } from '../../store/actions';
+import { SortingType } from '../../types/sorting';
 
 const Main = (): JSX.Element => {
   const dispatch = useAppDispatch();
+  const currentSorting = useAppSelector((state) => state.currentSorting as SortingType);
   const currentCity = useAppSelector((state) => state.currentCity);
   const offers = useAppSelector((state) => state.offers);
   const [hoveredOfferId, setHoveredOfferId] = useState<OfferType['id'] | null>(null);
@@ -40,7 +42,7 @@ const Main = (): JSX.Element => {
           <section className="cities__places places">
             <h2 className="visually-hidden">Places</h2>
             <b className="places__found">{offers.length} place{addPluralEnding(offers.length)} to stay in {currentCity}</b>
-            <PlacesSorting />
+            <Sorting activeSorting={currentSorting} />
             <div className="cities__places-list places__list tabs__content" style={{ maxHeight: '666px' }}>
               <ListOffers offers={offers} onCardHover={handleCardHover} className="cities__card" />
             </div>
