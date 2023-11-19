@@ -8,27 +8,35 @@ import { Map } from '../../components/commons/map';
 
 import { OfferType } from '../../types/offer-preview';
 import { addPluralEnding } from '../../utils/common';
-import { cities } from '../../const/routes';
+
 import { useAppDispatch, useAppSelector } from '../../hooks/store-hooks';
-import { updateOffers } from '../../store/actions';
-import { SortingType } from '../../types/sorting';
+
+import { fetchOffers, updateOffers } from '../../store/features/offers';
+import { CityName, cities } from '../../const/routes';
+
 
 const Main = (): JSX.Element => {
   const dispatch = useAppDispatch();
-  const currentSorting = useAppSelector((state) => state.currentSorting as SortingType);
-  const currentCity = useAppSelector((state) => state.currentCity);
-  const offers = useAppSelector((state) => state.offers);
+  const currentSorting = useAppSelector((state) => state.offers.currentSorting);
+  const currentCity = useAppSelector((state) => state.offers.currentCity);
+  const offers = useAppSelector((state) => state.offers.offers);
   const [hoveredOfferId, setHoveredOfferId] = useState<OfferType['id'] | null>(null);
 
   useEffect(() => {
     dispatch(updateOffers(currentCity));
   }, [currentCity, dispatch]);
 
+  useEffect(() => {
+    dispatch(fetchOffers());
+  }, [dispatch]);
+
   function handleCardHover(id: OfferType['id'] | null) {
     setHoveredOfferId(id);
   }
 
   const city = offers[0]?.city;
+  const cityNames = cities.map((cityName) => CityName[cityName as keyof typeof CityName]);
+
   return (
 
     <>
@@ -36,7 +44,7 @@ const Main = (): JSX.Element => {
         <title>{'6 cities'}</title>
       </Helmet>
       <h1 className="visually-hidden">Cities</h1>
-      <CityTabs locations={cities} />
+      <CityTabs locations={cityNames} />
       <div className="cities">
         <div className="cities__places-container container">
           <section className="cities__places places">
