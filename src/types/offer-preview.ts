@@ -4,7 +4,7 @@ import { Location } from './location';
 export type OfferType = {
   city: City;
   goods: string[];
-  id: string;
+  id: number;
   isFavorite: boolean;
   isPremium: boolean;
   location: Location;

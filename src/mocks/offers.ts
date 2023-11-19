@@ -1,6 +1,6 @@
-import { OfferType } from '../types/offer-preview';
+import { Offer } from '../types/offer';
 
-export const offers: OfferType[] = [
+export const offers: Offer[] = [
   {
     'city': {
       'name': 'Amsterdam',
@@ -28,7 +28,7 @@ export const offers: OfferType[] = [
       'https://14.react.pages.academy/static/offer/10.jpg'
     ],
     'title': 'Waterfront with extraordinary view',
-    'isFavorite': false,
+    'isFavorite': true,
     'isPremium': false,
     'rating': 4,
     'type': 'house',
@@ -769,7 +769,7 @@ export const offers: OfferType[] = [
       'https://14.react.pages.academy/static/offer/3.jpg'
     ],
     'title': 'Beautiful & luxurious apartment at great location',
-    'isFavorite': false,
+    'isFavorite': true,
     'isPremium': false,
     'rating': 2.2,
     'type': 'house',
