@@ -11,6 +11,7 @@ import { CityName } from '../../../const/routes';
 export interface OffersState {
   currentCity: CityName;
   offers: OfferType[];
+  allOffers: OfferType[];
   currentSorting: SortingType;
   cities: string[];
 }
@@ -18,6 +19,7 @@ export interface OffersState {
 const initialState: OffersState = {
   currentCity: CityName.Paris,
   offers: [],
+  allOffers: [],
   currentSorting: 'Popular',
   cities: [],
 };
@@ -41,8 +43,8 @@ const offersSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchOffers.fulfilled, (state, action) => {
-        state.offers = action.payload;
-        state.cities = Array.from(new Set(action.payload.map((offer) => offer.city.name)));
+        state.allOffers = action.payload;
+        state.offers = getOffersByCity(state, state.currentCity);
       });
   },
 });
