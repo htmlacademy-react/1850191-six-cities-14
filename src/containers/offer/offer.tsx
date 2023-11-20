@@ -21,13 +21,13 @@ type OfferProps = {
 };
 
 const Offer = ({ reviews }: OfferProps): JSX.Element => {
-  const [hoveredOfferId, setHoveredOfferId] = useState<number | null>(null);
+  const [hoveredOfferId, setHoveredOfferId] = useState<string | null>(null);
   const offers = useSelector(selectOffers);
 
   const { id } = useParams();
-  const offer = id ? offers.find((item) => item.id === +id) : undefined;
+  const offer = id ? offers.find((item) => item.id === id) : undefined;
 
-  function handleCardHover(hoverId: number | null) {
+  function handleCardHover(hoverId: string | null) {
     setHoveredOfferId(hoverId);
   }
 

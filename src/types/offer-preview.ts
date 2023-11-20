@@ -5,7 +5,7 @@ import { User } from './user';
 export type OfferType = {
   city: City;
   goods: string[];
-  id: number;
+  id: string;
   isFavorite: boolean;
   isPremium: boolean;
   location: Location;
