@@ -6,7 +6,6 @@ import { AppRoute } from './const/routes';
 import Layout from './components/commons/layouts';
 import { PrivateRoute } from './components/commons/private-route/private-route';
 
-import { OfferType } from './types/offer-preview';
 import { ReviewType } from './types/review-type';
 
 
@@ -17,12 +16,11 @@ const Login = lazy(() => import('./containers/login/login'));
 const NotFound = lazy(() => import('./containers/not-found/not-found'));
 
 type AppProps = {
-  offers: OfferType[];
   reviews: ReviewType;
 };
 
 
-const App = ({ offers, reviews }: AppProps): JSX.Element => (
+const App = ({ reviews }: AppProps): JSX.Element => (
   <HelmetProvider>
     <BrowserRouter>
       <Layout>
@@ -31,7 +29,7 @@ const App = ({ offers, reviews }: AppProps): JSX.Element => (
           <Route path={AppRoute.Favorites} element={
             <Suspense fallback={<p>Loading...</p>}>
               <PrivateRoute>
-                <Favorites offers={offers} />
+                <Favorites />
               </PrivateRoute>
             </Suspense>
           }

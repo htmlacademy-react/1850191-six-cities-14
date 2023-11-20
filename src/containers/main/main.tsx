@@ -15,7 +15,6 @@ import { updateOffers } from '../../store/features/offers';
 import { fetchOffers } from '../../store/features/offers/thunks';
 import { getOffersByCity } from '../../utils/offers';
 
-
 const Main = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const currentSorting = useAppSelector((state) => state.offers.currentSorting);
@@ -24,6 +23,7 @@ const Main = (): JSX.Element => {
   const [hoveredOfferId, setHoveredOfferId] = useState<OfferType['id'] | null>(null);
   const currentCityData = offers.find((offer) => offer.city.name === currentCity)?.city;
   const offersState = useAppSelector((state) => state.offers);
+
   useEffect(() => {
     dispatch(updateOffers(currentCity));
   }, [currentCity, dispatch]);

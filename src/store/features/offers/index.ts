@@ -29,7 +29,8 @@ const offersSlice = createSlice({
       state.currentCity = action.payload;
     },
     updateOffers(state, action: PayloadAction<string>) {
-      state.offers = getOffersByCity(state, action.payload);
+      const filteredOffers = getOffersByCity(state, action.payload);
+      state.offers = sorting[state.currentSorting](filteredOffers);
     },
     changeSorting(state, action: PayloadAction<SortingType>) {
       state.currentSorting = action.payload;

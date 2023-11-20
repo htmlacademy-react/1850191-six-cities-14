@@ -8,3 +8,4 @@ export const selectUniqueCities = (state: RootState) => {
   const uniqueCities = Array.from(new Set(offers.map((offer) => offer.city.name)));
   return uniqueCities;
 };
+export const selectFavoriteOffers = (state: RootState) => state.offers.offers.filter((offer) => offer.isFavorite);
