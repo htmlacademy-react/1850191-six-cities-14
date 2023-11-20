@@ -5,17 +5,18 @@ import { sorting } from '../../../utils/sorting';
 import { SortingType } from '../../../types/sorting';
 import { OfferType } from '../../../types/offer-preview';
 
-import { fetchOffers, fetchOffersByCity } from './thunks';
+import { fetchOffers } from './thunks';
+import { CityName } from '../../../const/routes';
 
 export interface OffersState {
-  currentCity: string;
+  currentCity: CityName;
   offers: OfferType[];
   currentSorting: SortingType;
   cities: string[];
 }
 
 const initialState: OffersState = {
-  currentCity: 'Paris',
+  currentCity: CityName.Paris,
   offers: [],
   currentSorting: 'Popular',
   cities: [],
@@ -25,7 +26,7 @@ const offersSlice = createSlice({
   name: 'offers',
   initialState,
   reducers: {
-    changeCity(state, action: PayloadAction<string>) {
+    changeCity(state, action: PayloadAction<CityName>) {
       state.currentCity = action.payload;
     },
     updateOffers(state, action: PayloadAction<string>) {
@@ -42,9 +43,6 @@ const offersSlice = createSlice({
       .addCase(fetchOffers.fulfilled, (state, action) => {
         state.offers = action.payload;
         state.cities = Array.from(new Set(action.payload.map((offer) => offer.city.name)));
-      })
-      .addCase(fetchOffersByCity.fulfilled, (state, action) => {
-        state.offers = action.payload;
       });
   },
 });

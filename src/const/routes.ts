@@ -37,3 +37,12 @@ export const SortingMap = {
   HightToLow: 'Price: hight to low',
   TopRated: 'Top rated first',
 } as const;
+
+export enum CityName {
+  Paris = 'Paris',
+  Cologne = 'Cologne',
+  Brussels = 'Brussels',
+  Amsterdam = 'Amsterdam',
+  Hamburg = 'Hamburg',
+  Dusseldorf = 'Dusseldorf'
+}

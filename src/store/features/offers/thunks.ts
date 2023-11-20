@@ -11,11 +11,3 @@ export const fetchOffers = createAsyncThunk(
     return response.data;
   }
 );
-
-export const fetchOffersByCity = createAsyncThunk(
-  'offers/fetchOffersByCity',
-  async (cityName: string) => {
-    const response = await api.get<OfferType[]>(`/offers?city=${cityName}`);
-    return response.data;
-  }
-);

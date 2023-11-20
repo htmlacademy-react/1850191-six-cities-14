@@ -14,6 +14,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks/store-hooks';
 import { updateOffers } from '../../store/features/offers';
 import { fetchOffers } from '../../store/features/offers/thunks';
 import { getOffersByCity } from '../../utils/offers';
+import { CityName } from '../../const/routes';
 
 const Main = (): JSX.Element => {
   const dispatch = useAppDispatch();
@@ -21,7 +22,7 @@ const Main = (): JSX.Element => {
   const currentCity = useAppSelector((state) => state.offers.currentCity);
   const offers = useAppSelector((state) => state.offers.offers);
   const [hoveredOfferId, setHoveredOfferId] = useState<OfferType['id'] | null>(null);
-  const currentCityData = offers.find((offer) => offer.city.name === currentCity)?.city;
+  const currentCityData = offers.find((offer) => offer.city.name as CityName === currentCity)?.city;
   const offersState = useAppSelector((state) => state.offers);
 
   useEffect(() => {

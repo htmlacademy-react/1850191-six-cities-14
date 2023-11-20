@@ -1,17 +1,17 @@
+import { CityName } from '../../../const/routes';
 import { useAppDispatch, useAppSelector } from '../../../hooks/store-hooks';
 import { changeCity } from '../../../store/features/offers';
-import { fetchOffersByCity } from '../../../store/features/offers/thunks';
+
 import { getCities } from '../../../utils/offers';
 
 
 export const CityTabs = (): JSX.Element => {
   const cities = useAppSelector(getCities);
-  const currentCity = useAppSelector((state): string => state.offers.currentCity);
+  const currentCity = useAppSelector((state): CityName => state.offers.currentCity);
   const dispatch = useAppDispatch();
 
-  const handleCityChange = (city: string) => {
+  const handleCityChange = (city: CityName) => {
     dispatch(changeCity(city));
-    dispatch(fetchOffersByCity(city));
   };
 
   return (
