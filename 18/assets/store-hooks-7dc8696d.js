@@ -1,0 +1,1 @@
+import{R as t,e as n,h as c,i as a}from"./index-c38f97e7.js";function r(e=t){const o=e===t?n:c(e);return function(){const{store:s}=o();return s}}const i=r();function p(e=t){const o=e===t?i:r(e);return function(){return o().dispatch}}const x=p(),R=()=>x(),S=a;export{R as a,S as u};
