@@ -5,25 +5,27 @@ import { CityTabs } from '../../components/main/sity-tabs';
 import { Sorting } from '../../components/main/sorting';
 import { ListOffers } from '../../components/commons/list-offers';
 import { Map } from '../../components/commons/map';
+import { Spinner } from '../../components/commons/spinner';
 
 import { OfferType } from '../../types/offer-preview';
 import { addPluralEnding } from '../../utils/common';
-
+import { getOffersByCity } from '../../utils/offers';
 import { useAppDispatch, useAppSelector } from '../../hooks/store-hooks';
+import { CityName } from '../../const/routes';
 
 import { updateOffers } from '../../store/features/offers';
 import { fetchOffers } from '../../store/features/offers/thunks';
-import { getOffersByCity } from '../../utils/offers';
-import { CityName } from '../../const/routes';
 
 const Main = (): JSX.Element => {
+
   const dispatch = useAppDispatch();
   const currentSorting = useAppSelector((state) => state.offers.currentSorting);
   const currentCity = useAppSelector((state) => state.offers.currentCity);
   const offers = useAppSelector((state) => state.offers.offers);
-  const [hoveredOfferId, setHoveredOfferId] = useState<OfferType['id'] | null>(null);
+  const loading = useAppSelector((state) => state.offers.loading);
   const currentCityData = offers.find((offer) => offer.city.name as CityName === currentCity)?.city;
   const offersState = useAppSelector((state) => state.offers);
+  const [hoveredOfferId, setHoveredOfferId] = useState<OfferType['id'] | null>(null);
 
   useEffect(() => {
     dispatch(updateOffers(currentCity));
@@ -40,8 +42,11 @@ const Main = (): JSX.Element => {
   // Получение предложений для текущего города
   const offersInCurrentCity = getOffersByCity(offersState, currentCity);
 
-  return (
+  if (loading) {
+    return <Spinner />;
+  }
 
+  return (
     <>
       <Helmet>
         <title>{'6 cities'}</title>
@@ -64,9 +69,7 @@ const Main = (): JSX.Element => {
         </div>
       </div>
     </>
-
   );
 };
-
 
 export default Main;

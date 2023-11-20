@@ -14,6 +14,7 @@ export interface OffersState {
   allOffers: OfferType[];
   currentSorting: SortingType;
   cities: string[];
+  loading: boolean;
 }
 
 const initialState: OffersState = {
@@ -22,6 +23,7 @@ const initialState: OffersState = {
   allOffers: [],
   currentSorting: 'Popular',
   cities: [],
+  loading: false,
 };
 
 const offersSlice = createSlice({
@@ -42,9 +44,16 @@ const offersSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      .addCase(fetchOffers.pending, (state) => {
+        state.loading = true;
+      })
       .addCase(fetchOffers.fulfilled, (state, action) => {
         state.allOffers = action.payload;
         state.offers = getOffersByCity(state, state.currentCity);
+        state.loading = false;
+      })
+      .addCase(fetchOffers.rejected, (state) => {
+        state.loading = false;
       });
   },
 });
