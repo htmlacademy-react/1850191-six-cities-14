@@ -1,5 +1,6 @@
 import { City } from './city';
 import { Location } from './location';
+import { User } from './user';
 
 export type OfferType = {
   city: City;
@@ -13,4 +14,9 @@ export type OfferType = {
   rating: number;
   title: string;
   type: string;
+  bedrooms: number;
+  description: string;
+  host: User;
+  images: string[];
+  maxAdults: number;
 };

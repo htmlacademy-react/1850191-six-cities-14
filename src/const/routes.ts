@@ -31,15 +31,6 @@ export const MapMarkerSVG = {
   CURRENT: '../../markup/img/pin-active.svg',
 } as const;
 
-export enum CityName {
-  Paris = 'Paris',
-  Cologne = 'Cologne',
-  Brussels = 'Brussels',
-  Amsterdam = 'Amsterdam',
-  Hamburg = 'Hamburg',
-  Dusseldorf = 'Dusseldorf',
-}
-
 export const SortingMap = {
   Popular: 'Popular',
   LowToHight: 'Price: low to hight',

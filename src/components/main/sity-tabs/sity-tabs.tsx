@@ -1,17 +1,15 @@
-import { CityName } from '../../../const/routes';
 import { useAppDispatch, useAppSelector } from '../../../hooks/store-hooks';
-import { changeCity, fetchOffersByCity } from '../../../store/features/offers';
+import { changeCity } from '../../../store/features/offers';
+import { fetchOffersByCity } from '../../../store/features/offers/thunks';
+import { getCities } from '../../../utils/offers';
 
 
-type CityTabsProps = {
-  locations: CityName[];
-};
-
-export const CityTabs = ({ locations }: CityTabsProps): JSX.Element => {
-  const currentCity = useAppSelector((state) => state.offers.currentCity);
+export const CityTabs = (): JSX.Element => {
+  const cities = useAppSelector(getCities);
+  const currentCity = useAppSelector((state): string => state.offers.currentCity);
   const dispatch = useAppDispatch();
 
-  const handleCityChange = (city: CityName) => {
+  const handleCityChange = (city: string) => {
     dispatch(changeCity(city));
     dispatch(fetchOffersByCity(city));
   };
@@ -20,7 +18,7 @@ export const CityTabs = ({ locations }: CityTabsProps): JSX.Element => {
     <div className="tabs">
       <section className="locations container">
         <ul className="locations__list tabs__list">
-          {locations.map((city) => {
+          {cities.map((city) => {
             const isActive = city === currentCity;
 
             return (
@@ -43,3 +41,4 @@ export const CityTabs = ({ locations }: CityTabsProps): JSX.Element => {
     </div>
   );
 };
+

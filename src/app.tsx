@@ -36,7 +36,7 @@ const App = ({ offers, reviews }: AppProps): JSX.Element => (
             </Suspense>
           }
           />
-          <Route path={`${AppRoute.Offer}/:id`} element={<Suspense fallback={<p>Loading...</p>}><Offer offers={offers} reviews={reviews} /></Suspense>} />
+          <Route path={`${AppRoute.Offer}/:id`} element={<Suspense fallback={<p>Loading...</p>}><Offer reviews={reviews} /></Suspense>} />
           <Route path={AppRoute.Login} element={<Suspense fallback={<p>Loading...</p>}><Login /></Suspense>} />
           <Route path={AppRoute.NotFound} element={<Suspense fallback={<p>Loading...</p>}><NotFound /></Suspense>} />
         </Routes>

@@ -1,50 +1,35 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { getOffersByCity } from '../../../utils/offers';
 import { sorting } from '../../../utils/sorting';
 
 import { SortingType } from '../../../types/sorting';
-import { api } from '../../configure-store';
-import { Offer } from '../../../types/offer';
-import { CityName } from '../../../const/routes';
+import { OfferType } from '../../../types/offer-preview';
 
-interface OffersState {
-  currentCity: CityName;
-  offers: Offer[];
+import { fetchOffers, fetchOffersByCity } from './thunks';
+
+export interface OffersState {
+  currentCity: string;
+  offers: OfferType[];
   currentSorting: SortingType;
+  cities: string[];
 }
 
 const initialState: OffersState = {
-  currentCity: CityName.Paris,
+  currentCity: 'Paris',
   offers: [],
   currentSorting: 'Popular',
+  cities: [],
 };
-
-export const fetchOffers = createAsyncThunk(
-  'offers/fetchOffers',
-  async () => {
-    const response = await api.get<Offer[]>('/offers');
-    return response.data;
-  }
-);
-
-export const fetchOffersByCity = createAsyncThunk(
-  'offers/fetchOffersByCity',
-  async (cityName: CityName) => {
-    const response = await api.get<Offer[]>(`/offers?city=${cityName}`);
-    return response.data;
-  }
-);
 
 const offersSlice = createSlice({
   name: 'offers',
   initialState,
   reducers: {
-    changeCity(state, action: PayloadAction<CityName>) {
+    changeCity(state, action: PayloadAction<string>) {
       state.currentCity = action.payload;
-
     },
-    updateOffers(state, action: PayloadAction<CityName>) {
-      state.offers = getOffersByCity(action.payload);
+    updateOffers(state, action: PayloadAction<string>) {
+      state.offers = getOffersByCity(state, action.payload);
     },
     changeSorting(state, action: PayloadAction<SortingType>) {
       state.currentSorting = action.payload;
@@ -55,6 +40,7 @@ const offersSlice = createSlice({
     builder
       .addCase(fetchOffers.fulfilled, (state, action) => {
         state.offers = action.payload;
+        state.cities = Array.from(new Set(action.payload.map((offer) => offer.city.name)));
       })
       .addCase(fetchOffersByCity.fulfilled, (state, action) => {
         state.offers = action.payload;
