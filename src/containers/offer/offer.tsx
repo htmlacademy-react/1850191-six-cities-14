@@ -1,4 +1,6 @@
-import { Navigate, useParams } from 'react-router-dom';
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useParams, Navigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 
 import { OfferGallery } from '../../components/offer/offer-gallery';
@@ -9,31 +11,31 @@ import { ListOffers } from '../../components/commons/list-offers';
 import { ReviewsList } from '../../components/offer/reviews-list';
 import { Map } from '../../components/commons/map';
 
-import { OfferType } from '../../types/offer-preview';
+
 import { AppRoute } from '../../const/routes';
 import { ReviewType } from '../../types/review-type';
-import { useState } from 'react';
+import { selectOffers } from '../../store/features/offers/selectors';
 
 type OfferProps = {
-  offers: OfferType[];
   reviews: ReviewType;
 };
 
-const Offer = ({ offers, reviews }: OfferProps): JSX.Element => {
-  const [hoveredOfferId, setHoveredOfferId] = useState<OfferType['id'] | null>(null);
-
-  function handleCardHover(id: OfferType['id'] | null) {
-    setHoveredOfferId(id);
-  }
-
-  const city = offers[0]?.city;
+const Offer = ({ reviews }: OfferProps): JSX.Element => {
+  const [hoveredOfferId, setHoveredOfferId] = useState<string | null>(null);
+  const offers = useSelector(selectOffers);
 
   const { id } = useParams();
-  const offer = id ? offers.find((item) => item.id === +id) : undefined;
+  const offer = id ? offers.find((item) => item.id === id) : undefined;
+
+  function handleCardHover(hoverId: string | null) {
+    setHoveredOfferId(hoverId);
+  }
 
   if (!offer) {
     return <Navigate to={AppRoute.NotFound} />;
   }
+
+  const city = offer.city;
 
   return (
     <>
@@ -50,7 +52,7 @@ const Offer = ({ offers, reviews }: OfferProps): JSX.Element => {
               <h2 className="reviews__title">
                 Reviews · <span className="reviews__amount">{reviews.length}</span>
               </h2>
-              < ReviewsList reviews={reviews} />
+              <ReviewsList reviews={reviews} />
               <ReviewsForm />
             </section>
           </div>
@@ -68,6 +70,5 @@ const Offer = ({ offers, reviews }: OfferProps): JSX.Element => {
     </>
   );
 };
-
 
 export default Offer;

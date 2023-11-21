@@ -1,4 +1,4 @@
-import { store } from '../store';
+import { store } from '../store/configure-store';
 
 export type State = ReturnType<typeof store.getState>;
 

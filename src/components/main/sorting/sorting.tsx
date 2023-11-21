@@ -4,7 +4,7 @@ import cn from 'classnames';
 import { SortingType } from '../../../types/sorting';
 import { SortingMap } from '../../../const/routes';
 import { useAppDispatch } from '../../../hooks/store-hooks';
-import { changeSorting } from '../../../store/actions';
+import { changeSorting } from '../../../store/features/offers';
 
 
 type SortingProps = {

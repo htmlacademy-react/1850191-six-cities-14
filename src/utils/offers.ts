@@ -1,10 +1,11 @@
-import { offers } from '../mocks/offers';
+import { CityName } from '../const/routes';
+import { OffersState } from '../store/features/offers';
+import { OfferType } from '../types/offer-preview';
 
-export const getCities = () => {
-  const cityNames = offers.map((offer) => offer.city.name);
+// получение списка всех уникальных городов,
+const citiesArray = Object.values(CityName);
+export const getCities = () => citiesArray;
 
-  return [...new Set(cityNames)];
-};
-
-export const getOffersByCity = (city: string) =>
-  offers.filter((offer) => (offer.city.name === city));
+// фильтрация, чтобы получить все предложения, соответствующие городу.
+export const getOffersByCity = (offersState: OffersState, city: string): OfferType[] =>
+  offersState.allOffers.filter((offer) => offer.city.name === city);
