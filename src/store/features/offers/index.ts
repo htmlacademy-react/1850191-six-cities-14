@@ -37,6 +37,7 @@ const offersSlice = createSlice({
     },
     changeSorting(state, action: PayloadAction<SortingType>) {
       state.currentSorting = action.payload;
+      // тут поравить нельзя менять что то еще нужно разбить или делать в компоненте одно действие один метод
       state.offers = sorting[action.payload](state.offers);
     },
   },
@@ -47,6 +48,7 @@ const offersSlice = createSlice({
       })
       .addCase(fetchOffers.fulfilled, (state, action) => {
         state.allOffers = action.payload;
+        // тут поравить нельзя менять что то еще нужно разбить или делать в компоненте одно действие один метод
         state.offers = getOffersByCity(state, state.currentCity);
         state.loading = false;
       })

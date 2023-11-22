@@ -2,22 +2,22 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AuthorizationStatus } from '../../../const/routes';
 
 interface AuthorizationState {
-  status: AuthorizationStatus;
+  authorizationStatus: AuthorizationStatus;
 }
 
 const initialState: AuthorizationState = {
-  status: AuthorizationStatus.Unknown
+  authorizationStatus: AuthorizationStatus.Unknown
 };
 
-const requireAuthorizationSlice = createSlice({
+const authorizationSlice = createSlice({
   name: 'requireAuthorization',
   initialState,
   reducers: {
     setAuthorizationStatus(state, action: PayloadAction<AuthorizationStatus>) {
-      state.status = action.payload;
+      state.authorizationStatus = action.payload;
     }
   }
 });
 
-export const { setAuthorizationStatus } = requireAuthorizationSlice.actions;
-export default requireAuthorizationSlice.reducer;
+export const { setAuthorizationStatus } = authorizationSlice.actions;
+export default authorizationSlice.reducer;

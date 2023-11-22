@@ -1,13 +1,13 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import offersReducer from './features/offers';
-import requireAuthorizationReducer from './features/auth';
+import authorizationReducer from './features/auth';
 import { apiClient } from '../network/api-client';
 
 export const api = apiClient();
 
 const rootReducer = combineReducers({
   offers: offersReducer,
-  authorization: requireAuthorizationReducer,
+  authorization: authorizationReducer,
 });
 
 export const store = configureStore({

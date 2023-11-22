@@ -6,6 +6,7 @@ import { OfferType } from '../../../types/offer-preview';
 export const selectCurrentCity = (state: RootState) => state.offers.currentCity;
 export const selectAllOffers = (state: RootState) => state.offers.allOffers;
 export const selectCurrentSorting = (state: RootState) => state.offers.currentSorting;
+export const selectFavoriteOffers = (state: RootState) => state.offers.allOffers.filter((offer) => offer.isFavorite);
 
 export const selectOffers = createSelector(
   [selectAllOffers, selectCurrentCity, selectCurrentSorting],
