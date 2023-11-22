@@ -13,7 +13,6 @@ export interface OffersState {
   offers: OfferType[];
   allOffers: OfferType[];
   currentSorting: SortingType;
-  cities: string[];
   loading: boolean;
 }
 
@@ -22,7 +21,6 @@ const initialState: OffersState = {
   offers: [],
   allOffers: [],
   currentSorting: 'Popular',
-  cities: [],
   loading: false,
 };
 
@@ -33,7 +31,7 @@ const offersSlice = createSlice({
     changeCity(state, action: PayloadAction<CityName>) {
       state.currentCity = action.payload;
     },
-    updateOffers(state, action: PayloadAction<string>) {
+    updateOffers(state, action: PayloadAction<CityName>) {
       const filteredOffers = getOffersByCity(state, action.payload);
       state.offers = sorting[state.currentSorting](filteredOffers);
     },
