@@ -2,14 +2,11 @@ import { Link } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../../const/routes';
 import { useAppSelector } from '../../../hooks/store-hooks';
 import { selectAuthorizationStatus } from '../../../store/features/auth/selectors';
+import { selectUserInfo } from '../../../store/features/user/selectors'; // Добавьте соответствующий импорт
 
 export const Header = (): JSX.Element => {
   const authorizationStatus = useAppSelector(selectAuthorizationStatus);
-
-  const user = {
-    email: 'oliver.conner@gmail.com',
-    avatarUrl: 'img/avatar.jpg',
-  };
+  const userInfo = useAppSelector(selectUserInfo);
 
   return (
     <header className="header">
@@ -21,15 +18,15 @@ export const Header = (): JSX.Element => {
             </Link>
           </div>
           <nav className="header__nav">
-            {authorizationStatus === AuthorizationStatus.Auth ? (
-              // если авторизован
+            {authorizationStatus === AuthorizationStatus.Auth && userInfo ? (
+              //пользователь авторизован
               <ul className="header__nav-list">
                 <li className="header__nav-item user">
                   <Link to={AppRoute.Favorites} className="header__nav-link header__nav-link--profile">
                     <div className="header__avatar-wrapper user__avatar-wrapper">
-                      {user.avatarUrl && <img src={user.avatarUrl} alt="User avatar" />}
+                      <img src={userInfo.avatarUrl} alt="User avatar" />
                     </div>
-                    <span className="header__user-name user__name">{user.email}</span>
+                    <span className="header__user-name user__name">{userInfo.email}</span>
                   </Link>
                 </li>
                 <li className="header__nav-item">
@@ -39,7 +36,7 @@ export const Header = (): JSX.Element => {
                 </li>
               </ul>
             ) : (
-              // если не авторизован
+              // пользователь не авторизован
               <ul className="header__nav-list">
                 <li className="header__nav-item">
                   <Link to={AppRoute.Login} className="header__nav-link">

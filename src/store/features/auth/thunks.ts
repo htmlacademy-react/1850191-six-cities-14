@@ -4,8 +4,10 @@ import { APIRoute, AuthorizationStatus } from '../../../const/routes';
 import { AxiosError, AxiosInstance } from 'axios';
 import { AuthInfo } from '../../../types/auth-info';
 import { AuthData } from '../../../types/auth-data';
-import { setAuthorizationStatus } from '.';
+
 import { saveToken } from '../../../network/token';
+import { setAuthorizationStatus } from './';
+import { setUserInfo } from '../user';
 
 
 export const login = createAsyncThunk<
@@ -21,10 +23,11 @@ export const login = createAsyncThunk<
       const response = await api.post<AuthInfo>(APIRoute.Login, authData);
 
       if (response.status === 200) {
-        const { token } = response.data;
-        saveToken(token);
+        const userData = response.data;
+        saveToken(userData.token);
         dispatch(setAuthorizationStatus(AuthorizationStatus.Auth));
-        return response.data;
+        dispatch(setUserInfo(userData));
+        return userData;
       } else {
         throw new Error('Authorization failed');
       }
