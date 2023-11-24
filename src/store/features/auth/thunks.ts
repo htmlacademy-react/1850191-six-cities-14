@@ -6,8 +6,7 @@ import { AuthInfo } from '../../../types/auth-info';
 import { AuthData } from '../../../types/auth-data';
 
 import { saveToken } from '../../../network/token';
-import { setAuthorizationStatus } from './';
-import { setUserInfo } from '../user';
+import { setAuthorizationStatus, setUserInfo } from './';
 
 
 export const login = createAsyncThunk<

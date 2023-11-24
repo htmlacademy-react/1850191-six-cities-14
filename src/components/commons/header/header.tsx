@@ -1,13 +1,16 @@
+/* eslint-disable no-console */
 import { Link } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../../const/routes';
-import { selectAuthorizationStatus } from '../../../store/features/auth/selectors';
 import { useAppSelector } from '../../../hooks/store-hooks';
-import { selectUserInfo } from '../../../store/features/user/selectors';
+import { selectAuthorizationStatus, selectUserInfo } from '../../../store/features/auth/selectors';
 
 
 export const Header = (): JSX.Element => {
+
   const authorizationStatus = useAppSelector(selectAuthorizationStatus);
   const userInfo = useAppSelector(selectUserInfo);
+  console.log('Auth Status: ', authorizationStatus);
+  console.log('User Info: ', userInfo);
 
   return (
     <header className="header">

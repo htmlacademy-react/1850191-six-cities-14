@@ -1,15 +1,13 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import offersReducer from './features/offers';
-import authorizationReducer from './features/auth';
-import userReducer from './features/user';
+import userAuthReducer from './features/auth';
 import { apiClient } from '../network/api-client';
 
 export const api = apiClient();
 
 const rootReducer = combineReducers({
   offers: offersReducer,
-  authorization: authorizationReducer,
-  user: userReducer,
+  userAuth: userAuthReducer,
 });
 
 export const store = configureStore({
