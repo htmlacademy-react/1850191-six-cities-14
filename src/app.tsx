@@ -5,7 +5,6 @@ import { HelmetProvider } from 'react-helmet-async';
 import { AppRoute } from './const/routes';
 import Layout from './components/commons/layouts';
 import { PrivateRoute } from './components/commons/private-route/private-route';
-
 import { ReviewType } from './types/review-type';
 
 
@@ -18,7 +17,6 @@ const NotFound = lazy(() => import('./containers/not-found/not-found'));
 type AppProps = {
   reviews: ReviewType;
 };
-
 
 const App = ({ reviews }: AppProps): JSX.Element => (
   <HelmetProvider>

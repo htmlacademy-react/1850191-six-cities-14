@@ -1,3 +1,5 @@
+import { CityName } from '../const/routes';
+
 export type CityLocation = {
   latitude: number;
   longitude: number;
@@ -6,5 +8,5 @@ export type CityLocation = {
 
 export type City = {
   location: CityLocation;
-  name: string;
+  name: CityName;
 };
