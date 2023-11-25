@@ -11,18 +11,24 @@ import { ListOffers } from '../../components/commons/list-offers';
 import { ReviewsList } from '../../components/offer/reviews-list';
 import { Map } from '../../components/commons/map';
 
-
-import { AppRoute } from '../../const/routes';
+import { AppRoute, AuthorizationStatus } from '../../const/routes';
 import { ReviewType } from '../../types/review-type';
 import { selectOffers } from '../../store/features/offers/selectors';
+import { useAppSelector } from '../../hooks/store-hooks';
+import { selectAuthorizationStatus } from '../../store/features/auth/selectors';
 
 type OfferProps = {
   reviews: ReviewType;
 };
 
+
 const Offer = ({ reviews }: OfferProps): JSX.Element => {
   const [hoveredOfferId, setHoveredOfferId] = useState<string | null>(null);
   const offers = useSelector(selectOffers);
+
+  // проверка на авторизацию
+  const authorizationStatus = useAppSelector(selectAuthorizationStatus);
+  const isUserAuthorized = authorizationStatus === AuthorizationStatus.Auth;
 
   const { id } = useParams();
   const offer = id ? offers.find((item) => item.id === id) : undefined;
@@ -36,6 +42,7 @@ const Offer = ({ reviews }: OfferProps): JSX.Element => {
   }
 
   const city = offer.city;
+
 
   return (
     <>
@@ -53,7 +60,7 @@ const Offer = ({ reviews }: OfferProps): JSX.Element => {
                 Reviews · <span className="reviews__amount">{reviews.length}</span>
               </h2>
               <ReviewsList reviews={reviews} />
-              <ReviewsForm />
+              {isUserAuthorized && <ReviewsForm />}
             </section>
           </div>
         </div>
