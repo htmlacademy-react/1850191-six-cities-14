@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet-async';
 
 import { useAppDispatch, useAppSelector } from '../../hooks/store-hooks';
 import { fetchOffers } from '../../store/features/offers/thunks';
-import { selectCurrentSorting, selectOffers } from '../../store/features/offers/selectors'; // Импортируем наш новый селектор
+import { selectCurrentSorting, selectFilteredOffers } from '../../store/features/offers/selectors'; // Импортируем наш новый селектор
 import { Spinner } from '../../components/commons/spinner';
 import { CityTabs } from '../../components/main/sity-tabs';
 import { Sorting } from '../../components/main/sorting';
@@ -13,7 +13,7 @@ import { OfferType } from '../../types/offer-preview';
 
 const Main = (): JSX.Element => {
   const dispatch = useAppDispatch();
-  const offers = useAppSelector(selectOffers);
+  const offers = useAppSelector(selectFilteredOffers);
   const currentSorting = useAppSelector(selectCurrentSorting);
   const loading = useAppSelector((state) => state.offers.loading);
   const [hoveredOfferId, setHoveredOfferId] = useState<OfferType['id'] | null>(null);

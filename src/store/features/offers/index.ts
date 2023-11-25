@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { getOffersByCity } from '../../../utils/offers';
 import { sorting } from '../../../utils/sorting';
 
 import { SortingType } from '../../../types/sorting';
@@ -11,7 +10,6 @@ import { CityName } from '../../../const/routes';
 export interface OffersState {
   currentCity: CityName;
   offers: OfferType[];
-  allOffers: OfferType[];
   currentSorting: SortingType;
   loading: boolean;
 }
@@ -19,7 +17,6 @@ export interface OffersState {
 const initialState: OffersState = {
   currentCity: CityName.Paris,
   offers: [],
-  allOffers: [],
   currentSorting: 'Popular',
   loading: false,
 };
@@ -28,17 +25,20 @@ const offersSlice = createSlice({
   name: 'offers',
   initialState,
   reducers: {
-    changeCity(state, action: PayloadAction<CityName>) {
+    changeCity: (state, action: PayloadAction<CityName>) => {
       state.currentCity = action.payload;
     },
-    updateOffers(state, action: PayloadAction<CityName>) {
-      const filteredOffers = getOffersByCity(state, action.payload);
-      state.offers = sorting[state.currentSorting](filteredOffers);
+    setOffers: (state, action: PayloadAction<OfferType[]>) => {
+      state.offers = action.payload;
     },
-    changeSorting(state, action: PayloadAction<SortingType>) {
+    applySorting: (state) => {
+      state.offers = sorting[state.currentSorting](state.offers);
+    },
+    changeSorting: (state, action: PayloadAction<SortingType>) => {
       state.currentSorting = action.payload;
-      // тут поравить нельзя менять что то еще нужно разбить или делать в компоненте одно действие один метод
-      state.offers = sorting[action.payload](state.offers);
+    },
+    setLoading: (state, action: PayloadAction<boolean>) => {
+      state.loading = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -47,9 +47,7 @@ const offersSlice = createSlice({
         state.loading = true;
       })
       .addCase(fetchOffers.fulfilled, (state, action) => {
-        state.allOffers = action.payload;
-        // тут поравить нельзя менять что то еще нужно разбить или делать в компоненте одно действие один метод
-        state.offers = getOffersByCity(state, state.currentCity);
+        state.offers = action.payload;
         state.loading = false;
       })
       .addCase(fetchOffers.rejected, (state) => {
@@ -58,5 +56,11 @@ const offersSlice = createSlice({
   },
 });
 
-export const { changeCity, updateOffers, changeSorting } = offersSlice.actions;
+export const { changeCity, setOffers, applySorting, changeSorting, setLoading } = offersSlice.actions;
 export default offersSlice.reducer;
+
+// changeCity - измененяю выбранный город
+// setOffers - получаю список предложений
+// applySorting - сортирую список предложений
+// changeSorting - меняю сортировку
+// setLoading - добавляю загрузку спинера

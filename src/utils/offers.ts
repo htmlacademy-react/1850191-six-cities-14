@@ -8,6 +8,6 @@ export const getCities = () => citiesArray;
 
 // фильтрация, чтобы получить все предложения, соответствующие городу.
 export const getOffersByCity = (offersState: OffersState, city: CityName): OfferType[] =>
-  offersState.allOffers.filter((offer) => offer.city.name === city);
+  offersState.offers.filter((offer) => offer.city.name === city);
 
 

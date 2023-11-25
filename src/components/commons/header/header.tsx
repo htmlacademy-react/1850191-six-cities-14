@@ -2,15 +2,13 @@
 import { Link } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../../const/routes';
 import { useAppSelector } from '../../../hooks/store-hooks';
-import { selectAuthorizationStatus, selectUserInfo } from '../../../store/features/auth/selectors';
-
+import { selectAuthorizationStatus } from '../../../store/features/auth/selectors';
+import { selectUserInfo } from '../../../store/features/user/selectors';
 
 export const Header = (): JSX.Element => {
 
   const authorizationStatus = useAppSelector(selectAuthorizationStatus);
   const userInfo = useAppSelector(selectUserInfo);
-  console.log('Auth Status: ', authorizationStatus);
-  console.log('User Info: ', userInfo);
 
   return (
     <header className="header">

@@ -6,7 +6,8 @@ import { AuthInfo } from '../../../types/auth-info';
 import { AuthData } from '../../../types/auth-data';
 
 import { saveToken } from '../../../network/token';
-import { setAuthorizationStatus, setUserInfo } from './';
+import { setAuthorizationStatus } from './';
+import { setUserInfo } from '../user';
 
 
 export const login = createAsyncThunk<
@@ -21,7 +22,7 @@ export const login = createAsyncThunk<
     try {
       const response = await api.post<AuthInfo>(APIRoute.Login, authData);
 
-      if (response.status === 200) {
+      if (response.status === 201) {
         const userData = response.data;
         saveToken(userData.token);
         dispatch(setAuthorizationStatus(AuthorizationStatus.Auth));
