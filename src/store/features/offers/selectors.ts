@@ -22,6 +22,13 @@ export const selectFilteredOffers = createSelector(
   (sortedOffers, currentCity): OfferType[] => sortedOffers.filter((offer) => offer.city.name === currentCity)
 );
 
+export const selectCurrentCityDetails = createSelector(
+  [selectOffers, selectCurrentCity],
+  (offers, currentCityName) => {
+    const offerForCurrentCity = offers.find((offer) => offer.city.name === currentCityName);
+    return offerForCurrentCity ? offerForCurrentCity.city : null;
+  }
+);
 
 // selectCurrentCity возвращает текущий выбранный город.
 // selectOffers возвращает текущий список предложений.
@@ -29,3 +36,4 @@ export const selectFilteredOffers = createSelector(
 // selectFavoriteOffers создает селектор для выбора избранных предложений.
 // selectSortedOffers создает селектор для сортировки предложений в соответствии с выбранным типом сортировки.
 // selectFilteredOffers создает селектор для фильтрации предложений по текущему городу.
+// selectCurrentCityDetails вернет полный объект City на основе текущего CityName

@@ -1,30 +1,24 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 
 import { useAppDispatch, useAppSelector } from '../../hooks/store-hooks';
-import { fetchOffers } from '../../store/features/offers/thunks';
-import { selectCurrentSorting, selectFilteredOffers } from '../../store/features/offers/selectors'; // Импортируем наш новый селектор
+import { fetchOffers } from '../../store/features/offers/thunk-offers';
+import { selectCurrentSorting, selectFilteredOffers } from '../../store/features/offers/selectors';
 import { Spinner } from '../../components/commons/spinner';
 import { CityTabs } from '../../components/main/sity-tabs';
 import { Sorting } from '../../components/main/sorting';
 import { ListOffers } from '../../components/commons/list-offers';
 import { Map } from '../../components/commons/map';
-import { OfferType } from '../../types/offer-preview';
 
 const Main = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const offers = useAppSelector(selectFilteredOffers);
   const currentSorting = useAppSelector(selectCurrentSorting);
   const loading = useAppSelector((state) => state.offers.loading);
-  const [hoveredOfferId, setHoveredOfferId] = useState<OfferType['id'] | null>(null);
 
   useEffect(() => {
     dispatch(fetchOffers());
   }, [dispatch]);
-
-  const handleCardHover = (id: OfferType['id'] | null) => {
-    setHoveredOfferId(id);
-  };
 
   const currentCityData = offers[0]?.city;
 
@@ -46,11 +40,11 @@ const Main = (): JSX.Element => {
             <b className="places__found">{offers.length} place{offers.length !== 1 ? 's' : ''} to stay in {currentCityData?.name}</b>
             <Sorting activeSorting={currentSorting} />
             <div className="cities__places-list places__list tabs__content" style={{ maxHeight: '666px' }}>
-              <ListOffers offers={offers} onCardHover={handleCardHover} />
+              <ListOffers offers={offers} />
             </div>
           </section>
           <div className="cities__right-section">
-            {currentCityData && <Map city={currentCityData} offers={offers} hoveredOfferId={hoveredOfferId} className="cities__map" />}
+            {currentCityData && <Map city={currentCityData} offers={offers} className="cities__map" />}
           </div>
         </div>
       </div>

@@ -1,22 +1,22 @@
 import { City } from './city';
+import { Host } from './host';
 import { Location } from './location';
-import { AuthInfo } from './auth-info';
 
 export type OfferType = {
-  city: City;
-  goods: string[];
   id: string;
-  isFavorite: boolean;
-  isPremium: boolean;
-  location: Location;
-  previewImage: string;
-  price: number;
-  rating: number;
   title: string;
   type: string;
-  bedrooms: number;
+  price: number;
+  city: City;
+  location: Location;
+  isFavorite: boolean;
+  isPremium: boolean;
+  rating: number;
   description: string;
-  host: AuthInfo;
+  bedrooms: number;
+  goods: string[];
+  host: Host;
   images: string[];
   maxAdults: number;
+  previewImage: string;
 };
