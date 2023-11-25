@@ -1,14 +1,19 @@
 /* eslint-disable no-console */
 import { Link } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../../const/routes';
-import { useAppSelector } from '../../../hooks/store-hooks';
+import { useAppDispatch, useAppSelector } from '../../../hooks/store-hooks';
 import { selectAuthorizationStatus } from '../../../store/features/auth/selectors';
 import { selectUserInfo } from '../../../store/features/user/selectors';
+import { logout } from '../../../store/features/auth/thunk-logout';
 
 export const Header = (): JSX.Element => {
-
+  const dispatch = useAppDispatch();
   const authorizationStatus = useAppSelector(selectAuthorizationStatus);
   const userInfo = useAppSelector(selectUserInfo);
+
+  const handleLogout = () => {
+    dispatch(logout());
+  };
 
   return (
     <header className="header">
@@ -33,7 +38,7 @@ export const Header = (): JSX.Element => {
                 </li>
                 <li className="header__nav-item">
                   <Link to={AppRoute.Login} className="header__nav-link">
-                    <span className="header__signout">Sign out</span>
+                    <span className="header__signout" onClick={handleLogout}>Sign out</span>
                   </Link>
                 </li>
               </ul>
