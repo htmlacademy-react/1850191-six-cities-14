@@ -6,6 +6,7 @@ import userReducer from './features/user';
 import hoverOfferIdReducer from './features/offer-card';
 import nearPlacesReducer from './features/near-places';
 import reviewsReducer from './features/reviews';
+import postReviewReducer from './features/post-reviews';
 import { apiClient } from '../services/api-client';
 
 export const api = apiClient();
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
   hoverOfferId: hoverOfferIdReducer,
   nearPlaces: nearPlacesReducer,
   reviews: reviewsReducer,
+  postReview: postReviewReducer,
 });
 
 export const store = configureStore({

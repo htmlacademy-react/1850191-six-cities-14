@@ -54,3 +54,5 @@ export enum APIRoute {
   NearPlaces = '/nearby',
   Reviews = '/comments',
 }
+
+export const RATING_STARS = [5, 4, 3, 2, 1];
