@@ -1,18 +1,18 @@
-import axios, { AxiosError, AxiosInstance, InternalAxiosRequestConfig } from 'axios';
-import { getToken } from '../network/token';
+import axios, { AxiosError, AxiosInstance } from 'axios';
+import { getToken } from '../services/token';
 
 const BACKEND_URL = 'https://14.design.pages.academy/six-cities';
 const REQUEST_TIMEOUT = 5000;
 
-export const apiClient = ():AxiosInstance => {
+export const apiClient = (): AxiosInstance => {
   const api = axios.create({
     baseURL: BACKEND_URL,
     timeout: REQUEST_TIMEOUT
   });
 
-  // это перехватчик запросов
+  // Перехватчик запросов
   api.interceptors.request.use(
-    (config: InternalAxiosRequestConfig) => {
+    (config) => {
       const token = getToken();
 
       if (token && config.headers) {
@@ -22,17 +22,16 @@ export const apiClient = ():AxiosInstance => {
     }
   );
 
-  // это перехватчик ответов
+  // Перехватчик ответов
   api.interceptors.response.use(
     (response) => response,
     (error: AxiosError) => {
-      if (error.response?.status === 401) {
-        // eslint-disable-next-line no-console
-        console.error('Error 401: Unauthorized access');
+      if (error.response?.status === 400) {
+        const errorMessage = typeof error.response.data === 'string' ? error.response.data : 'Bad request';
+        return Promise.reject(new Error(errorMessage));
       }
       return Promise.reject(error);
     }
   );
   return api;
 };
-

@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { Link } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../../const/routes';
 import { useAppDispatch, useAppSelector } from '../../../hooks/store-hooks';

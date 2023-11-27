@@ -5,8 +5,6 @@ import { store } from './store/configure-store';
 
 import App from './app';
 
-import { reviews } from './mocks/reviews';
-
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
@@ -14,7 +12,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App reviews={reviews} />
+      <App />
     </Provider>
   </React.StrictMode>
 );

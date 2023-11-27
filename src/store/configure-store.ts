@@ -4,7 +4,9 @@ import authorizationReducer from './features/auth';
 import currentOfferReducer from './features/offer-active';
 import userReducer from './features/user';
 import hoverOfferIdReducer from './features/offer-card';
-import { apiClient } from '../network/api-client';
+import nearPlacesReducer from './features/near-places';
+import reviewsReducer from './features/reviews';
+import { apiClient } from '../services/api-client';
 
 export const api = apiClient();
 
@@ -14,6 +16,8 @@ const rootReducer = combineReducers({
   authorization: authorizationReducer,
   user: userReducer,
   hoverOfferId: hoverOfferIdReducer,
+  nearPlaces: nearPlacesReducer,
+  reviews: reviewsReducer,
 });
 
 export const store = configureStore({

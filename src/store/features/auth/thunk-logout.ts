@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { APIRoute } from '../../../const/routes';
 import { AxiosInstance } from 'axios';
-import { dropToken } from '../../../network/token';
+import { dropToken } from '../../../services/token';
 import { setAuthorizationStatus } from '../auth';
 import { setUserInfo } from '../user';
 import { AuthorizationStatus } from '../../../const/routes';

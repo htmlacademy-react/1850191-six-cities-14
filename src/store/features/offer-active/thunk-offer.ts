@@ -14,3 +14,4 @@ export const fetchOfferById = createAsyncThunk<OfferType, string, { extra: Thunk
     return response.data;
   }
 );
+
