@@ -2,15 +2,19 @@ import { Footer } from '../footer';
 import { Header } from '../header';
 
 
-interface TProps {
+interface LayoutProps {
   children: JSX.Element;
+  pageClass?: string;
+  mainClass?: string;
+  showFooter?: boolean;
+  showNav?: boolean;
 }
 
-const Layout = ({ children }: TProps): JSX.Element => (
-  <div>
-    <Header />
-    <main className="page__main">{children}</main>
-    <Footer />
+const Layout = ({ children, pageClass = '', mainClass = '', showFooter = true, showNav = true }: LayoutProps): JSX.Element => (
+  <div className={`page ${pageClass || ''}`}>
+    <Header showNav={showNav} />
+    <main className={`page__main ${mainClass || ''}`}>{children}</main>
+    {showFooter && <Footer />}
   </div>
 );
 

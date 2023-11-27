@@ -39,7 +39,7 @@ const Main = (): JSX.Element => {
             <h2 className="visually-hidden">Places</h2>
             <b className="places__found">{offers.length} place{offers.length !== 1 ? 's' : ''} to stay in {currentCityData?.name}</b>
             <Sorting activeSorting={currentSorting} />
-            <div className="cities__places-list places__list tabs__content" style={{ maxHeight: '666px' }}>
+            <div className="cities__places-list places__list tabs__content">
               <ListOffers offers={offers} />
             </div>
           </section>

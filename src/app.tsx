@@ -18,29 +18,46 @@ const NotFound = lazy(() => import('./containers/not-found/not-found'));
 const App = (): JSX.Element => (
   <HelmetProvider>
     <BrowserRouter>
-      <Layout>
-        <Routes>
-          <Route path={AppRoute.Main} element={<Suspense fallback={<p>Loading...</p>}><Main /></Suspense>} />
-          <Route path={AppRoute.Favorites} element={
+      <Routes>
+        <Route path={AppRoute.Main} element={
+          <Layout pageClass="page--gray page--main" mainClass="page__main--index" showFooter={false}>
+            <Suspense fallback={<p>Loading...</p>}><Main /></Suspense>
+          </Layout>
+        }
+        />
+        <Route path={AppRoute.Favorites} element={
+          <Layout pageClass="page--gray page--favorites">
             <Suspense fallback={<p>Loading...</p>}>
               <PrivateRoute>
                 <Favorites />
               </PrivateRoute>
             </Suspense>
-          }
-          />
-          <Route path={`${AppRoute.Offer}/:id`} element={<Suspense fallback={<p>Loading...</p>}><Offer /></Suspense>} />
-          <Route path={AppRoute.Login} element={
+          </Layout>
+        }
+        />
+        <Route path={`${AppRoute.Offer}/:id`} element={
+          <Layout mainClass="page__main--offer" showFooter={false}>
+            <Suspense fallback={<p>Loading...</p>}><Offer /></Suspense>
+          </Layout>
+        }
+        />
+        <Route path={AppRoute.Login} element={
+          <Layout pageClass="page--gray page--login" mainClass="page__main--login" showFooter={false} showNav={false}>
             <Suspense fallback={<p>Loading...</p>}>
               <PublicRoute>
                 <Login />
               </PublicRoute>
             </Suspense>
-          }
-          />
-          <Route path={AppRoute.NotFound} element={<Suspense fallback={<p>Loading...</p>}><NotFound /></Suspense>} />
-        </Routes>
-      </Layout>
+          </Layout>
+        }
+        />
+        <Route path={AppRoute.NotFound} element={
+          <Layout pageClass="page--gray page--not-found">
+            <Suspense fallback={<p>Loading...</p>}><NotFound /></Suspense>
+          </Layout>
+        }
+        />
+      </Routes>
     </BrowserRouter>
   </HelmetProvider>
 );
