@@ -24,6 +24,7 @@ export const selectCurrentCityDetails = createSelector(
     return offerForCurrentCity ? offerForCurrentCity.city : null;
   }
 );
+export const selectRequestCompleted = (state: RootState) => state.offers.requestCompleted;
 
 /** selectCurrentCity возвращает текущий выбранный город. */
 /** electOffers возвращает текущий список предложений.*/

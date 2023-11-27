@@ -7,6 +7,9 @@ import { ListOffers } from '../../components/commons/list-offers';
 import { ReviewsList } from '../../components/offer/reviews-list';
 import { Map } from '../../components/commons/map';
 import { Spinner } from '../../components/commons/spinner';
+import { OfferGallery } from '../../components/offer/offer-gallery';
+import { OfferHost } from '../../components/offer/offer-host';
+import { OfferPlace } from '../../components/offer/offer-place';
 
 import { AppRoute, AuthorizationStatus } from '../../const/routes';
 import { useAppDispatch, useAppSelector } from '../../hooks/store-hooks';
@@ -15,11 +18,9 @@ import { selectCurrentOffer, selectCurrentOfferLoading } from '../../store/featu
 import { selectNearPlacesOffers, selectNearPlacesLoading } from '../../store/features/near-places/selectors';
 import { fetchOfferById } from '../../store/features/offer-active/thunk-offer';
 import { fetchNearPlaces } from '../../store/features/near-places/thunk-near-places';
-import { OfferGallery } from '../../components/offer/offer-gallery';
-import { OfferHost } from '../../components/offer/offer-host';
-import { OfferPlace } from '../../components/offer/offer-place';
 import { selectSortedAndLimitedReviews } from '../../store/features/reviews/selectors';
 import { fetchReviews } from '../../store/features/reviews/thunk-reviews';
+import { selectRequestCompleted } from '../../store/features/offers/selectors';
 
 
 const Offer = () => {
@@ -31,8 +32,7 @@ const Offer = () => {
   const nearbyOffers = useAppSelector(selectNearPlacesOffers);
   const isNearbyOffersLoading = useAppSelector(selectNearPlacesLoading);
   const sortedAndLimitedReviews = useAppSelector(selectSortedAndLimitedReviews);
-
-  /** проверка на авторизацию */
+  const requestCompleted = useAppSelector(selectRequestCompleted);
   const authorizationStatus = useAppSelector(selectAuthorizationStatus);
   const isUserAuthorized = authorizationStatus === AuthorizationStatus.Auth;
 
@@ -50,53 +50,57 @@ const Offer = () => {
     return <Spinner />;
   }
 
-  if (!currentOffer) {
+  if (requestCompleted && !currentOffer) {
     return <Navigate to={AppRoute.NotFound} />;
   }
 
-  const { city, title, isPremium, rating, type, bedrooms, maxAdults, price, goods, host, images, description } = currentOffer;
-
-  return (
-    <>
-      <Helmet>
-        <title>{`6 cities-Offer: ${title}`}</title>
-      </Helmet>
-      <section className="offer">
-        < OfferGallery images={images} />
-        <div className="offer__container container">
-          <div className="offer__wrapper">
-            <OfferPlace title={title} isPremium={isPremium} rating={rating} type={type}
-              bedrooms={bedrooms}
-              maxAdults={maxAdults}
-              price={price}
-              goods={goods}
-            />
-            <OfferHost host={host} description={description} />
-            <section className="offer__reviews reviews">
-              <h2 className="reviews__title">
-                Reviews · <span className="reviews__amount">{sortedAndLimitedReviews.length}</span>
-              </h2>
-              <ReviewsList reviews={sortedAndLimitedReviews} />
-              {isUserAuthorized && <ReviewsForm />}
-            </section>
+  if (currentOffer) {
+    return (
+      <>
+        <Helmet>
+          <title>{`6 cities-Offer: ${currentOffer.title}`}</title>
+        </Helmet>
+        <section className="offer">
+          < OfferGallery images={currentOffer.images} />
+          <div className="offer__container container">
+            <div className="offer__wrapper">
+              <OfferPlace
+                title={currentOffer.title}
+                isPremium={currentOffer.isPremium}
+                rating={currentOffer.rating}
+                type={currentOffer.type}
+                bedrooms={currentOffer.bedrooms}
+                maxAdults={currentOffer.maxAdults}
+                price={currentOffer.price}
+                goods={currentOffer.goods}
+              />
+              <OfferHost host={currentOffer.host} description={currentOffer.description} />
+              <section className="offer__reviews reviews">
+                <h2 className="reviews__title">
+                  Reviews · <span className="reviews__amount">{sortedAndLimitedReviews.length}</span>
+                </h2>
+                <ReviewsList reviews={sortedAndLimitedReviews} />
+                {isUserAuthorized && <ReviewsForm />}
+              </section>
+            </div>
           </div>
-        </div>
-        {city && <Map city={city} offers={nearbyOffers.slice(0, 3)} className="offer__map" />}
-      </section>
-      <div className="container">
-        <section className="near-places places">
-          <h2 className="near-places__title">Other places in the neighbourhood</h2>
-          <div className="near-places__list places__list">
-            {isNearbyOffersLoading ? (
-              <div>Loading nearby places...</div>
-            ) : (
-              <ListOffers offers={nearbyOffers.slice(0, 3)} className="near-places__card" />
-            )}
-          </div>
+          {currentOffer.city && <Map city={currentOffer.city} offers={nearbyOffers.slice(0, 3)} className="offer__map" />}
         </section>
-      </div>
-    </>
-  );
+        <div className="container">
+          <section className="near-places places">
+            <h2 className="near-places__title">Other places in the neighbourhood</h2>
+            <div className="near-places__list places__list">
+              {isNearbyOffersLoading ? (
+                <div>Loading nearby places...</div>
+              ) : (
+                <ListOffers offers={nearbyOffers.slice(0, 3)} className="near-places__card" />
+              )}
+            </div>
+          </section>
+        </div>
+      </>
+    );
+  }
 };
 
 export default Offer;
