@@ -14,13 +14,12 @@ import { OfferPlace } from '../../components/offer/offer-place';
 import { AppRoute, AuthorizationStatus } from '../../const/routes';
 import { useAppDispatch, useAppSelector } from '../../hooks/store-hooks';
 import { selectAuthorizationStatus } from '../../store/features/auth/selectors';
-import { selectCurrentOffer, selectCurrentOfferLoading } from '../../store/features/offer-active/selectors';
+import { selectCurrentOffer, selectCurrentOfferLoading, selectRequestCompleted } from '../../store/features/offer-active/selectors';
 import { selectNearPlacesOffers, selectNearPlacesLoading } from '../../store/features/near-places/selectors';
 import { fetchOfferById } from '../../store/features/offer-active/thunk-offer';
 import { fetchNearPlaces } from '../../store/features/near-places/thunk-near-places';
 import { selectSortedAndLimitedReviews } from '../../store/features/reviews/selectors';
 import { fetchReviews } from '../../store/features/reviews/thunk-reviews';
-import { selectRequestCompleted } from '../../store/features/offers/selectors';
 
 
 const Offer = () => {

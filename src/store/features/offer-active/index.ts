@@ -5,11 +5,13 @@ import { fetchOfferById } from './thunk-offer';
 interface CurrentOfferState {
   offer: OfferType | null;
   loading: boolean;
+  requestCompleted: boolean;
 }
 
 const initialState: CurrentOfferState = {
   offer: null,
   loading: false,
+  requestCompleted: false,
 };
 
 const currentOfferSlice = createSlice({
@@ -20,13 +22,16 @@ const currentOfferSlice = createSlice({
     builder
       .addCase(fetchOfferById.pending, (state) => {
         state.loading = true;
+        state.requestCompleted = false;
       })
       .addCase(fetchOfferById.fulfilled, (state, action) => {
         state.offer = action.payload;
         state.loading = false;
+        state.requestCompleted = true;
       })
       .addCase(fetchOfferById.rejected, (state) => {
         state.loading = false;
+        state.requestCompleted = true;
       });
   },
 });
