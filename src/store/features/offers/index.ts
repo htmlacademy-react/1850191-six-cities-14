@@ -4,7 +4,7 @@ import { SortingType } from '../../../types/sorting';
 import { OfferType } from '../../../types/offer-preview';
 
 import { fetchOffers } from './thunk-offers';
-import { CityName } from '../../../const/routes';
+import { CityName } from '../../../const/const';
 
 export interface OffersState {
   currentCity: CityName;

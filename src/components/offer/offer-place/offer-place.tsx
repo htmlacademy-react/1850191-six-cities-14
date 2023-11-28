@@ -1,3 +1,6 @@
+import { memo } from 'react';
+import { addPluralEnding } from '../../../utils/common';
+
 type OfferPlaceProps = {
   title: string;
   isPremium: boolean;
@@ -9,7 +12,7 @@ type OfferPlaceProps = {
   goods: string[];
 };
 
-export const OfferPlace = ({ title, isPremium, rating, type, bedrooms, maxAdults, price, goods }: OfferPlaceProps): JSX.Element => {
+export const OfferPlace = memo(({ title, isPremium, rating, type, bedrooms, maxAdults, price, goods }: OfferPlaceProps): JSX.Element => {
   const ratingPercentage = `${Math.round(rating / 5 * 100)}%`;
 
   return (
@@ -36,8 +39,8 @@ export const OfferPlace = ({ title, isPremium, rating, type, bedrooms, maxAdults
       </div>
       <ul className="offer__features">
         <li className="offer__feature offer__feature--entire">{type}</li>
-        <li className="offer__feature offer__feature--bedrooms">{bedrooms} Bedrooms</li>
-        <li className="offer__feature offer__feature--adults">Max {maxAdults} adults</li>
+        <li className="offer__feature offer__feature--bedrooms">{bedrooms} Bedroom{addPluralEnding(bedrooms)}</li>
+        <li className="offer__feature offer__feature--adults">Max {maxAdults} adult{addPluralEnding(maxAdults)}</li>
       </ul>
       <div className="offer__price">
         <b className="offer__price-value">€{price}</b>
@@ -53,4 +56,6 @@ export const OfferPlace = ({ title, isPremium, rating, type, bedrooms, maxAdults
       </div>
     </>
   );
-};
+});
+
+OfferPlace.displayName = 'OfferPlace';

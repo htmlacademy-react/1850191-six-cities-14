@@ -1,6 +1,6 @@
 import { AxiosInstance } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { APIRoute } from '../../../const/routes';
+import { APIRoute } from '../../../const/const';
 import { ReviewType } from '../../../types/review-type';
 
 interface ThunkApiConfig {

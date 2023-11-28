@@ -1,4 +1,4 @@
-import { CityName } from '../const/routes';
+import { CityName } from '../const/const';
 import { OffersState } from '../store/features/offers';
 import { OfferType } from '../types/offer-preview';
 

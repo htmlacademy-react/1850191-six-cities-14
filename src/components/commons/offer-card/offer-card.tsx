@@ -1,9 +1,10 @@
 import { Link } from 'react-router-dom';
-import { AppRoute } from '../../../const/routes';
+import { AppRoute } from '../../../const/const';
 import { OfferType } from '../../../types/offer-preview';
 import { capitalize } from '../../../utils/common';
 import { resetHoveredOfferId, setHoveredOfferId } from '../../../store/features/offer-card';
 import { useAppDispatch } from '../../../hooks/store-hooks';
+import { useCallback, useMemo } from 'react';
 
 type OfferCardProps = {
   offer: OfferType;
@@ -13,13 +14,17 @@ type OfferCardProps = {
 export const OfferCard = ({ offer, className }: OfferCardProps): JSX.Element => {
   const dispatch = useAppDispatch();
 
-  function HandlemouseEnter() {
+  const HandlemouseEnter = useCallback(() => {
     dispatch(setHoveredOfferId(offer.id));
-  }
+  }, [dispatch, offer.id]);
 
-  function HandlemouseLeave() {
+  const HandlemouseLeave = useCallback(() => {
     dispatch(resetHoveredOfferId());
-  }
+  }, [dispatch]);
+
+  const ratingStyle = useMemo(() => ({
+    width: `${(offer.rating / 5) * 100}%`
+  }), [offer.rating]);
 
   return (
     <article
@@ -39,7 +44,7 @@ export const OfferCard = ({ offer, className }: OfferCardProps): JSX.Element => 
             src={offer.previewImage}
             width={260}
             height={200}
-            alt="Place image"
+            alt={offer.title}
           />
         </Link>
       </div>
@@ -66,7 +71,7 @@ export const OfferCard = ({ offer, className }: OfferCardProps): JSX.Element => 
         {offer.rating && (
           <div className="place-card__rating rating">
             <div className="place-card__stars rating__stars">
-              <span style={{ width: `${(offer.rating / 5) * 100}%` }} />
+              <span style={ratingStyle} />
               <span className="visually-hidden">Rating</span>
             </div>
           </div>

@@ -1,5 +1,5 @@
-import React, { useState, ChangeEvent, FormEvent } from 'react';
-import { RATING_STARS, ReviewSymbolLength } from '../../../const/routes';
+import React, { useState, ChangeEvent, FormEvent, useCallback } from 'react';
+import { RATING_STARS, ReviewSymbolLength } from '../../../const/const';
 import { useAppDispatch, useAppSelector } from '../../../hooks/store-hooks';
 import { selectPostReviewError, selectPostReviewLoading } from '../../../store/features/post-reviews/selectors';
 import { selectCurrentOffer } from '../../../store/features/offer-active/selectors';
@@ -11,34 +11,28 @@ export const ReviewsForm = (): JSX.Element => {
   const loading = useAppSelector(selectPostReviewLoading);
   const error = useAppSelector(selectPostReviewError);
   const currentOffer = useAppSelector(selectCurrentOffer);
-
   const [comment, setComment] = useState('');
   const [rating, setRating] = useState(0);
-
   const isValid = comment.length >= ReviewSymbolLength.MIN && comment.length <= ReviewSymbolLength.MAX && rating > 0;
 
-  const handleTextAreaChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
+  const handleTextAreaChange = useCallback((event: ChangeEvent<HTMLTextAreaElement>) => {
     setComment(event.target.value);
-  };
+  }, []);
 
-  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
     setRating(Number(event.target.value));
-  };
+  }, []);
 
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = useCallback(async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (isValid && !loading && currentOffer) {
       const reviewData = { id: currentOffer.id, rating, comment };
-      try {
-        await dispatch(postReview(reviewData)).unwrap();
-        setComment('');
-        setRating(0);
-        await dispatch(fetchReviews(currentOffer.id));
-      } catch {
-        // Обработка ошибок
-      }
+      await dispatch(postReview(reviewData)).unwrap();
+      setComment('');
+      setRating(0);
+      await dispatch(fetchReviews(currentOffer.id));
     }
-  };
+  }, [isValid, loading, currentOffer, rating, comment, dispatch]);
 
 
   return (

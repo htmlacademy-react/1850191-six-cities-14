@@ -1,8 +1,8 @@
-import { useState, KeyboardEvent } from 'react';
+import { useState, KeyboardEvent, useCallback, memo } from 'react';
 import cn from 'classnames';
 
 import { SortingType } from '../../../types/sorting';
-import { SortingMap } from '../../../const/routes';
+import { SortingMap } from '../../../const/const';
 import { useAppDispatch } from '../../../hooks/store-hooks';
 import { changeSorting } from '../../../store/features/offers';
 
@@ -11,7 +11,7 @@ type SortingProps = {
   activeSorting: SortingType;
 }
 
-export const Sorting = ({ activeSorting }: SortingProps): JSX.Element => {
+export const Sorting = memo(({ activeSorting }: SortingProps): JSX.Element => {
   const dispatch = useAppDispatch();
   const [isOpened, setIsOpened] = useState(false);
 
@@ -19,21 +19,21 @@ export const Sorting = ({ activeSorting }: SortingProps): JSX.Element => {
     transform: `translateY(-50%) ${isOpened ? 'rotate(180deg)' : ''}`
   };
 
-  const handleKeyDown = (evt: KeyboardEvent) => {
+  const handleKeyDown = useCallback((evt: KeyboardEvent) => {
     if (evt.key === 'Escape' && isOpened) {
       evt.preventDefault();
       setIsOpened(false);
     }
-  };
+  }, [isOpened]);
 
-  const handleTypeClick = () => {
-    setIsOpened((prevISOpened) => !prevISOpened);
-  };
+  const handleTypeClick = useCallback(() => {
+    setIsOpened((prevIsOpened) => !prevIsOpened);
+  }, []);
 
-  const handleSortingItemClick = (type: SortingType) => {
+  const handleSortingItemClick = useCallback((type: SortingType) => {
     dispatch(changeSorting(type));
     setIsOpened(false);
-  };
+  }, [dispatch]);
 
   return (
     <form
@@ -70,6 +70,7 @@ export const Sorting = ({ activeSorting }: SortingProps): JSX.Element => {
 
     </form>
   );
-};
+});
 
+Sorting.displayName = 'Sorting';
 

@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 
@@ -11,7 +11,7 @@ import { OfferGallery } from '../../components/offer/offer-gallery';
 import { OfferHost } from '../../components/offer/offer-host';
 import { OfferPlace } from '../../components/offer/offer-place';
 
-import { AppRoute, AuthorizationStatus } from '../../const/routes';
+import { AppRoute, AuthorizationStatus } from '../../const/const';
 import { useAppDispatch, useAppSelector } from '../../hooks/store-hooks';
 import { selectAuthorizationStatus } from '../../store/features/auth/selectors';
 import { selectCurrentOffer, selectCurrentOfferLoading, selectRequestCompleted } from '../../store/features/offer-active/selectors';
@@ -44,10 +44,13 @@ const Offer = () => {
     }
   }, [id, dispatch, navigate]);
 
-  let offersForMap = nearbyOffers.slice(0, 3);
-  if (currentOffer && !nearbyOffers.some((offer) => offer.id === currentOffer.id)) {
-    offersForMap = [currentOffer, ...offersForMap];
-  }
+  const offersForMap = useMemo(() => {
+    let offers = nearbyOffers.slice(0, 3);
+    if (currentOffer && !nearbyOffers.some((offer) => offer.id === currentOffer.id)) {
+      offers = [currentOffer, ...offers];
+    }
+    return offers;
+  }, [nearbyOffers, currentOffer]);
 
   if (loading) {
     return <Spinner />;
