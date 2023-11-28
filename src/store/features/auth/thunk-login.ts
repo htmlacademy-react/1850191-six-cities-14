@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import { APIRoute, AuthorizationStatus } from '../../../const/routes';
+import { APIRoute, AuthorizationStatus } from '../../../const/const';
 import { AxiosInstance } from 'axios';
 import { AuthInfo } from '../../../types/auth-info';
 import { AuthData } from '../../../types/auth-data';

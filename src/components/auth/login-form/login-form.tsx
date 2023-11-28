@@ -2,7 +2,7 @@ import { FormEvent, useState } from 'react';
 import { useAppDispatch } from '../../../hooks/store-hooks';
 import { login } from '../../../store/features/auth/thunk-login';
 import { useNavigate } from 'react-router-dom';
-import { AppRoute } from '../../../const/routes';
+import { AppRoute } from '../../../const/const';
 
 export const LoginForm = (): JSX.Element => {
 
@@ -14,7 +14,6 @@ export const LoginForm = (): JSX.Element => {
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
-    // парольбез пробелов
     if (!password.trim()) {
       setError('Пароль не должен состоять только из пробелов.');
       return;

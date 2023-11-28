@@ -2,7 +2,6 @@ type LocationLinkProps = {
   city: string;
 }
 
-
 export const LocationLink = ({ city }: LocationLinkProps): JSX.Element => (
   <section className="locations locations--login locations--current">
     <div className="locations__item">

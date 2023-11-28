@@ -1,22 +1,23 @@
 import { Link } from 'react-router-dom';
-import { AppRoute, AuthorizationStatus } from '../../../const/routes';
+import { AppRoute, AuthorizationStatus } from '../../../const/const';
 import { useAppDispatch, useAppSelector } from '../../../hooks/store-hooks';
 import { selectAuthorizationStatus } from '../../../store/features/auth/selectors';
 import { selectUserInfo } from '../../../store/features/user/selectors';
 import { logout } from '../../../store/features/auth/thunk-logout';
+import { memo, useCallback } from 'react';
 
 type HeaderProps = {
   showNav?: boolean;
 }
 
-export const Header = ({ showNav = true }: HeaderProps): JSX.Element => {
+export const Header = memo(({ showNav = true }: HeaderProps): JSX.Element => {
   const dispatch = useAppDispatch();
   const authorizationStatus = useAppSelector(selectAuthorizationStatus);
   const userInfo = useAppSelector(selectUserInfo);
 
-  const handleLogout = () => {
+  const handleLogout = useCallback(() => {
     dispatch(logout());
-  };
+  }, [dispatch]);
 
   return (
     <header className="header">
@@ -63,6 +64,6 @@ export const Header = ({ showNav = true }: HeaderProps): JSX.Element => {
       </div>
     </header>
   );
-};
+});
 
-
+Header.displayName = 'Header';

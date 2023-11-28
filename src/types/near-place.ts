@@ -1,4 +1,4 @@
-import { CityName } from '../const/routes';
+import { CityName } from '../const/const';
 import { Host } from './host';
 
 export type CityLocation = {

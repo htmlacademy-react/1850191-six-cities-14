@@ -1,10 +1,10 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { APIRoute } from '../../../const/routes';
+import { APIRoute } from '../../../const/const';
 import { AxiosInstance } from 'axios';
 import { dropToken } from '../../../services/token';
 import { setAuthorizationStatus } from '../auth';
 import { setUserInfo } from '../user';
-import { AuthorizationStatus } from '../../../const/routes';
+import { AuthorizationStatus } from '../../../const/const';
 
 export const logout = createAsyncThunk<void, undefined, { extra: { api: AxiosInstance } }>(
   'authorization/logout',

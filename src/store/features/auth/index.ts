@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { AuthorizationStatus } from '../../../const/routes';
+import { AuthorizationStatus } from '../../../const/const';
 
 interface AuthorizationState {
   authorizationStatus: AuthorizationStatus;
@@ -10,7 +10,7 @@ const initialState: AuthorizationState = {
 };
 
 const authorizationSlice = createSlice({
-  name: 'requireAuthorization',
+  name: 'authorization',
   initialState,
   reducers: {
     setAuthorizationStatus(state, action: PayloadAction<AuthorizationStatus>) {

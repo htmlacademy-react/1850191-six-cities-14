@@ -1,7 +1,7 @@
 import { Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { selectAuthorizationStatus } from '../../../store/features/auth/selectors';
-import { AuthorizationStatus } from '../../../const/routes';
+import { AuthorizationStatus } from '../../../const/const';
 
 interface PublicRouteProps {
   children: JSX.Element;

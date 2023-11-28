@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { OfferType } from '../../../types/offer-preview';
 import { OfferCard } from '../offer-card';
 
@@ -6,7 +7,7 @@ type ListOffersProps = {
   className?: string;
 };
 
-export const ListOffers = ({ offers, className }: ListOffersProps): JSX.Element => (
+export const ListOffers = memo(({ offers, className }: ListOffersProps): JSX.Element => (
   <>
     {offers.map((offer) => (
       <OfferCard
@@ -16,4 +17,6 @@ export const ListOffers = ({ offers, className }: ListOffersProps): JSX.Element 
       />
     ))}
   </>
-);
+));
+
+ListOffers.displayName = 'ListOffers';

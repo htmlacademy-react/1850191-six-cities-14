@@ -1,4 +1,4 @@
-import { CityName } from '../const/routes';
+import { CityName } from '../const/const';
 
 export type CityLocation = {
   latitude: number;

@@ -10,7 +10,7 @@ export const apiClient = (): AxiosInstance => {
     timeout: REQUEST_TIMEOUT
   });
 
-  // Перехватчик запросов
+  /** Перехватчик запросов */
   api.interceptors.request.use(
     (config) => {
       const token = getToken();
@@ -22,7 +22,7 @@ export const apiClient = (): AxiosInstance => {
     }
   );
 
-  // Перехватчик ответов
+  /** Перехватчик ответов */
   api.interceptors.response.use(
     (response) => response,
     (error: AxiosError) => {

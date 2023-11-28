@@ -1,18 +1,18 @@
-import { CityName } from '../../../const/routes';
+import { memo, useCallback } from 'react';
+import { CityName } from '../../../const/const';
 import { useAppDispatch, useAppSelector } from '../../../hooks/store-hooks';
 import { changeCity } from '../../../store/features/offers';
-
 import { getCities } from '../../../utils/offers';
 
 
-export const CityTabs = (): JSX.Element => {
+export const CityTabs = memo((): JSX.Element => {
   const cities = useAppSelector(getCities);
   const currentCity = useAppSelector((state): CityName => state.offers.currentCity);
   const dispatch = useAppDispatch();
 
-  const handleCityChange = (city: CityName) => {
+  const handleCityChange = useCallback((city: CityName) => {
     dispatch(changeCity(city));
-  };
+  }, [dispatch]);
 
   return (
     <div className="tabs">
@@ -40,5 +40,6 @@ export const CityTabs = (): JSX.Element => {
       </section>
     </div>
   );
-};
+});
 
+CityTabs.displayName = 'CityTabs';
