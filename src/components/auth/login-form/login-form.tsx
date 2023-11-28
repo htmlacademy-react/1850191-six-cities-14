@@ -1,6 +1,6 @@
 import { FormEvent, useState } from 'react';
 import { useAppDispatch } from '../../../hooks/store-hooks';
-import { login } from '../../../store/features/auth/thunks';
+import { login } from '../../../store/features/auth/thunk-login';
 import { useNavigate } from 'react-router-dom';
 import { AppRoute } from '../../../const/routes';
 

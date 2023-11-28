@@ -2,20 +2,23 @@ import { Link } from 'react-router-dom';
 import { AppRoute } from '../../../const/routes';
 import { OfferType } from '../../../types/offer-preview';
 import { capitalize } from '../../../utils/common';
+import { resetHoveredOfferId, setHoveredOfferId } from '../../../store/features/offer-card';
+import { useAppDispatch } from '../../../hooks/store-hooks';
 
 type OfferCardProps = {
   offer: OfferType;
-  onCardHover?: (id: OfferType['id'] | null) => void;
   className?: string;
 };
 
-export const OfferCard = ({ offer, onCardHover, className }: OfferCardProps): JSX.Element => {
+export const OfferCard = ({ offer, className }: OfferCardProps): JSX.Element => {
+  const dispatch = useAppDispatch();
+
   function HandlemouseEnter() {
-    onCardHover?.(offer.id);
+    dispatch(setHoveredOfferId(offer.id));
   }
 
   function HandlemouseLeave() {
-    onCardHover?.(null);
+    dispatch(resetHoveredOfferId());
   }
 
   return (

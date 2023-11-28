@@ -14,3 +14,5 @@ export const fetchOffers = createAsyncThunk<OfferType[], void, { extra: ThunkApi
     return response.data;
   }
 );
+
+

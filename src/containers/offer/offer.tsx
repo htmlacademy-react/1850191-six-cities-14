@@ -1,74 +1,110 @@
-import { useState } from 'react';
-import { useSelector } from 'react-redux';
-import { useParams, Navigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 
-import { OfferGallery } from '../../components/offer/offer-gallery';
-import { OfferPlace } from '../../components/offer/offer-place';
-import { OfferHost } from '../../components/offer/offer-host';
 import { ReviewsForm } from '../../components/offer/reviews-form';
 import { ListOffers } from '../../components/commons/list-offers';
 import { ReviewsList } from '../../components/offer/reviews-list';
 import { Map } from '../../components/commons/map';
+import { Spinner } from '../../components/commons/spinner';
+import { OfferGallery } from '../../components/offer/offer-gallery';
+import { OfferHost } from '../../components/offer/offer-host';
+import { OfferPlace } from '../../components/offer/offer-place';
 
+import { AppRoute, AuthorizationStatus } from '../../const/routes';
+import { useAppDispatch, useAppSelector } from '../../hooks/store-hooks';
+import { selectAuthorizationStatus } from '../../store/features/auth/selectors';
+import { selectCurrentOffer, selectCurrentOfferLoading, selectRequestCompleted } from '../../store/features/offer-active/selectors';
+import { selectNearPlacesOffers, selectNearPlacesLoading } from '../../store/features/near-places/selectors';
+import { fetchOfferById } from '../../store/features/offer-active/thunk-offer';
+import { fetchNearPlaces } from '../../store/features/near-places/thunk-near-places';
+import { selectSortedAndLimitedReviews } from '../../store/features/reviews/selectors';
+import { fetchReviews } from '../../store/features/reviews/thunk-reviews';
 
-import { AppRoute } from '../../const/routes';
-import { ReviewType } from '../../types/review-type';
-import { selectOffers } from '../../store/features/offers/selectors';
-
-type OfferProps = {
-  reviews: ReviewType;
-};
-
-const Offer = ({ reviews }: OfferProps): JSX.Element => {
-  const [hoveredOfferId, setHoveredOfferId] = useState<string | null>(null);
-  const offers = useSelector(selectOffers);
-
+const Offer = () => {
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const { id } = useParams();
-  const offer = id ? offers.find((item) => item.id === id) : undefined;
+  const currentOffer = useAppSelector(selectCurrentOffer);
+  const loading = useAppSelector(selectCurrentOfferLoading);
+  const nearbyOffers = useAppSelector(selectNearPlacesOffers);
+  const isNearbyOffersLoading = useAppSelector(selectNearPlacesLoading);
+  const sortedAndLimitedReviews = useAppSelector(selectSortedAndLimitedReviews);
+  const requestCompleted = useAppSelector(selectRequestCompleted);
+  const authorizationStatus = useAppSelector(selectAuthorizationStatus);
+  const isUserAuthorized = authorizationStatus === AuthorizationStatus.Auth;
 
-  function handleCardHover(hoverId: string | null) {
-    setHoveredOfferId(hoverId);
+  useEffect(() => {
+    if (id) {
+      dispatch(fetchOfferById(id)).unwrap().catch(() => {
+        navigate(AppRoute.NotFound);
+      });
+      dispatch(fetchNearPlaces(id));
+      dispatch(fetchReviews(id));
+    }
+  }, [id, dispatch, navigate]);
+
+  let offersForMap = nearbyOffers.slice(0, 3);
+  if (currentOffer && !nearbyOffers.some((offer) => offer.id === currentOffer.id)) {
+    offersForMap = [currentOffer, ...offersForMap];
   }
 
-  if (!offer) {
+  if (loading) {
+    return <Spinner />;
+  }
+
+  if (requestCompleted && !currentOffer) {
     return <Navigate to={AppRoute.NotFound} />;
   }
 
-  const city = offer.city;
-
-  return (
-    <>
-      <Helmet>
-        <title>{'6 cities-Offer'}</title>
-      </Helmet>
-      <section className="offer">
-        <OfferGallery />
-        <div className="offer__container container">
-          <div className="offer__wrapper">
-            <OfferPlace />
-            <OfferHost />
-            <section className="offer__reviews reviews">
-              <h2 className="reviews__title">
-                Reviews · <span className="reviews__amount">{reviews.length}</span>
-              </h2>
-              <ReviewsList reviews={reviews} />
-              <ReviewsForm />
-            </section>
+  if (currentOffer) {
+    return (
+      <>
+        <Helmet>
+          <title>{`6 cities-Offer: ${currentOffer.title}`}</title>
+        </Helmet>
+        <section className="offer">
+          <OfferGallery images={currentOffer.images} />
+          <div className="offer__container container">
+            <div className="offer__wrapper">
+              <OfferPlace
+                title={currentOffer.title}
+                isPremium={currentOffer.isPremium}
+                rating={currentOffer.rating}
+                type={currentOffer.type}
+                bedrooms={currentOffer.bedrooms}
+                maxAdults={currentOffer.maxAdults}
+                price={currentOffer.price}
+                goods={currentOffer.goods}
+              />
+              <OfferHost host={currentOffer.host} description={currentOffer.description} />
+              <section className="offer__reviews reviews">
+                <h2 className="reviews__title">
+                  Reviews · <span className="reviews__amount">{sortedAndLimitedReviews.length}</span>
+                </h2>
+                <ReviewsList reviews={sortedAndLimitedReviews} />
+                {isUserAuthorized && <ReviewsForm />}
+              </section>
+            </div>
           </div>
-        </div>
-        {city && <Map city={city} offers={offers} hoveredOfferId={hoveredOfferId} className="offer__map" />}
-      </section>
-      <div className="container">
-        <section className="near-places places">
-          <h2 className="near-places__title">Other places in the neighbourhood</h2>
-          <div className="near-places__list places__list">
-            <ListOffers offers={offers.slice(0, 3)} onCardHover={handleCardHover} className="near-places__card" />
-          </div>
+          {currentOffer.city && <Map city={currentOffer.city} offers={offersForMap} className="offer__map" activeOfferId={currentOffer.id} />}
         </section>
-      </div>
-    </>
-  );
+        <div className="container">
+          <section className="near-places places">
+            <h2 className="near-places__title">Other places in the neighbourhood</h2>
+            <div className="near-places__list places__list">
+              {isNearbyOffersLoading ? (
+                <div>Loading nearby places...</div>
+              ) : (
+                <ListOffers offers={nearbyOffers.slice(0, 3)} className="near-places__card" />
+              )}
+            </div>
+          </section>
+        </div>
+      </>
+    );
+  }
 };
 
 export default Offer;
+

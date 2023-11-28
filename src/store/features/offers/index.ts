@@ -1,10 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { sorting } from '../../../utils/sorting';
-
 import { SortingType } from '../../../types/sorting';
 import { OfferType } from '../../../types/offer-preview';
 
-import { fetchOffers } from './thunks';
+import { fetchOffers } from './thunk-offers';
 import { CityName } from '../../../const/routes';
 
 export interface OffersState {
@@ -28,9 +27,6 @@ const offersSlice = createSlice({
     changeCity: (state, action: PayloadAction<CityName>) => {
       state.currentCity = action.payload;
     },
-    setOffers: (state, action: PayloadAction<OfferType[]>) => {
-      state.offers = action.payload;
-    },
     applySorting: (state) => {
       state.offers = sorting[state.currentSorting](state.offers);
     },
@@ -53,10 +49,10 @@ const offersSlice = createSlice({
       .addCase(fetchOffers.rejected, (state) => {
         state.loading = false;
       });
-  },
+  }
 });
 
-export const { changeCity, setOffers, applySorting, changeSorting, setLoading } = offersSlice.actions;
+export const { changeCity, applySorting, changeSorting, setLoading } = offersSlice.actions;
 export default offersSlice.reducer;
 
 // changeCity - измененяю выбранный город

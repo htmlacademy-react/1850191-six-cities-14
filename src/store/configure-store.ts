@@ -1,15 +1,25 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import offersReducer from './features/offers';
 import authorizationReducer from './features/auth';
+import currentOfferReducer from './features/offer-active';
 import userReducer from './features/user';
-import { apiClient } from '../network/api-client';
+import hoverOfferIdReducer from './features/offer-card';
+import nearPlacesReducer from './features/near-places';
+import reviewsReducer from './features/reviews';
+import postReviewReducer from './features/post-reviews';
+import { apiClient } from '../services/api-client';
 
 export const api = apiClient();
 
 const rootReducer = combineReducers({
   offers: offersReducer,
+  currentOffer: currentOfferReducer,
   authorization: authorizationReducer,
   user: userReducer,
+  hoverOfferId: hoverOfferIdReducer,
+  nearPlaces: nearPlacesReducer,
+  reviews: reviewsReducer,
+  postReview: postReviewReducer,
 });
 
 export const store = configureStore({

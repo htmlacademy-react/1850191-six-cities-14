@@ -1,36 +1,65 @@
-import React, { useState, ChangeEvent } from 'react';
-import { ReviewSymbolLength } from '../../../const/routes';
+import React, { useState, ChangeEvent, FormEvent } from 'react';
+import { RATING_STARS, ReviewSymbolLength } from '../../../const/routes';
+import { useAppDispatch, useAppSelector } from '../../../hooks/store-hooks';
+import { selectPostReviewError, selectPostReviewLoading } from '../../../store/features/post-reviews/selectors';
+import { selectCurrentOffer } from '../../../store/features/offer-active/selectors';
+import { postReview } from '../../../store/features/post-reviews/thunk-post-review';
+import { fetchReviews } from '../../../store/features/reviews/thunk-reviews';
 
 export const ReviewsForm = (): JSX.Element => {
+  const dispatch = useAppDispatch();
+  const loading = useAppSelector(selectPostReviewLoading);
+  const error = useAppSelector(selectPostReviewError);
+  const currentOffer = useAppSelector(selectCurrentOffer);
 
   const [comment, setComment] = useState('');
-  const [rating, setRating] = useState('');
-  const isValid =
-    comment.length >= ReviewSymbolLength.MIN &&
-    comment.length <= ReviewSymbolLength.MAX &&
-    rating !== '';
-  function HandleTextAreaChange(event: ChangeEvent<HTMLTextAreaElement>) {
+  const [rating, setRating] = useState(0);
+
+  const isValid = comment.length >= ReviewSymbolLength.MIN && comment.length <= ReviewSymbolLength.MAX && rating > 0;
+
+  const handleTextAreaChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setComment(event.target.value);
-  }
-  function HandleInputChange(event: ChangeEvent<HTMLInputElement>) {
-    setRating(event.target.value);
-  }
+  };
+
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setRating(Number(event.target.value));
+  };
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (isValid && !loading && currentOffer) {
+      const reviewData = { id: currentOffer.id, rating, comment };
+      try {
+        await dispatch(postReview(reviewData)).unwrap();
+        setComment('');
+        setRating(0);
+        await dispatch(fetchReviews(currentOffer.id));
+      } catch {
+        // Обработка ошибок
+      }
+    }
+  };
+
 
   return (
-    <form className="reviews__form form" action="#" method="post">
+    <form className="reviews__form form" onSubmit={(event) => {
+      handleSubmit(event).catch(() => { });
+    }}
+    >
       <label className="reviews__label form__label" htmlFor="review">
         Your review
       </label>
       <div className="reviews__rating-form form__rating">
-        {[5, 4, 3, 2, 1]?.map((star) => (
+        {RATING_STARS.map((star) => (
           <React.Fragment key={star}>
             <input
               className="form__rating-input visually-hidden"
               name="rating"
-              value={star.toString()}
+              value={star}
               id={`${star}-stars`}
               type="radio"
-              onChange={HandleInputChange}
+              onChange={handleInputChange}
+              checked={rating === star}
             />
             <label
               htmlFor={`${star}-stars`}
@@ -50,7 +79,7 @@ export const ReviewsForm = (): JSX.Element => {
         name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
         value={comment}
-        onChange={HandleTextAreaChange}
+        onChange={handleTextAreaChange}
       />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
@@ -62,13 +91,12 @@ export const ReviewsForm = (): JSX.Element => {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={!isValid}
+          disabled={!isValid || loading}
         >
           Submit
         </button>
       </div>
+      {error && <div className="error-message">{error}</div>}
     </form>
   );
 };
-
-
