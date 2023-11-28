@@ -13,6 +13,7 @@ type MapProps = {
   city: City;
   offers: OfferType[];
   className: string;
+  activeOfferId?: string | null;
 };
 
 const defaultCustomIcon = new Icon({
@@ -28,9 +29,10 @@ const currentCustomIcon = new Icon({
 });
 
 export const Map = (props: MapProps): JSX.Element => {
-  const { city, offers, className } = props;
+  const { city, offers, className, activeOfferId } = props;
 
   const hoveredOfferId = useAppSelector(selectHoveredOfferId);
+  const effectiveActiveOfferId = activeOfferId ?? hoveredOfferId;
   const mapRef = useRef(null);
   const map = useMap({ mapRef, city });
 
@@ -51,7 +53,7 @@ export const Map = (props: MapProps): JSX.Element => {
 
         marker
           .setIcon(
-            hoveredOfferId !== null && offer.id === hoveredOfferId
+            effectiveActiveOfferId !== null && offer.id === effectiveActiveOfferId
               ? currentCustomIcon
               : defaultCustomIcon
           )
@@ -64,7 +66,7 @@ export const Map = (props: MapProps): JSX.Element => {
         markerLayer.clearLayers();
       };
     }
-  }, [map, offers, hoveredOfferId]);
+  }, [map, offers, effectiveActiveOfferId]);
 
   return <section className={`${className} map`} ref={mapRef}></section>;
 };

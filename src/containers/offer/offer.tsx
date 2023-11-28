@@ -21,7 +21,6 @@ import { fetchNearPlaces } from '../../store/features/near-places/thunk-near-pla
 import { selectSortedAndLimitedReviews } from '../../store/features/reviews/selectors';
 import { fetchReviews } from '../../store/features/reviews/thunk-reviews';
 
-
 const Offer = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -45,6 +44,11 @@ const Offer = () => {
     }
   }, [id, dispatch, navigate]);
 
+  let offersForMap = nearbyOffers.slice(0, 3);
+  if (currentOffer && !nearbyOffers.some((offer) => offer.id === currentOffer.id)) {
+    offersForMap = [currentOffer, ...offersForMap];
+  }
+
   if (loading) {
     return <Spinner />;
   }
@@ -60,7 +64,7 @@ const Offer = () => {
           <title>{`6 cities-Offer: ${currentOffer.title}`}</title>
         </Helmet>
         <section className="offer">
-          < OfferGallery images={currentOffer.images} />
+          <OfferGallery images={currentOffer.images} />
           <div className="offer__container container">
             <div className="offer__wrapper">
               <OfferPlace
@@ -83,7 +87,7 @@ const Offer = () => {
               </section>
             </div>
           </div>
-          {currentOffer.city && <Map city={currentOffer.city} offers={nearbyOffers.slice(0, 3)} className="offer__map" />}
+          {currentOffer.city && <Map city={currentOffer.city} offers={offersForMap} className="offer__map" activeOfferId={currentOffer.id} />}
         </section>
         <div className="container">
           <section className="near-places places">
@@ -103,3 +107,4 @@ const Offer = () => {
 };
 
 export default Offer;
+
