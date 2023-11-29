@@ -54,9 +54,3 @@ const offersSlice = createSlice({
 
 export const { changeCity, applySorting, changeSorting, setLoading } = offersSlice.actions;
 export default offersSlice.reducer;
-
-// changeCity - измененяю выбранный город
-// setOffers - получаю список предложений
-// applySorting - сортирую список предложений
-// changeSorting - меняю сортировку
-// setLoading - добавляю загрузку спинера

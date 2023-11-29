@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet-async';
 
 import { useAppDispatch, useAppSelector } from '../../hooks/store-hooks';
 import { fetchOffers } from '../../store/features/offers/thunk-offers';
-import { selectCurrentSorting, selectFilteredOffers } from '../../store/features/offers/selectors';
+import { offerLoading, selectCurrentSorting, selectFilteredOffers } from '../../store/features/offers/selectors';
 import { Spinner } from '../../components/commons/spinner';
 import { CityTabs } from '../../components/main/sity-tabs';
 import { Sorting } from '../../components/main/sorting';
@@ -14,7 +14,7 @@ const Main = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const offers = useAppSelector(selectFilteredOffers);
   const currentSorting = useAppSelector(selectCurrentSorting);
-  const loading = useAppSelector((state) => state.offers.loading);
+  const loading = useAppSelector(offerLoading);
 
   useEffect(() => {
     dispatch(fetchOffers());

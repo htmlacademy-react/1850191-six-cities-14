@@ -1,11 +1,25 @@
 import { FavoriteLocation } from '../../components/favorites/favorite-location/favorite-location ';
 import { Helmet } from 'react-helmet-async';
-import { useAppSelector } from '../../hooks/store-hooks';
-import { selectFavoriteOffers } from '../../store/features/offers/selectors';
+import { useAppDispatch, useAppSelector } from '../../hooks/store-hooks';
+import { selectFavoritesLoading, selectFavoritesOffers } from '../../store/features/favorites/selectors';
+import { Spinner } from '../../components/commons/spinner';
+import { fetchFavorites } from '../../store/features/favorites/thunk-favorites';
+import { useEffect } from 'react';
 
 
-const Favorites: React.FC = () => {
-  const favoriteOffers = useAppSelector(selectFavoriteOffers);
+const Favorites = (): JSX.Element => {
+  const dispatch = useAppDispatch();
+  const favoriteOffers = useAppSelector(selectFavoritesOffers);
+  const loading = useAppSelector(selectFavoritesLoading);
+
+  useEffect(() => {
+    dispatch(fetchFavorites());
+  }, [dispatch]);
+
+
+  if (loading) {
+    return <Spinner />;
+  }
 
   return (
     <div className="page__favorites-container container">

@@ -6,7 +6,7 @@ import { OfferType } from '../../../types/offer-preview';
 export const selectCurrentCity = (state: RootState) => state.offers.currentCity;
 export const selectOffers = (state: RootState) => state.offers.offers;
 export const selectCurrentSorting = (state: RootState) => state.offers.currentSorting;
-
+export const offerLoading = (state: RootState) => state.offers.loading;
 export const selectSortedOffers = createSelector(
   [selectOffers, selectCurrentSorting],
   (offers, currentSorting): OfferType[] => sorting[currentSorting](offers)
@@ -24,9 +24,3 @@ export const selectCurrentCityDetails = createSelector(
     return offerForCurrentCity ? offerForCurrentCity.city : null;
   }
 );
-/** selectCurrentCity возвращает текущий выбранный город. */
-/** electOffers возвращает текущий список предложений.*/
-/** selectCurrentSorting возвращает текущий тип сортировки. */
-/** selectSortedOffers создает селектор для сортировки предложений в соответствии с выбранным типом сортировки. */
-/** selectFilteredOffers создает селектор для фильтрации предложений по текущему городу. */
-/** selectCurrentCityDetails вернет полный объект City на основе текущего CityName */

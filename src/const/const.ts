@@ -53,6 +53,7 @@ export enum APIRoute {
   Logout = '/logout',
   NearPlaces = '/nearby',
   Reviews = '/comments',
+  Favorite = '/favorite',
 }
 
 export const RATING_STARS = [5, 4, 3, 2, 1];
