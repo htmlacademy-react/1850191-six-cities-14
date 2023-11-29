@@ -26,10 +26,17 @@ export const apiClient = (): AxiosInstance => {
   api.interceptors.response.use(
     (response) => response,
     (error: AxiosError) => {
-      if (error.response?.status === 400) {
-        const errorMessage = typeof error.response.data === 'string' ? error.response.data : 'Bad request';
-        return Promise.reject(new Error(errorMessage));
+      if (error.response) {
+        switch (error.response.status) {
+          case 400:
+            return Promise.reject(new Error('Bad request'));
+          case 404:
+            return Promise.reject(new Error('Not found'));
+          default:
+            return Promise.reject(error);
+        }
       }
+
       return Promise.reject(error);
     }
   );

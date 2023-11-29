@@ -12,7 +12,8 @@ import browserHistory from './providers/history-route/browser-history';
 import HistoryRouter from './providers/history-route/history-route';
 import { useSelector } from 'react-redux';
 import { selectFilteredOffers } from './store/features/offers/selectors';
-
+import { fetchOffers } from './store/features/offers/thunk-offers';
+import { store } from './store/configure-store';
 
 const Main = lazy(() => import('./pages/main/main'));
 const MainEmpty = lazy(() => import('./pages/main-empty/main-empty'));
@@ -21,6 +22,7 @@ const Offer = lazy(() => import('./pages/offer/offer'));
 const Login = lazy(() => import('./pages/login/login'));
 const NotFound = lazy(() => import('./pages/not-found/not-found'));
 
+store.dispatch(fetchOffers());
 
 const App = (): JSX.Element => {
 

@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from '../../../hooks/store-hooks';
 import { selectAuthorizationStatus } from '../../../store/features/auth/selectors';
 import { selectUserInfo } from '../../../store/features/user/selectors';
 import { logout } from '../../../store/features/auth/thunk-logout';
-import { memo, useCallback } from 'react';
+import { memo } from 'react';
 
 type HeaderProps = {
   showNav?: boolean;
@@ -15,9 +15,9 @@ export const Header = memo(({ showNav = true }: HeaderProps): JSX.Element => {
   const authorizationStatus = useAppSelector(selectAuthorizationStatus);
   const userInfo = useAppSelector(selectUserInfo);
 
-  const handleLogout = useCallback(() => {
+  const handleLogout = () => {
     dispatch(logout());
-  }, [dispatch]);
+  };
 
   return (
     <header className="header">

@@ -11,6 +11,8 @@ export const ReviewsItem = memo(({ review }: ReviewsItemProps): JSX.Element => {
     width: `${review.rating * 20}%`
   }), [review.rating]);
 
+  const formattedDate = new Date(review.date).toLocaleString('en-US', { month: 'long', year: 'numeric' });
+
   return (
     <li className="reviews__item">
       <div className="reviews__user user">
@@ -34,7 +36,7 @@ export const ReviewsItem = memo(({ review }: ReviewsItemProps): JSX.Element => {
         </div>
         <p className="reviews__text">{review.comment}</p>
         <time className="reviews__time" dateTime={review.date}>
-          {new Date(review.date).toLocaleString('en-US', { month: 'long', year: 'numeric' })}
+          {formattedDate}
         </time>
       </div>
     </li>

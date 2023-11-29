@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { fetchFavorites } from './thunk-favorites';
 import { OfferType } from '../../../types/offer-preview';
 
-interface FavoritesState {
+type FavoritesState = {
   offers: OfferType[];
   loading: boolean;
 }

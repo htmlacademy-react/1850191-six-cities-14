@@ -4,21 +4,21 @@ import { OfferType } from '../../../types/offer-preview';
 import { capitalize } from '../../../utils/common';
 import { resetHoveredOfferId, setHoveredOfferId } from '../../../store/features/offer-card';
 import { useAppDispatch } from '../../../hooks/store-hooks';
-import { useCallback, useMemo } from 'react';
+import { memo, useCallback, useMemo } from 'react';
 
 type OfferCardProps = {
   offer: OfferType;
   className?: string;
 };
 
-export const OfferCard = ({ offer, className }: OfferCardProps): JSX.Element => {
+export const OfferCard = memo(({ offer, className }: OfferCardProps): JSX.Element => {
   const dispatch = useAppDispatch();
 
-  const HandlemouseEnter = useCallback(() => {
+  const handlemouseEnter = useCallback(() => {
     dispatch(setHoveredOfferId(offer.id));
   }, [dispatch, offer.id]);
 
-  const HandlemouseLeave = useCallback(() => {
+  const handlemouseLeave = useCallback(() => {
     dispatch(resetHoveredOfferId());
   }, [dispatch]);
 
@@ -29,8 +29,8 @@ export const OfferCard = ({ offer, className }: OfferCardProps): JSX.Element => 
   return (
     <article
       className={`${className ? className : 'cities__card'} place-card`}
-      onMouseEnter={HandlemouseEnter}
-      onMouseLeave={HandlemouseLeave}
+      onMouseEnter={handlemouseEnter}
+      onMouseLeave={handlemouseLeave}
     >
       {offer.isPremium && (
         <div className="place-card__mark">
@@ -85,4 +85,6 @@ export const OfferCard = ({ offer, className }: OfferCardProps): JSX.Element => 
       </div>
     </article>
   );
-};
+});
+
+OfferCard.displayName = 'OfferCard';
