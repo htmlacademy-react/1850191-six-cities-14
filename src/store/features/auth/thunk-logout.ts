@@ -5,6 +5,7 @@ import { dropToken } from '../../../services/token';
 import { setAuthorizationStatus } from '../auth';
 import { setUserInfo } from '../user';
 import { AuthorizationStatus } from '../../../const/const';
+import { clearFavorites } from '../favorites';
 
 export const logout = createAsyncThunk<void, undefined, { extra: { api: AxiosInstance } }>(
   'authorization/logout',
@@ -13,5 +14,6 @@ export const logout = createAsyncThunk<void, undefined, { extra: { api: AxiosIns
     dropToken();
     dispatch(setAuthorizationStatus(AuthorizationStatus.NoAuth));
     dispatch(setUserInfo(null));
+    dispatch(clearFavorites());
   }
 );

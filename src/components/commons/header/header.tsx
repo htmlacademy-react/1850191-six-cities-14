@@ -4,16 +4,17 @@ import { useAppDispatch, useAppSelector } from '../../../hooks/store-hooks';
 import { selectAuthorizationStatus } from '../../../store/features/auth/selectors';
 import { selectUserInfo } from '../../../store/features/user/selectors';
 import { logout } from '../../../store/features/auth/thunk-logout';
-import { memo } from 'react';
+import { selectFavoritesOffers } from '../../../store/features/favorites/selectors';
 
 type HeaderProps = {
   showNav?: boolean;
 }
 
-export const Header = memo(({ showNav = true }: HeaderProps): JSX.Element => {
+export const Header = ({ showNav = true }: HeaderProps): JSX.Element => {
   const dispatch = useAppDispatch();
   const authorizationStatus = useAppSelector(selectAuthorizationStatus);
   const userInfo = useAppSelector(selectUserInfo);
+  const favoritesOffers = useAppSelector(selectFavoritesOffers);
 
   const handleLogout = () => {
     dispatch(logout());
@@ -39,6 +40,7 @@ export const Header = memo(({ showNav = true }: HeaderProps): JSX.Element => {
                           <img src={userInfo.avatarUrl} alt="User avatar" />
                         </div>
                         <span className="header__user-name user__name">{userInfo.email}</span>
+                        <span className="header__favorite-count">{favoritesOffers.length}</span>
                       </Link>
                     </li>
                     <li className="header__nav-item">
@@ -64,6 +66,6 @@ export const Header = memo(({ showNav = true }: HeaderProps): JSX.Element => {
       </div>
     </header>
   );
-});
+};
 
-Header.displayName = 'Header';
+

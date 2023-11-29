@@ -8,7 +8,7 @@ import nearPlacesReducer from './features/near-places';
 import reviewsReducer from './features/reviews';
 import postReviewReducer from './features/reviews-post';
 import favoritesReducer from './features/favorites';
-import postFavoritesReducer from './features/favorites-post';
+
 import { apiClient } from '../services/api-client';
 
 export const api = apiClient();
@@ -23,7 +23,6 @@ const rootReducer = combineReducers({
   reviews: reviewsReducer,
   postReview: postReviewReducer,
   favorites: favoritesReducer,
-  postFavorites: postFavoritesReducer,
 });
 
 export const store = configureStore({

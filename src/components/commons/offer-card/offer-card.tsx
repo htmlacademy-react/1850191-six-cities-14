@@ -1,10 +1,12 @@
-import { Link } from 'react-router-dom';
-import { AppRoute } from '../../../const/const';
+import { Link, useNavigate } from 'react-router-dom';
+import { AppRoute, AuthorizationStatus } from '../../../const/const';
 import { OfferType } from '../../../types/offer-preview';
 import { capitalize } from '../../../utils/common';
 import { resetHoveredOfferId, setHoveredOfferId } from '../../../store/features/offer-card';
-import { useAppDispatch } from '../../../hooks/store-hooks';
-import { memo, useCallback, useMemo } from 'react';
+import { useAppDispatch, useAppSelector } from '../../../hooks/store-hooks';
+import { memo, useCallback, useMemo, useState } from 'react';
+import { changeFavoriteStatus } from '../../../store/features/favorites/thunk-post-favorites';
+import { selectAuthorizationStatus } from '../../../store/features/auth/selectors';
 
 type OfferCardProps = {
   offer: OfferType;
@@ -13,6 +15,9 @@ type OfferCardProps = {
 
 export const OfferCard = memo(({ offer, className }: OfferCardProps): JSX.Element => {
   const dispatch = useAppDispatch();
+  const [isFavoriteLocal, setIsFavoriteLocal] = useState(offer.isFavorite);
+  const authorizationStatus = useAppSelector(selectAuthorizationStatus);
+  const navigate = useNavigate();
 
   const handlemouseEnter = useCallback(() => {
     dispatch(setHoveredOfferId(offer.id));
@@ -25,6 +30,18 @@ export const OfferCard = memo(({ offer, className }: OfferCardProps): JSX.Elemen
   const ratingStyle = useMemo(() => ({
     width: `${(offer.rating / 5) * 100}%`
   }), [offer.rating]);
+
+  const handleFavoriteClick = () => {
+    if (authorizationStatus !== AuthorizationStatus.Auth) {
+      navigate(AppRoute.Login);
+      return;
+    }
+
+    const newStatus = !isFavoriteLocal;
+    setIsFavoriteLocal(newStatus);
+    dispatch(changeFavoriteStatus({ id: offer.id, status: newStatus ? 1 : 0 }));
+  };
+
 
   return (
     <article
@@ -55,8 +72,9 @@ export const OfferCard = memo(({ offer, className }: OfferCardProps): JSX.Elemen
             <span className="place-card__price-text">/&nbsp;night</span>
           </div>
           <button
-            className={`place-card__bookmark-button button ${offer.isFavorite ? 'place-card__bookmark-button--active' : ''}`}
+            className={`place-card__bookmark-button button ${isFavoriteLocal ? 'place-card__bookmark-button--active' : ''}`}
             type="button"
+            onClick={handleFavoriteClick}
           >
             <svg
               className="place-card__bookmark-icon"
