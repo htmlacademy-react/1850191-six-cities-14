@@ -1,1 +1,1 @@
-export { MainEmpty } from './main-empty';
+export { default as MainEmpty } from './main-empty';

@@ -1,5 +1,5 @@
 import { OfferType } from '../../../types/offer-preview';
-import { FavoriteCard } from '../favorite-card';
+import { Cards } from '../../commons/cards';
 
 
 type FavoriteLocationProps = {
@@ -8,7 +8,7 @@ type FavoriteLocationProps = {
 
 export const FavoriteLocation = ({ offers }: FavoriteLocationProps): JSX.Element => (
   <ul className="favorites__list">
-    {offers.filter((offer) => offer.isFavorite)?.map((offer) => (
+    {offers.filter((offer) => offer.isFavorite).map((offer) => (
       <li key={offer.id} className="favorites__locations-items">
         <div className="favorites__locations locations locations--current">
           <div className="locations__item">
@@ -18,9 +18,14 @@ export const FavoriteLocation = ({ offers }: FavoriteLocationProps): JSX.Element
           </div>
         </div>
         <div className="favorites__places">
-          <FavoriteCard offer={offer} />
+          <Cards
+            offer={offer}
+            cardType="favorite"
+          />
         </div>
       </li>
     ))}
   </ul>
 );
+
+export default FavoriteLocation;

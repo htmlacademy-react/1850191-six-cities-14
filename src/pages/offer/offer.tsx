@@ -74,6 +74,7 @@ const Offer = () => {
         <div className="offer__container container">
           <div className="offer__wrapper">
             <OfferPlace
+              offer={currentOffer}
               title={currentOffer.title}
               isPremium={currentOffer.isPremium}
               rating={currentOffer.rating}

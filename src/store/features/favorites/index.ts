@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { OfferType } from '../../../types/offer-preview';
-import { SerializedError } from '@reduxjs/toolkit';
 import { fetchFavorites } from './thunk-favorites';
 import { changeFavoriteStatus } from './thunk-post-favorites';
+import { updateFavoriteOffersList } from '../../../utils/favorites';
 
 type FavoritesState = {
   offers: OfferType[];
@@ -10,7 +10,7 @@ type FavoritesState = {
   favoriteData: OfferType | null;
   favoriteLoading: boolean;
   favoriteError: string | null;
-}
+};
 
 const initialState: FavoritesState = {
   offers: [],
@@ -28,6 +28,9 @@ const favoritesSlice = createSlice({
       state.offers = [];
       state.favoriteData = null;
     },
+    updateOffers: (state, action: PayloadAction<OfferType>) => {
+      state.offers = updateFavoriteOffersList(state.offers, action.payload);
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -43,18 +46,17 @@ const favoritesSlice = createSlice({
       })
       .addCase(changeFavoriteStatus.pending, (state) => {
         state.favoriteLoading = true;
-        state.favoriteError = null;
       })
       .addCase(changeFavoriteStatus.fulfilled, (state, action: PayloadAction<OfferType>) => {
         state.favoriteData = action.payload;
         state.favoriteLoading = false;
       })
-      .addCase(changeFavoriteStatus.rejected, (state, action: PayloadAction<unknown, string, unknown, SerializedError>) => {
+      .addCase(changeFavoriteStatus.rejected, (state, action) => {
         state.favoriteLoading = false;
         state.favoriteError = action.error.message || 'Error changing favorite status';
       });
   },
 });
 
-export const { clearFavorites } = favoritesSlice.actions;
+export const { clearFavorites, updateOffers } = favoritesSlice.actions;
 export default favoritesSlice.reducer;
