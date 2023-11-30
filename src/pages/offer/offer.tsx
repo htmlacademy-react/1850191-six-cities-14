@@ -103,7 +103,7 @@ const Offer = () => {
             {isNearbyOffersLoading ? (
               <div>Loading nearby places...</div>
             ) : (
-              <ListOffers offers={nearbyOffers.slice(0, 3)} className="near-places__card" />
+              <ListOffers offers={nearbyOffers.slice(0, 3)} cardType="offer" />
             )}
           </div>
         </section>

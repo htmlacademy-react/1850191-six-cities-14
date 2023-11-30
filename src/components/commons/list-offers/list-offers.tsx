@@ -5,15 +5,16 @@ import { Cards } from '../cards';
 
 type ListOffersProps = {
   offers: OfferType[];
+  cardType: 'main' | 'offer';
 };
 
-export const ListOffers = memo(({ offers }: ListOffersProps): JSX.Element => (
+export const ListOffers = memo(({ offers, cardType }: ListOffersProps): JSX.Element => (
   <>
     {offers.map((offer) => (
       <Cards
         key={offer.id}
         offer={offer}
-        cardType="offer"
+        cardType={cardType}
       />
     ))}
   </>

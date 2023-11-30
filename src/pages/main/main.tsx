@@ -40,7 +40,7 @@ const Main = (): JSX.Element => {
             <b className="places__found">{offers.length} place{offers.length !== 1 ? 's' : ''} to stay in {currentCityData?.name}</b>
             <Sorting activeSorting={currentSorting} />
             <div className="cities__places-list places__list tabs__content">
-              <ListOffers offers={offers} />
+              <ListOffers offers={offers} cardType="main" />
             </div>
           </section>
           <div className="cities__right-section">

@@ -6,18 +6,33 @@ import { FavoriteButton } from '../favorite-button';
 import { memo, useCallback, useMemo } from 'react';
 import { useAppDispatch } from '../../../hooks/store-hooks';
 import { setHoveredOfferId, resetHoveredOfferId } from '../../../store/features/offer-card';
+import classNames from 'classnames';
 
 type CardsProps = {
   offer: OfferType;
-  cardType: 'offer' | 'favorite';
+  cardType: 'main' | 'offer' | 'favorite';
 };
 
 export const Cards = memo(({ offer, cardType }: CardsProps): JSX.Element => {
   const dispatch = useAppDispatch();
+
   const isFavoriteCard = cardType === 'favorite';
-  const cardClass = isFavoriteCard ? 'favorites__card' : 'cities__card';
-  const imageWrapperClass = `place-card__image-wrapper${isFavoriteCard ? ' favorites__image-wrapper' : ''}`;
-  const cardInfoClass = `place-card__info${isFavoriteCard ? ' favorites__card-info' : ''}`;
+
+
+  const cardClass = classNames({
+    'cities__card': cardType === 'main',
+    'near-places__card': cardType === 'offer',
+    'favorites__card': cardType === 'favorite',
+  });
+
+  const imageWrapperClass = classNames('place-card__image-wrapper', {
+    'favorites__image-wrapper': cardType === 'favorite'
+  });
+
+  const cardInfoClass = classNames('place-card__info', {
+    'favorites__card-info': cardType === 'favorite'
+  });
+
   const imageSize = isFavoriteCard ? { width: 150, height: 110 } : { width: 260, height: 200 };
 
   const handlemouseEnter = useCallback(() => {
