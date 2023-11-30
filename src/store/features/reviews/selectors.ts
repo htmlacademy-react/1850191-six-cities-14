@@ -2,7 +2,7 @@ import { createSelector } from '@reduxjs/toolkit';
 import { RootState } from '../../configure-store';
 import { ReviewType } from '../../../types/review-type';
 
-const selectReviews = (state: RootState): ReviewType => state.reviews.reviews;
+export const selectReviews = (state: RootState): ReviewType => state.reviews.reviews;
 export const selectLoadingReviews = (state: RootState) => state.reviews.loading;
 
 export const selectSortedAndLimitedReviews = createSelector(

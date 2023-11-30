@@ -18,7 +18,7 @@ import { selectCurrentOffer, selectCurrentOfferLoading } from '../../store/featu
 import { selectNearPlacesOffers, selectNearPlacesLoading } from '../../store/features/near-places/selectors';
 import { fetchOfferById } from '../../store/features/offer-active/thunk-offer';
 import { fetchNearPlaces } from '../../store/features/near-places/thunk-near-places';
-import { selectSortedAndLimitedReviews } from '../../store/features/reviews/selectors';
+import { selectReviews, selectSortedAndLimitedReviews } from '../../store/features/reviews/selectors';
 import { fetchReviews } from '../../store/features/reviews/thunk-reviews';
 import { AxiosError } from 'axios';
 
@@ -33,6 +33,7 @@ const Offer = () => {
   const sortedAndLimitedReviews = useAppSelector(selectSortedAndLimitedReviews);
   const authorizationStatus = useAppSelector(selectAuthorizationStatus);
   const isUserAuthorized = authorizationStatus === AuthorizationStatus.Auth;
+  const allReviews = useAppSelector(selectReviews);
 
   useEffect(() => {
     if (id) {
@@ -87,7 +88,7 @@ const Offer = () => {
             <OfferHost host={currentOffer.host} description={currentOffer.description} />
             <section className="offer__reviews reviews">
               <h2 className="reviews__title">
-                Reviews · <span className="reviews__amount">{sortedAndLimitedReviews.length}</span>
+                Reviews · <span className="reviews__amount">{allReviews.length}</span>
               </h2>
               <ReviewsList reviews={sortedAndLimitedReviews} />
               {isUserAuthorized && <ReviewsForm />}
