@@ -10,11 +10,14 @@ import { PublicRoute } from './components/commons/public-route';
 import ScrollToTop from './utils/scroll-top';
 import browserHistory from './providers/history-route/browser-history';
 import HistoryRouter from './providers/history-route/history-route';
-import { selectFilteredOffers } from './store/features/offers/selectors';
+
 import { selectFavoritesOffers } from './store/features/favorites/selectors';
 import { fetchOffers } from './store/features/offers/thunk-offers';
 import { useAppDispatch, useAppSelector } from './hooks/store-hooks';
 import { checkAuthStatus } from './store/features/auth/thunk-check-auth';
+import { selectFilteredOffers } from './store/features/offers/selectors';
+import { selectIsAuthCheckedAndAuthorized } from './store/features/auth/selectors';
+import { fetchFavorites } from './store/features/favorites/thunk-favorites';
 
 const Main = lazy(() => import('./pages/main/main'));
 const MainEmpty = lazy(() => import('./pages/main-empty/main-empty'));
@@ -26,10 +29,18 @@ const NotFound = lazy(() => import('./pages/not-found/not-found'));
 
 const App = (): JSX.Element => {
   const dispatch = useAppDispatch();
+  const isAuthCheckedAndAuthorized = useAppSelector(selectIsAuthCheckedAndAuthorized);
+
   useEffect(() => {
     dispatch(checkAuthStatus());
     dispatch(fetchOffers());
   }, [dispatch]);
+
+  useEffect(() => {
+    if (isAuthCheckedAndAuthorized) {
+      dispatch(fetchFavorites());
+    }
+  }, [dispatch, isAuthCheckedAndAuthorized]);
 
   const filteredOffers = useAppSelector(selectFilteredOffers);
   const favoriteOffers = useAppSelector(selectFavoritesOffers);
