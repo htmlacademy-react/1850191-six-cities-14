@@ -15,9 +15,7 @@ type CardsProps = {
 
 export const Cards = memo(({ offer, cardType }: CardsProps): JSX.Element => {
   const dispatch = useAppDispatch();
-
   const isFavoriteCard = cardType === 'favorite';
-
 
   const cardClass = classNames({
     'cities__card': cardType === 'main',

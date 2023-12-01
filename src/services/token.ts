@@ -2,7 +2,7 @@ const AUTH_TOKEN_KEY_NAME = 'test';
 
 export type Token = string
 
-export const getToken = ():Token => {
+export const getToken = (): Token => {
   const token = localStorage.getItem(AUTH_TOKEN_KEY_NAME);
   return token ?? '';
 };

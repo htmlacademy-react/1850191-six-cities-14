@@ -2,7 +2,6 @@ import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import offersReducer from './features/offers';
 import authorizationReducer from './features/auth';
 import currentOfferReducer from './features/offer-active';
-import userReducer from './features/user';
 import hoverOfferIdReducer from './features/offer-card';
 import nearPlacesReducer from './features/near-places';
 import reviewsReducer from './features/reviews';
@@ -17,7 +16,6 @@ const rootReducer = combineReducers({
   offers: offersReducer,
   currentOffer: currentOfferReducer,
   authorization: authorizationReducer,
-  user: userReducer,
   hoverOfferId: hoverOfferIdReducer,
   nearPlaces: nearPlacesReducer,
   reviews: reviewsReducer,

@@ -15,6 +15,7 @@ import { selectFilteredOffers } from './store/features/offers/selectors';
 import { selectFavoritesOffers } from './store/features/favorites/selectors';
 import { fetchOffers } from './store/features/offers/thunk-offers';
 import { store } from './store/configure-store';
+import { checkAuthStatus } from './store/features/auth/thunk-check-auth';
 
 const Main = lazy(() => import('./pages/main/main'));
 const MainEmpty = lazy(() => import('./pages/main-empty/main-empty'));
@@ -25,6 +26,7 @@ const Login = lazy(() => import('./pages/login/login'));
 const NotFound = lazy(() => import('./pages/not-found/not-found'));
 
 store.dispatch(fetchOffers());
+store.dispatch(checkAuthStatus());
 
 const App = (): JSX.Element => {
 

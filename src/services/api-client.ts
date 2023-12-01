@@ -11,16 +11,13 @@ export const apiClient = (): AxiosInstance => {
   });
 
   /** Перехватчик запросов */
-  api.interceptors.request.use(
-    (config) => {
-      const token = getToken();
-
-      if (token && config.headers) {
-        config.headers['x-token'] = token;
-      }
-      return config;
+  api.interceptors.request.use((config) => {
+    const token = getToken();
+    if (token && config.headers) {
+      config.headers['x-token'] = token;
     }
-  );
+    return config;
+  });
 
   /** Перехватчик ответов */
   api.interceptors.response.use(
