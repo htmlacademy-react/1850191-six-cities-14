@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 
 const MainEmpty = () => (
-  <>
+  <main className="page__main page__main--index page__main--index-empty">
     <Helmet>
       <title>{'6 cities-empty'}</title>
     </Helmet>
@@ -19,6 +19,6 @@ const MainEmpty = () => (
         <div className="cities__right-section" />
       </div>
     </div>
-  </>
+  </main>
 );
 export default MainEmpty;

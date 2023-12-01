@@ -1,29 +1,27 @@
-import { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
+import { useAppSelector } from '../../hooks/store-hooks';
 
-import { useAppDispatch, useAppSelector } from '../../hooks/store-hooks';
-import { fetchOffers } from '../../store/features/offers/thunk-offers';
 import { offerLoading, selectCurrentSorting, selectFilteredOffers } from '../../store/features/offers/selectors';
 import { Spinner } from '../../components/commons/spinner';
 import { CityTabs } from '../../components/main/sity-tabs';
 import { Sorting } from '../../components/main/sorting';
 import { ListOffers } from '../../components/commons/list-offers';
 import { Map } from '../../components/commons/map';
+import { MainEmpty } from '../main-empty';
 
 const Main = (): JSX.Element => {
-  const dispatch = useAppDispatch();
+
   const offers = useAppSelector(selectFilteredOffers);
   const currentSorting = useAppSelector(selectCurrentSorting);
   const loading = useAppSelector(offerLoading);
-
-  useEffect(() => {
-    dispatch(fetchOffers());
-  }, [dispatch]);
-
   const currentCityData = offers[0]?.city;
 
   if (loading) {
     return <Spinner />;
+  }
+
+  if (offers.length === 0) {
+    return <MainEmpty />;
   }
 
   return (
