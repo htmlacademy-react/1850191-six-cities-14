@@ -8,6 +8,7 @@ import { AuthData } from '../../../types/auth-data';
 import { saveToken } from '../../../services/token';
 import { setAuthorizationStatus, updateUserAndStatus } from './';
 import { redirectToRoute } from '../../middleware/action';
+import { fetchFavorites } from '../favorites/thunk-favorites';
 
 
 export const login = createAsyncThunk<AuthInfo, AuthData,{ extra: { api: AxiosInstance }}> (
@@ -18,6 +19,7 @@ export const login = createAsyncThunk<AuthInfo, AuthData,{ extra: { api: AxiosIn
     saveToken(userData.token);
     dispatch(setAuthorizationStatus(AuthorizationStatus.Auth));
     dispatch(updateUserAndStatus({ user: userData, status: 'success' }));
+    dispatch(fetchFavorites());
     dispatch(redirectToRoute(AppRoute.Main));
     return userData;
   }
