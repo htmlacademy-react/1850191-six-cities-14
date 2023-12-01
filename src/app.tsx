@@ -1,4 +1,4 @@
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import classNames from 'classnames';
@@ -10,11 +10,10 @@ import { PublicRoute } from './components/commons/public-route';
 import ScrollToTop from './utils/scroll-top';
 import browserHistory from './providers/history-route/browser-history';
 import HistoryRouter from './providers/history-route/history-route';
-import { useSelector } from 'react-redux';
 import { selectFilteredOffers } from './store/features/offers/selectors';
 import { selectFavoritesOffers } from './store/features/favorites/selectors';
 import { fetchOffers } from './store/features/offers/thunk-offers';
-import { store } from './store/configure-store';
+import { useAppDispatch, useAppSelector } from './hooks/store-hooks';
 import { checkAuthStatus } from './store/features/auth/thunk-check-auth';
 
 const Main = lazy(() => import('./pages/main/main'));
@@ -25,13 +24,15 @@ const Offer = lazy(() => import('./pages/offer/offer'));
 const Login = lazy(() => import('./pages/login/login'));
 const NotFound = lazy(() => import('./pages/not-found/not-found'));
 
-store.dispatch(fetchOffers());
-store.dispatch(checkAuthStatus());
-
 const App = (): JSX.Element => {
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(checkAuthStatus());
+    dispatch(fetchOffers());
+  }, [dispatch]);
 
-  const filteredOffers = useSelector(selectFilteredOffers);
-  const favoriteOffers = useSelector(selectFavoritesOffers);
+  const filteredOffers = useAppSelector(selectFilteredOffers);
+  const favoriteOffers = useAppSelector(selectFavoritesOffers);
 
   return (
     <HelmetProvider>
