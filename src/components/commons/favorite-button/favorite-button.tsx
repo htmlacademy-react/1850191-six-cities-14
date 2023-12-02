@@ -6,6 +6,8 @@ import { selectFavoritesOffers } from '../../../store/features/favorites/selecto
 import { selectAuthorizationStatus } from '../../../store/features/auth/selectors';
 import { AppRoute, AuthorizationStatus } from '../../../const/const';
 import { OfferType } from '../../../types/offer-preview';
+import { updateOffers } from '../../../store/features/favorites';
+
 
 type FavoriteButtonProps = {
   offer: OfferType;
@@ -33,8 +35,12 @@ export const FavoriteButton = memo(({
       return;
     }
 
-    const newStatus = isFavorite ? 0 : 1;
-    dispatch(changeFavoriteStatus({ id: offer.id, status: newStatus }));
+    const newStatus = !isFavorite;
+
+    dispatch(changeFavoriteStatus({ id: offer.id, status: newStatus ? 1 : 0 }))
+      .then(() => {
+        dispatch(updateOffers({ ...offer, isFavorite: newStatus }));
+      });
   };
 
   return (
