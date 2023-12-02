@@ -14,13 +14,14 @@ import { OfferPlace } from '../../components/offer/offer-place';
 import { AppRoute, AuthorizationStatus } from '../../const/const';
 import { useAppDispatch, useAppSelector } from '../../hooks/store-hooks';
 import { selectAuthorizationStatus } from '../../store/features/auth/selectors';
-import { selectCurrentOffer, selectCurrentOfferLoading } from '../../store/features/offer-active/selectors';
-import { selectNearPlacesOffers, selectNearPlacesLoading } from '../../store/features/near-places/selectors';
+import { selectCurrentOffer, selectCurrentOfferLoading, selectRequestCompleted } from '../../store/features/offer-active/selectors';
+
 import { fetchOfferById } from '../../store/features/offer-active/thunk-offer';
-import { fetchNearPlaces } from '../../store/features/near-places/thunk-near-places';
+import { fetchNearPlaces } from '../../store/features/offers/thunk-near-places';
 import { selectReviews, selectSortedAndLimitedReviews } from '../../store/features/reviews/selectors';
 import { fetchReviews } from '../../store/features/reviews/thunk-reviews';
 import { AxiosError } from 'axios';
+import { nearPlacesLoading, selectNearPlacesOffers } from '../../store/features/offers/selectors';
 
 const Offer = () => {
   const dispatch = useAppDispatch();
@@ -29,11 +30,12 @@ const Offer = () => {
   const currentOffer = useAppSelector(selectCurrentOffer);
   const loading = useAppSelector(selectCurrentOfferLoading);
   const nearbyOffers = useAppSelector(selectNearPlacesOffers);
-  const isNearbyOffersLoading = useAppSelector(selectNearPlacesLoading);
+  const isNearbyOffersLoading = useAppSelector(nearPlacesLoading);
   const sortedAndLimitedReviews = useAppSelector(selectSortedAndLimitedReviews);
   const authorizationStatus = useAppSelector(selectAuthorizationStatus);
   const isUserAuthorized = authorizationStatus === AuthorizationStatus.Auth;
   const allReviews = useAppSelector(selectReviews);
+  const requestCompleted = useAppSelector(selectRequestCompleted);
 
   useEffect(() => {
     if (id) {
@@ -57,12 +59,12 @@ const Offer = () => {
     return offers;
   }, [nearbyOffers, currentOffer]);
 
-  if (loading) {
+  if (loading || !requestCompleted) {
     return <Spinner />;
   }
 
   if (!currentOffer) {
-    return <Navigate to={AppRoute.Main} />;
+    return <Navigate to={AppRoute.NotFound} />;
   }
 
   return (

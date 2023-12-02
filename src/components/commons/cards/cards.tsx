@@ -5,7 +5,7 @@ import { capitalize } from '../../../utils/common';
 import { FavoriteButton } from '../favorite-button';
 import { memo, useCallback, useMemo } from 'react';
 import { useAppDispatch } from '../../../hooks/store-hooks';
-import { setHoveredOfferId, resetHoveredOfferId } from '../../../store/features/offer-card';
+import { setHoveredOfferId, resetHoveredOfferId } from '../../../store/features/offer-card-hover';
 import classNames from 'classnames';
 
 type CardsProps = {

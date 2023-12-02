@@ -6,7 +6,7 @@ import { MapMarkerSVG } from '../../../const/const';
 import 'leaflet/dist/leaflet.css';
 import { OfferType } from '../../../types/offer-preview';
 import { useAppSelector } from '../../../hooks/store-hooks';
-import { selectHoveredOfferId } from '../../../store/features/offer-card/selectors';
+import { selectHoveredOfferId } from '../../../store/features/offer-card-hover/selectors';
 
 
 type MapProps = {

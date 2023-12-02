@@ -1,10 +1,10 @@
 import React, { useState, ChangeEvent, FormEvent, useCallback } from 'react';
 import { RATING_STARS, ReviewSymbolLength } from '../../../const/const';
 import { useAppDispatch, useAppSelector } from '../../../hooks/store-hooks';
-import { selectPostReviewError, selectPostReviewLoading } from '../../../store/features/reviews-post/selectors';
 import { selectCurrentOffer } from '../../../store/features/offer-active/selectors';
-import { postReview } from '../../../store/features/reviews-post/thunk-post-review';
+import { postReview } from '../../../store/features/reviews/thunk-post-review';
 import { fetchReviews } from '../../../store/features/reviews/thunk-reviews';
+import { selectPostReviewError, selectPostReviewLoading } from '../../../store/features/reviews/selectors';
 
 export const ReviewsForm = (): JSX.Element => {
   const dispatch = useAppDispatch();
