@@ -1,8 +1,8 @@
-import { memo, useEffect, useState } from 'react';
+import { memo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../hooks/store-hooks';
 import { changeFavoriteStatus } from '../../../store/features/favorites/thunk-post-favorites';
-import { updateOffers } from '../../../store/features/favorites'; // Убедитесь, что этот экшн экспортирован из вашего слайса
+import { selectFavoritesOffers } from '../../../store/features/favorites/selectors';
 import { selectAuthorizationStatus } from '../../../store/features/auth/selectors';
 import { AppRoute, AuthorizationStatus } from '../../../const/const';
 import { OfferType } from '../../../types/offer-preview';
@@ -21,14 +21,11 @@ export const FavoriteButton = memo(({
 }: FavoriteButtonProps): JSX.Element => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const favorites = useAppSelector(selectFavoritesOffers);
   const authorizationStatus = useAppSelector(selectAuthorizationStatus);
-  const [isFavoriteLocal, setIsFavoriteLocal] = useState(offer.isFavorite);
 
-  useEffect(() => {
-    if (authorizationStatus !== AuthorizationStatus.Auth) {
-      setIsFavoriteLocal(false);
-    }
-  }, [authorizationStatus]);
+
+  const isFavorite = favorites.some((favoriteOffer) => favoriteOffer.id === offer.id);
 
   const handleFavoriteClick = () => {
     if (authorizationStatus !== AuthorizationStatus.Auth) {
@@ -36,18 +33,13 @@ export const FavoriteButton = memo(({
       return;
     }
 
-    const newStatus = !isFavoriteLocal;
-    setIsFavoriteLocal(newStatus);
-
-    dispatch(changeFavoriteStatus({ id: offer.id, status: newStatus ? 1 : 0 }))
-      .then(() => {
-        dispatch(updateOffers({ ...offer, isFavorite: newStatus })); // Обновление Redux Store после изменения статуса избранного
-      });
+    const newStatus = isFavorite ? 0 : 1;
+    dispatch(changeFavoriteStatus({ id: offer.id, status: newStatus }));
   };
 
   return (
     <button
-      className={`button ${buttonClass} ${isFavoriteLocal ? buttonActiveClass : ''}`}
+      className={`button ${buttonClass} ${isFavorite ? buttonActiveClass : ''}`}
       type="button"
       onClick={handleFavoriteClick}
     >
