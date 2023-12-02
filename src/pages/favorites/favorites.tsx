@@ -1,11 +1,10 @@
 import { FavoriteLocation } from '../../components/favorites/favorite-location/favorite-location ';
 import { Helmet } from 'react-helmet-async';
-import { useAppDispatch, useAppSelector } from '../../hooks/store-hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks/use-store-hooks';
 import { selectFavoritesLoading, selectFavoritesOffers } from '../../store/features/favorites/selectors';
 import { Spinner } from '../../components/commons/spinner';
 import { fetchFavorites } from '../../store/features/favorites/thunk-favorites';
 import { useEffect } from 'react';
-
 
 const Favorites = (): JSX.Element => {
   const dispatch = useAppDispatch();

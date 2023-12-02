@@ -29,20 +29,14 @@ const offersSlice = createSlice({
   name: 'propertyOffers',
   initialState,
   reducers: {
-    changeCity: (state, action: PayloadAction<CityName>) => {
+    cityChange: (state, action: PayloadAction<CityName>) => {
       state.currentCity = action.payload;
     },
-    applySorting: (state) => {
+    sortedOffers: (state) => {
       state.offers = sorting[state.currentSorting](state.offers);
     },
-    changeSorting: (state, action: PayloadAction<SortingType>) => {
+    currentSorting: (state, action: PayloadAction<SortingType>) => {
       state.currentSorting = action.payload;
-    },
-    setLoadingOffers: (state, action: PayloadAction<boolean>) => {
-      state.loadingOffers = action.payload;
-    },
-    setLoadingNearPlaces: (state, action: PayloadAction<boolean>) => {
-      state.loadingNearPlaces = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -71,11 +65,9 @@ const offersSlice = createSlice({
 });
 
 export const {
-  changeCity,
-  applySorting,
-  changeSorting,
-  setLoadingOffers,
-  setLoadingNearPlaces
+  cityChange,
+  sortedOffers,
+  currentSorting,
 } = offersSlice.actions;
 
 export default offersSlice.reducer;

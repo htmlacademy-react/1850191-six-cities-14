@@ -13,7 +13,7 @@ import HistoryRouter from './providers/history-route/history-route';
 
 import { selectFavoritesOffers } from './store/features/favorites/selectors';
 import { fetchOffers } from './store/features/offers/thunk-offers';
-import { useAppDispatch, useAppSelector } from './hooks/store-hooks';
+import { useAppDispatch, useAppSelector } from './hooks/use-store-hooks';
 import { checkAuthStatus } from './store/features/auth/thunk-check-auth';
 import { selectIsAuthCheckedAndAuthorized } from './store/features/auth/selectors';
 import { fetchFavorites } from './store/features/favorites/thunk-favorites';

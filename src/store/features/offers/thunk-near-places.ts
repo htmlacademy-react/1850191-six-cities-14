@@ -3,7 +3,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { NearPlacesType } from '../../../types/near-place';
 import { APIRoute } from '../../../const/const';
 
-interface ThunkApiConfig {
+type ThunkApiConfig = {
   api: AxiosInstance;
 }
 

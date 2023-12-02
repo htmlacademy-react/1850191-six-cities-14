@@ -4,8 +4,8 @@ import { OfferType } from '../../../types/offer-preview';
 import { capitalize } from '../../../utils/common';
 import { FavoriteButton } from '../favorite-button';
 import { memo, useCallback, useMemo } from 'react';
-import { useAppDispatch } from '../../../hooks/store-hooks';
-import { setHoveredOfferId, resetHoveredOfferId } from '../../../store/features/offer-card-hover';
+import { useAppDispatch } from '../../../hooks/use-store-hooks';
+import { hoveredOfferId, hoveredOfferIdReset } from '../../../store/features/offer-card-hover';
 import classNames from 'classnames';
 
 type CardsProps = {
@@ -35,13 +35,13 @@ export const Cards = memo(({ offer, cardType }: CardsProps): JSX.Element => {
 
   const handlemouseEnter = useCallback(() => {
     if (!isFavoriteCard) {
-      dispatch(setHoveredOfferId(offer.id));
+      dispatch(hoveredOfferId(offer.id));
     }
   }, [dispatch, offer.id, isFavoriteCard]);
 
   const handlemouseLeave = useCallback(() => {
     if (!isFavoriteCard) {
-      dispatch(resetHoveredOfferId());
+      dispatch(hoveredOfferIdReset());
     }
   }, [dispatch, isFavoriteCard]);
 

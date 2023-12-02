@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 
@@ -12,7 +12,7 @@ import { OfferHost } from '../../components/offer/offer-host';
 import { OfferPlace } from '../../components/offer/offer-place';
 
 import { AppRoute, AuthorizationStatus } from '../../const/const';
-import { useAppDispatch, useAppSelector } from '../../hooks/store-hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks/use-store-hooks';
 import { selectAuthorizationStatus } from '../../store/features/auth/selectors';
 import { selectCurrentOffer, selectCurrentOfferLoading, selectRequestCompleted } from '../../store/features/offer-active/selectors';
 
@@ -36,8 +36,10 @@ const Offer = () => {
   const isUserAuthorized = authorizationStatus === AuthorizationStatus.Auth;
   const allReviews = useAppSelector(selectReviews);
   const requestCompleted = useAppSelector(selectRequestCompleted);
+  const isComponentMounted = useRef(true);
 
   useEffect(() => {
+    isComponentMounted.current = true;
     if (id) {
       dispatch(fetchOfferById(id)).unwrap()
         .catch((error: AxiosError) => {
@@ -48,6 +50,9 @@ const Offer = () => {
       dispatch(fetchNearPlaces(id));
       dispatch(fetchReviews(id));
     }
+    return () => {
+      isComponentMounted.current = false;
+    };
   }, [id, dispatch, navigate]);
 
 

@@ -2,7 +2,6 @@ import { memo } from 'react';
 import { OfferType } from '../../../types/offer-preview';
 import { Cards } from '../cards';
 
-
 type ListOffersProps = {
   offers: OfferType[];
   cardType: 'main' | 'offer';

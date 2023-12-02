@@ -12,14 +12,14 @@ export const hoverSlice = createSlice({
   name: 'hover',
   initialState,
   reducers: {
-    setHoveredOfferId: (state, action: PayloadAction<string>) => {
+    hoveredOfferId: (state, action: PayloadAction<string>) => {
       state.hoveredOfferId = action.payload;
     },
-    resetHoveredOfferId: (state) => {
+    hoveredOfferIdReset: (state) => {
       state.hoveredOfferId = null;
     },
   },
 });
 
-export const { setHoveredOfferId, resetHoveredOfferId } = hoverSlice.actions;
+export const { hoveredOfferId, hoveredOfferIdReset} = hoverSlice.actions;
 export default hoverSlice.reducer;

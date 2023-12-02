@@ -3,7 +3,7 @@ import { AxiosInstance } from 'axios';
 import { APIRoute } from '../../../const/const';
 import { AuthInfo } from '../../../types/auth-info';
 
-interface ThunkApiConfig {
+type ThunkApiConfig = {
   api: AxiosInstance;
 }
 

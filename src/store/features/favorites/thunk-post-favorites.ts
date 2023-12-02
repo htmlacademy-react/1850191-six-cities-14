@@ -3,7 +3,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { APIRoute } from '../../../const/const';
 import { OfferType } from '../../../types/offer-preview';
 
-interface FavoriteData {
+type FavoriteData = {
   id: string;
   status: 0 | 1;
 }

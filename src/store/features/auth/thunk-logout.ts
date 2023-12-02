@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { APIRoute } from '../../../const/const';
 import { AxiosInstance } from 'axios';
 import { dropToken } from '../../../services/token';
-import { setAuthorizationStatus, updateUserAndStatus } from '../auth';
+import { authorizationStatus, userStatus, } from '../auth';
 import { AuthorizationStatus } from '../../../const/const';
 import { clearFavorites } from '../favorites';
 
@@ -12,7 +12,7 @@ export const logout = createAsyncThunk<void, undefined, { extra: { api: AxiosIns
     await api.delete(APIRoute.Logout);
     dropToken();
     dispatch(clearFavorites());
-    dispatch(setAuthorizationStatus(AuthorizationStatus.NoAuth));
-    dispatch(updateUserAndStatus({ user: null, status: 'idle' }));
+    dispatch(authorizationStatus(AuthorizationStatus.NoAuth));
+    dispatch(userStatus({ user: null, status: 'idle' }));
   }
 );

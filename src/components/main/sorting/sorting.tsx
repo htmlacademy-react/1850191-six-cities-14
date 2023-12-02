@@ -3,9 +3,8 @@ import cn from 'classnames';
 
 import { SortingType } from '../../../types/sorting';
 import { SortingMap } from '../../../const/const';
-import { useAppDispatch } from '../../../hooks/store-hooks';
-import { changeSorting } from '../../../store/features/offers';
-
+import { useAppDispatch } from '../../../hooks/use-store-hooks';
+import { currentSorting } from '../../../store/features/offers';
 
 type SortingProps = {
   activeSorting: SortingType;
@@ -31,7 +30,7 @@ export const Sorting = memo(({ activeSorting }: SortingProps): JSX.Element => {
   }, []);
 
   const handleSortingItemClick = useCallback((type: SortingType) => {
-    dispatch(changeSorting(type));
+    dispatch(currentSorting(type));
     setIsOpened(false);
   }, [dispatch]);
 

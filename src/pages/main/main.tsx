@@ -1,5 +1,5 @@
 import { Helmet } from 'react-helmet-async';
-import { useAppSelector } from '../../hooks/store-hooks';
+import { useAppSelector } from '../../hooks/use-store-hooks';
 
 import { offerLoading, selectCurrentSorting, selectFilteredOffers } from '../../store/features/offers/selectors';
 import { Spinner } from '../../components/commons/spinner';

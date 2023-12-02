@@ -19,10 +19,10 @@ const authorizationSlice = createSlice({
   name: 'authorization',
   initialState,
   reducers: {
-    setAuthorizationStatus(state, action: PayloadAction<AuthorizationStatus>) {
+    authorizationStatus(state, action: PayloadAction<AuthorizationStatus>) {
       state.authorizationStatus = action.payload;
     },
-    updateUserAndStatus(state, action: PayloadAction<{ user: AuthInfo | null; status: 'idle' | 'loading' | 'error' | 'success' }>) {
+    userStatus(state, action: PayloadAction<{ user: AuthInfo | null; status: 'idle' | 'loading' | 'error' | 'success' }>) {
       state.user = action.payload.user;
       state.statusLogin = action.payload.status;
     }
@@ -46,5 +46,5 @@ const authorizationSlice = createSlice({
   }
 });
 
-export const { setAuthorizationStatus, updateUserAndStatus } = authorizationSlice.actions;
+export const { authorizationStatus, userStatus } = authorizationSlice.actions;
 export default authorizationSlice.reducer;

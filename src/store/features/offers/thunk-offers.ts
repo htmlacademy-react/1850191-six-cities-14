@@ -3,7 +3,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { OfferType } from '../../../types/offer-preview';
 import { APIRoute } from '../../../const/const';
 
-interface ThunkApiConfig {
+type ThunkApiConfig = {
   api: AxiosInstance;
 }
 

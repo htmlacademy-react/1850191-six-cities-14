@@ -2,7 +2,6 @@ import { RootState } from '../../configure-store';
 import { createSelector } from '@reduxjs/toolkit';
 import { AuthorizationStatus } from '../../../const/const';
 
-
 export const selectAuthorizationStatus = (state: RootState) => state.authorization.authorizationStatus;
 export const selectStatusLogin = (state: RootState) => state.authorization.statusLogin;
 export const selectUser = (state: RootState) => state.authorization.user;

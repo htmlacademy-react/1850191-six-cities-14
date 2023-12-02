@@ -8,7 +8,7 @@ const Login = (): JSX.Element => (
       <title>{'6 cities-Login'}</title>
     </Helmet>
     <LoginForm />
-    <LocationLink city="Amsterdam" />
+    <LocationLink />
   </div>
 
 );

@@ -3,7 +3,7 @@ import { APIRoute } from '../../../const/const';
 import { AxiosInstance } from 'axios';
 import { Review } from '../../../types/review-type';
 
-interface PostReviewData {
+type PostReviewData = {
   id: string;
   rating: number;
   comment: string;

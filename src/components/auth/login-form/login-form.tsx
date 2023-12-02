@@ -1,5 +1,5 @@
 import { FormEvent, useState } from 'react';
-import { useAppDispatch } from '../../../hooks/store-hooks';
+import { useAppDispatch } from '../../../hooks/use-store-hooks';
 import { login } from '../../../store/features/auth/thunk-login';
 
 export const LoginForm = (): JSX.Element => {

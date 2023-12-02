@@ -10,8 +10,8 @@ const sortHightToLow = (a: OfferType, b: OfferType) => b.price - a.price;
 const sorting: Record<SortingType, (offers:OfferType[]) => OfferType[]> =
 {
   Popular: (offers:OfferType[]) => offers.slice(),
-  HightToLow: (offers:OfferType[]) => offers.toSorted(sortHightToLow),
-  LowToHight: (offers:OfferType[]) => offers.toSorted(sortLowToHight),
+  HighToLow: (offers:OfferType[]) => offers.toSorted(sortHightToLow),
+  LowToHigh: (offers:OfferType[]) => offers.toSorted(sortLowToHight),
   TopRated: (offers:OfferType[]) => offers.toSorted(sortByRating),
 };
 
