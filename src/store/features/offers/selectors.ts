@@ -2,10 +2,13 @@ import { createSelector } from '@reduxjs/toolkit';
 import { RootState } from '../../configure-store';
 import { sorting } from '../../../utils/sorting';
 import { OfferType } from '../../../types/offer-preview';
+import { NearPlacesType } from '../../../types/near-place';
 
-export const selectCurrentCity = (state: RootState) => state.offers.currentCity;
-export const selectOffers = (state: RootState) => state.offers.offers;
-export const selectCurrentSorting = (state: RootState) => state.offers.currentSorting;
+export const selectCurrentCity = (state: RootState) => state.propertyOffers.currentCity;
+export const selectOffers = (state: RootState) => state.propertyOffers.offers;
+export const selectCurrentSorting = (state: RootState) => state.propertyOffers.currentSorting;
+export const offerLoading = (state: RootState) => state.propertyOffers.loadingOffers;
+export const nearPlacesLoading = (state: RootState) => state.propertyOffers.loadingNearPlaces;
 
 export const selectSortedOffers = createSelector(
   [selectOffers, selectCurrentSorting],
@@ -17,6 +20,11 @@ export const selectFilteredOffers = createSelector(
   (sortedOffers, currentCity): OfferType[] => sortedOffers.filter((offer) => offer.city.name === currentCity)
 );
 
+export const selectNearPlacesOffers = createSelector(
+  [(state: RootState) => state.propertyOffers.nearPlaces],
+  (nearPlaces): NearPlacesType => nearPlaces
+);
+
 export const selectCurrentCityDetails = createSelector(
   [selectOffers, selectCurrentCity],
   (offers, currentCityName) => {
@@ -24,9 +32,3 @@ export const selectCurrentCityDetails = createSelector(
     return offerForCurrentCity ? offerForCurrentCity.city : null;
   }
 );
-/** selectCurrentCity возвращает текущий выбранный город. */
-/** electOffers возвращает текущий список предложений.*/
-/** selectCurrentSorting возвращает текущий тип сортировки. */
-/** selectSortedOffers создает селектор для сортировки предложений в соответствии с выбранным типом сортировки. */
-/** selectFilteredOffers создает селектор для фильтрации предложений по текущему городу. */
-/** selectCurrentCityDetails вернет полный объект City на основе текущего CityName */

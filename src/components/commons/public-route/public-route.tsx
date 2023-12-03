@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { selectAuthorizationStatus } from '../../../store/features/auth/selectors';
 import { AuthorizationStatus } from '../../../const/const';
 
-interface PublicRouteProps {
+type PublicRouteProps = {
   children: JSX.Element;
 }
 

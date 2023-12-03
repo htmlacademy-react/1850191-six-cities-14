@@ -17,7 +17,7 @@ export const ReviewSymbolLength = {
   MAX: 300
 } as const;
 
-export const cities = [
+export const cityList = [
   'Paris',
   'Cologne',
   'Brussels',
@@ -33,8 +33,8 @@ export const MapMarkerSVG = {
 
 export const SortingMap = {
   Popular: 'Popular',
-  LowToHight: 'Price: low to hight',
-  HightToLow: 'Price: hight to low',
+  LowToHigh: 'Price: low to high',
+  HighToLow: 'Price: high to low',
   TopRated: 'Top rated first',
 } as const;
 
@@ -53,6 +53,7 @@ export enum APIRoute {
   Logout = '/logout',
   NearPlaces = '/nearby',
   Reviews = '/comments',
+  Favorite = '/favorite',
 }
 
 export const RATING_STARS = [5, 4, 3, 2, 1];

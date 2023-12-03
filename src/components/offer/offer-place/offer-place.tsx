@@ -1,7 +1,10 @@
 import { memo } from 'react';
 import { addPluralEnding } from '../../../utils/common';
+import { OfferType } from '../../../types/offer-preview';
+import { FavoriteButton } from '../../commons/favorite-button';
 
 type OfferPlaceProps = {
+  offer: OfferType;
   title: string;
   isPremium: boolean;
   rating: number;
@@ -12,7 +15,7 @@ type OfferPlaceProps = {
   goods: string[];
 };
 
-export const OfferPlace = memo(({ title, isPremium, rating, type, bedrooms, maxAdults, price, goods }: OfferPlaceProps): JSX.Element => {
+export const OfferPlace = memo(({ offer, title, isPremium, rating, type, bedrooms, maxAdults, price, goods }: OfferPlaceProps): JSX.Element => {
   const ratingPercentage = `${Math.round(rating / 5 * 100)}%`;
 
   return (
@@ -24,11 +27,14 @@ export const OfferPlace = memo(({ title, isPremium, rating, type, bedrooms, maxA
       )}
       <div className="offer__name-wrapper">
         <h1 className="offer__name">{title}</h1>
-        <button className="offer__bookmark-button button" type="button">
-          <svg className="offer__bookmark-icon" width="31" height="33">
-            <use xlinkHref="#icon-bookmark"></use>
-          </svg>
-        </button>
+        <FavoriteButton
+          offer={offer}
+          buttonClass="offer__bookmark-button"
+          buttonActiveClass="offer__bookmark-button--active"
+          iconClass="offer__bookmark-icon"
+          iconWidth={31}
+          iconHeight={33}
+        />
       </div>
       <div className="offer__rating rating">
         <div className="offer__stars rating__stars">

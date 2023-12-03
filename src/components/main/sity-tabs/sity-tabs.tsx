@@ -1,17 +1,17 @@
 import { memo, useCallback } from 'react';
 import { CityName } from '../../../const/const';
-import { useAppDispatch, useAppSelector } from '../../../hooks/store-hooks';
-import { changeCity } from '../../../store/features/offers';
+import { useAppDispatch, useAppSelector } from '../../../hooks/use-store-hooks';
+import { cityChange } from '../../../store/features/offers';
 import { getCities } from '../../../utils/offers';
-
+import { selectCurrentCity } from '../../../store/features/offers/selectors';
 
 export const CityTabs = memo((): JSX.Element => {
   const cities = useAppSelector(getCities);
-  const currentCity = useAppSelector((state): CityName => state.offers.currentCity);
+  const currentCity = useAppSelector(selectCurrentCity);
   const dispatch = useAppDispatch();
 
   const handleCityChange = useCallback((city: CityName) => {
-    dispatch(changeCity(city));
+    dispatch(cityChange(city));
   }, [dispatch]);
 
   return (

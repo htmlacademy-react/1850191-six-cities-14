@@ -1,62 +1,73 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { sorting } from '../../../utils/sorting';
-import { SortingType } from '../../../types/sorting';
-import { OfferType } from '../../../types/offer-preview';
-
-import { fetchOffers } from './thunk-offers';
 import { CityName } from '../../../const/const';
+import { OfferType } from '../../../types/offer-preview';
+import { SortingType } from '../../../types/sorting';
+import { NearPlacesType } from '../../../types/near-place';
+import { fetchNearPlaces } from './thunk-near-places';
+import { fetchOffers } from './thunk-offers';
 
-export interface OffersState {
+export type OffersState = {
   currentCity: CityName;
   offers: OfferType[];
   currentSorting: SortingType;
-  loading: boolean;
+  loadingOffers: boolean;
+  nearPlaces: NearPlacesType;
+  loadingNearPlaces: boolean;
 }
 
 const initialState: OffersState = {
   currentCity: CityName.Paris,
   offers: [],
   currentSorting: 'Popular',
-  loading: false,
+  loadingOffers: false,
+  nearPlaces: [],
+  loadingNearPlaces: false,
 };
 
 const offersSlice = createSlice({
-  name: 'offers',
+  name: 'propertyOffers',
   initialState,
   reducers: {
-    changeCity: (state, action: PayloadAction<CityName>) => {
+    cityChange: (state, action: PayloadAction<CityName>) => {
       state.currentCity = action.payload;
     },
-    applySorting: (state) => {
+    sortedOffers: (state) => {
       state.offers = sorting[state.currentSorting](state.offers);
     },
-    changeSorting: (state, action: PayloadAction<SortingType>) => {
+    currentSorting: (state, action: PayloadAction<SortingType>) => {
       state.currentSorting = action.payload;
-    },
-    setLoading: (state, action: PayloadAction<boolean>) => {
-      state.loading = action.payload;
     },
   },
   extraReducers: (builder) => {
     builder
       .addCase(fetchOffers.pending, (state) => {
-        state.loading = true;
+        state.loadingOffers = true;
       })
       .addCase(fetchOffers.fulfilled, (state, action) => {
         state.offers = action.payload;
-        state.loading = false;
+        state.loadingOffers = false;
       })
       .addCase(fetchOffers.rejected, (state) => {
-        state.loading = false;
+        state.loadingOffers = false;
+      })
+      .addCase(fetchNearPlaces.pending, (state) => {
+        state.loadingNearPlaces = true;
+      })
+      .addCase(fetchNearPlaces.fulfilled, (state, action) => {
+        state.nearPlaces = action.payload;
+        state.loadingNearPlaces = false;
+      })
+      .addCase(fetchNearPlaces.rejected, (state) => {
+        state.loadingNearPlaces = false;
       });
   }
 });
 
-export const { changeCity, applySorting, changeSorting, setLoading } = offersSlice.actions;
-export default offersSlice.reducer;
+export const {
+  cityChange,
+  sortedOffers,
+  currentSorting,
+} = offersSlice.actions;
 
-// changeCity - измененяю выбранный город
-// setOffers - получаю список предложений
-// applySorting - сортирую список предложений
-// changeSorting - меняю сортировку
-// setLoading - добавляю загрузку спинера
+export default offersSlice.reducer;

@@ -1,16 +1,23 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { fetchReviews } from './thunk-reviews';
-import { ReviewType } from '../../../types/review-type';
+import { postReview } from './thunk-post-review';
+import { ReviewType, Review } from '../../../types/review-type';
+import { SerializedError } from '@reduxjs/toolkit';
 
-
-interface reviewsState {
+type ReviewsState = {
   reviews: ReviewType;
-  loading: boolean;
+  loadingReviews: boolean;
+  postReviewData: Review | null;
+  postReviewLoading: boolean;
+  postReviewError: string | null;
 }
 
-const initialState: reviewsState = {
+const initialState: ReviewsState = {
   reviews: [],
-  loading: false,
+  loadingReviews: false,
+  postReviewData: null,
+  postReviewLoading: false,
+  postReviewError: null,
 };
 
 const reviewsSlice = createSlice({
@@ -20,17 +27,28 @@ const reviewsSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchReviews.pending, (state) => {
-        state.loading = true;
+        state.loadingReviews = true;
       })
       .addCase(fetchReviews.fulfilled, (state, action) => {
         state.reviews = action.payload;
-        state.loading = false;
+        state.loadingReviews = false;
       })
       .addCase(fetchReviews.rejected, (state) => {
-        state.loading = false;
+        state.loadingReviews = false;
+      })
+      .addCase(postReview.pending, (state) => {
+        state.postReviewLoading = true;
+        state.postReviewError = null;
+      })
+      .addCase(postReview.fulfilled, (state, action: PayloadAction<Review>) => {
+        state.postReviewData = action.payload;
+        state.postReviewLoading = false;
+      })
+      .addCase(postReview.rejected, (state, action: PayloadAction<unknown, string, unknown, SerializedError>) => {
+        state.postReviewLoading = false;
+        state.postReviewError = action.error.message || 'Error posting review';
       });
   },
 });
 
 export default reviewsSlice.reducer;
-

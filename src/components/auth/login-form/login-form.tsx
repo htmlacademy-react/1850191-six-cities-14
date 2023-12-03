@@ -1,12 +1,9 @@
 import { FormEvent, useState } from 'react';
-import { useAppDispatch } from '../../../hooks/store-hooks';
+import { useAppDispatch } from '../../../hooks/use-store-hooks';
 import { login } from '../../../store/features/auth/thunk-login';
-import { useNavigate } from 'react-router-dom';
-import { AppRoute } from '../../../const/const';
 
 export const LoginForm = (): JSX.Element => {
 
-  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -19,7 +16,6 @@ export const LoginForm = (): JSX.Element => {
       return;
     }
     dispatch(login({ email, password }));
-    navigate(AppRoute.Main);
   };
 
   return (

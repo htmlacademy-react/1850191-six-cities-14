@@ -2,8 +2,32 @@ import { createSelector } from '@reduxjs/toolkit';
 import { RootState } from '../../configure-store';
 import { ReviewType } from '../../../types/review-type';
 
-const selectReviews = (state: RootState): ReviewType => state.reviews.reviews;
-export const selectLoadingReviews = (state: RootState) => state.reviews.loading;
+export const selectReviewsState = (state: RootState) => state.reviews;
+
+export const selectReviews = createSelector(
+  [selectReviewsState],
+  (state) => state.reviews
+);
+
+export const selectLoadingReviews = createSelector(
+  [selectReviewsState],
+  (state) => state.loadingReviews
+);
+
+export const selectPostReviewData = createSelector(
+  [selectReviewsState],
+  (state) => state.postReviewData
+);
+
+export const selectPostReviewLoading = createSelector(
+  [selectReviewsState],
+  (state) => state.postReviewLoading
+);
+
+export const selectPostReviewError = createSelector(
+  [selectReviewsState],
+  (state) => state.postReviewError
+);
 
 export const selectSortedAndLimitedReviews = createSelector(
   [selectReviews],

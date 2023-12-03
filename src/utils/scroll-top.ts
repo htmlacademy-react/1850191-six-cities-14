@@ -1,14 +1,15 @@
-import {useEffect} from 'react';
-import {useLocation} from 'react-router-dom';
+import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 
-function ScrollToTop(): null {
-  const {pathname} = useLocation();
+/**  прокрутка страницы наверх, при смене маршрута */
+const ScrollToTop = () => {
+  const { pathname } = useLocation();
 
-  useEffect((): void => {
-    window.scrollTo(0, 0);
+  useEffect(() => {
+    document.body.scrollIntoView({ behavior: 'smooth' });
   }, [pathname]);
 
   return null;
-}
+};
 
 export default ScrollToTop;

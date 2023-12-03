@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { OfferType } from '../../../types/offer-preview';
 import { fetchOfferById } from './thunk-offer';
 
-interface CurrentOfferState {
+type CurrentOfferState = {
   offer: OfferType | null;
   loading: boolean;
   requestCompleted: boolean;
