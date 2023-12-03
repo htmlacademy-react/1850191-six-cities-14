@@ -11,3 +11,9 @@ export const selectIsAuthCheckedAndAuthorized = createSelector(
   [selectAuthorizationStatus],
   (authStatus: AuthorizationStatus) => authStatus === AuthorizationStatus.Auth
 );
+
+/** проверка авторизации проверена и успешна */
+export const selectIsUserAuthorized = createSelector(
+  selectAuthorizationStatus,
+  (status) => status === AuthorizationStatus.Auth
+);

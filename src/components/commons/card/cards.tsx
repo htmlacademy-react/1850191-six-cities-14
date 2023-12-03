@@ -8,12 +8,12 @@ import { useAppDispatch } from '../../../hooks/use-store-hooks';
 import { hoveredOfferId, hoveredOfferIdReset } from '../../../store/features/offer-card-hover';
 import classNames from 'classnames';
 
-type CardsProps = {
+type CardProps = {
   offer: OfferType;
   cardType: 'main' | 'offer' | 'favorite';
 };
 
-export const Cards = memo(({ offer, cardType }: CardsProps): JSX.Element => {
+export const Card = memo(({ offer, cardType }: CardProps): JSX.Element => {
   const dispatch = useAppDispatch();
   const isFavoriteCard = cardType === 'favorite';
 
@@ -104,4 +104,4 @@ export const Cards = memo(({ offer, cardType }: CardsProps): JSX.Element => {
   );
 });
 
-Cards.displayName = 'Cards';
+Card.displayName = 'Card';
