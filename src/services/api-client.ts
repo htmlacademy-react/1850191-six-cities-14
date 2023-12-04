@@ -1,5 +1,6 @@
 import axios, { AxiosError, AxiosInstance } from 'axios';
 import { getToken } from '../services/token';
+import { ErrorTypes } from '../const/const';
 
 const BACKEND_URL = 'https://14.design.pages.academy/six-cities';
 const REQUEST_TIMEOUT = 5000;
@@ -24,16 +25,18 @@ export const apiClient = (): AxiosInstance => {
     (response) => response,
     (error: AxiosError) => {
       if (error.response) {
-        switch (error.response.status) {
-          case 400:
-            return Promise.reject(new Error('Bad request'));
-          case 404:
-            return Promise.reject(new Error('Not found'));
+        const statusCode = error.response.status;
+        switch (statusCode) {
+          case ErrorTypes.NotFound:
+            return Promise.reject(new Error('Not Found'));
+          case ErrorTypes.BadRequest:
+            return Promise.reject(new Error('Bad Request'));
+          case ErrorTypes.Unauthorized:
+            return Promise.reject(new Error('Unauthorized'));
           default:
             return Promise.reject(error);
         }
       }
-
       return Promise.reject(error);
     }
   );

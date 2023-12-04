@@ -57,3 +57,9 @@ export enum APIRoute {
 }
 
 export const RATING_STARS = [5, 4, 3, 2, 1];
+
+export enum ErrorTypes {
+  NotFound = 404,
+  BadRequest = 400,
+  Unauthorized = 401,
+}

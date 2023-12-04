@@ -1,5 +1,6 @@
+import { useMemo } from 'react';
 import { OfferType } from '../../../types/offer-preview';
-import { Cards } from '../../commons/cards';
+import { Card } from '../../commons/card';
 
 type FavoriteLocationProps = {
   offers: OfferType[];
@@ -7,14 +8,14 @@ type FavoriteLocationProps = {
 
 export const FavoriteLocation = ({ offers }: FavoriteLocationProps): JSX.Element => {
 
-  const groupedOffers = offers.reduce((acc: { [key: string]: OfferType[] }, offer) => {
+  const groupedOffers = useMemo(() => offers.reduce((acc: { [key: string]: OfferType[] }, offer: OfferType) => {
     const cityName = offer.city.name;
     if (!acc[cityName]) {
       acc[cityName] = [];
     }
     acc[cityName].push(offer);
     return acc;
-  }, {});
+  }, {} as { [key: string]: OfferType[] }), [offers]);
 
   return (
     <ul className="favorites__list">
@@ -29,7 +30,7 @@ export const FavoriteLocation = ({ offers }: FavoriteLocationProps): JSX.Element
           </div>
           <div className="favorites__places">
             {cityOffers.map((offer) => (
-              <Cards
+              <Card
                 key={offer.id}
                 offer={offer}
                 cardType="favorite"
