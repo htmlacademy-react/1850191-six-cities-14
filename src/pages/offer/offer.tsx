@@ -1,5 +1,5 @@
-import React, { useEffect, useMemo } from 'react';
-import { Navigate, useParams } from 'react-router-dom';
+import { useEffect, useMemo, useRef } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 
 import { ReviewsForm } from '../../components/offer/reviews-form';
@@ -14,7 +14,7 @@ import { OfferPlace } from '../../components/offer/offer-place';
 import { AppRoute } from '../../const/const';
 import { useAppDispatch, useAppSelector } from '../../hooks/use-store-hooks';
 import { selectIsUserAuthorized } from '../../store/features/auth/selectors';
-import { selectCurrentOffer, selectCurrentOfferLoading } from '../../store/features/offer-active/selectors';
+import { selectCurrentOffer, selectCurrentOfferLoading, selectRequestCompleted } from '../../store/features/offer-active/selectors';
 import { fetchOfferById } from '../../store/features/offer-active/thunk-offer';
 import { fetchNearPlaces } from '../../store/features/offers/thunk-near-places';
 import { selectAllReviewsCount, selectSortedAndLimitedReviews } from '../../store/features/reviews/selectors';
@@ -23,6 +23,7 @@ import { nearPlacesLoading, selectNearPlacesOffers } from '../../store/features/
 
 const Offer = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const { id } = useParams();
   const currentOffer = useAppSelector(selectCurrentOffer);
   const loading = useAppSelector(selectCurrentOfferLoading);
@@ -31,14 +32,27 @@ const Offer = () => {
   const sortedAndLimitedReviews = useAppSelector(selectSortedAndLimitedReviews);
   const isUserAuthorized = useAppSelector(selectIsUserAuthorized);
   const allReviewsCount = useAppSelector(selectAllReviewsCount);
+  const requestCompleted = useAppSelector(selectRequestCompleted);
+  const isComponentMounted = useRef(true);
 
   useEffect(() => {
     if (id) {
-      dispatch(fetchOfferById(id));
+      isComponentMounted.current = true;
+      dispatch(fetchOfferById(id)).unwrap()
+        .catch((error: Error) => {
+          if (error.message === 'Not Found') {
+            navigate(AppRoute.NotFound);
+          }
+        });
       dispatch(fetchNearPlaces(id));
       dispatch(fetchReviews(id));
+
+      return () => {
+        isComponentMounted.current = false;
+      };
     }
-  }, [id, dispatch]);
+  }, [id, dispatch, navigate]);
+
 
   const offersForMap = useMemo(() => {
     let offers = nearbyOffers.slice(0, 3);
@@ -48,12 +62,12 @@ const Offer = () => {
     return offers;
   }, [nearbyOffers, currentOffer]);
 
-  if (loading) {
+  if (loading || !requestCompleted) {
     return <Spinner />;
   }
 
   if (!currentOffer) {
-    return <Navigate to={AppRoute.NotFound} />;
+    return null;
   }
 
   return (
@@ -105,3 +119,4 @@ const Offer = () => {
 };
 
 export default Offer;
+
