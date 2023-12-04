@@ -9,6 +9,11 @@ export const selectReviews = createSelector(
   (state) => state.reviews
 );
 
+export const selectAllReviewsCount = createSelector(
+  [selectReviews],
+  (reviews) => reviews.length
+);
+
 export const selectLoadingReviews = createSelector(
   [selectReviewsState],
   (state) => state.loadingReviews

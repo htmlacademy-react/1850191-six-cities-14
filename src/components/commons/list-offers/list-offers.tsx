@@ -1,6 +1,6 @@
 import { memo } from 'react';
 import { OfferType } from '../../../types/offer-preview';
-import { Cards } from '../cards';
+import { Card } from '../card';
 
 type ListOffersProps = {
   offers: OfferType[];
@@ -10,7 +10,7 @@ type ListOffersProps = {
 export const ListOffers = memo(({ offers, cardType }: ListOffersProps): JSX.Element => (
   <>
     {offers.map((offer) => (
-      <Cards
+      <Card
         key={offer.id}
         offer={offer}
         cardType={cardType}
