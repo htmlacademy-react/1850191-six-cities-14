@@ -1,12 +1,12 @@
 import { Helmet } from 'react-helmet-async';
 import { useAppSelector } from '../../hooks/use-store-hooks';
 
-import { offerLoading, selectCurrentSorting, selectFilteredOffers } from '../../store/features/offers/selectors';
 import { Spinner } from '../../components/commons/spinner';
 import { CityTabs } from '../../components/main/sity-tabs';
 import { Sorting } from '../../components/main/sorting';
 import { ListOffers } from '../../components/commons/list-offers';
 import { Map } from '../../components/commons/map';
+import { offerLoading, selectCurrentSorting, selectFilteredOffers } from '../../store/features/offers/selectors';
 import { MainEmpty } from '../main-empty';
 
 const Main = (): JSX.Element => {

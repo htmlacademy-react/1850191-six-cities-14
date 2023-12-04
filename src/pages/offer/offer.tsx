@@ -11,8 +11,6 @@ import { OfferGallery } from '../../components/offer/offer-gallery';
 import { OfferHost } from '../../components/offer/offer-host';
 import { OfferPlace } from '../../components/offer/offer-place';
 
-import { AppRoute } from '../../const/const';
-import { useAppDispatch, useAppSelector } from '../../hooks/use-store-hooks';
 import { selectIsUserAuthorized } from '../../store/features/auth/selectors';
 import { selectCurrentOffer, selectCurrentOfferLoading, selectRequestCompleted } from '../../store/features/offer-active/selectors';
 import { fetchOfferById } from '../../store/features/offer-active/thunk-offer';
@@ -20,6 +18,8 @@ import { fetchNearPlaces } from '../../store/features/offers/thunk-near-places';
 import { selectAllReviewsCount, selectSortedAndLimitedReviews } from '../../store/features/reviews/selectors';
 import { fetchReviews } from '../../store/features/reviews/thunk-reviews';
 import { nearPlacesLoading, selectNearPlacesOffers } from '../../store/features/offers/selectors';
+import { AppRoute } from '../../const/const';
+import { useAppDispatch, useAppSelector } from '../../hooks/use-store-hooks';
 
 const Offer = () => {
   const dispatch = useAppDispatch();
