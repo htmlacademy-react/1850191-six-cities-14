@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef } from 'react';
-import { Navigate, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 
 import { ReviewsForm } from '../../components/offer/reviews-form';
@@ -11,16 +11,14 @@ import { OfferGallery } from '../../components/offer/offer-gallery';
 import { OfferHost } from '../../components/offer/offer-host';
 import { OfferPlace } from '../../components/offer/offer-place';
 
-import { AppRoute, AuthorizationStatus } from '../../const/const';
+import { AppRoute } from '../../const/const';
 import { useAppDispatch, useAppSelector } from '../../hooks/use-store-hooks';
-import { selectAuthorizationStatus } from '../../store/features/auth/selectors';
+import { selectIsUserAuthorized } from '../../store/features/auth/selectors';
 import { selectCurrentOffer, selectCurrentOfferLoading, selectRequestCompleted } from '../../store/features/offer-active/selectors';
-
 import { fetchOfferById } from '../../store/features/offer-active/thunk-offer';
 import { fetchNearPlaces } from '../../store/features/offers/thunk-near-places';
-import { selectReviews, selectSortedAndLimitedReviews } from '../../store/features/reviews/selectors';
+import { selectAllReviewsCount, selectSortedAndLimitedReviews } from '../../store/features/reviews/selectors';
 import { fetchReviews } from '../../store/features/reviews/thunk-reviews';
-import { AxiosError } from 'axios';
 import { nearPlacesLoading, selectNearPlacesOffers } from '../../store/features/offers/selectors';
 
 const Offer = () => {
@@ -32,27 +30,27 @@ const Offer = () => {
   const nearbyOffers = useAppSelector(selectNearPlacesOffers);
   const isNearbyOffersLoading = useAppSelector(nearPlacesLoading);
   const sortedAndLimitedReviews = useAppSelector(selectSortedAndLimitedReviews);
-  const authorizationStatus = useAppSelector(selectAuthorizationStatus);
-  const isUserAuthorized = authorizationStatus === AuthorizationStatus.Auth;
-  const allReviews = useAppSelector(selectReviews);
+  const isUserAuthorized = useAppSelector(selectIsUserAuthorized);
+  const allReviewsCount = useAppSelector(selectAllReviewsCount);
   const requestCompleted = useAppSelector(selectRequestCompleted);
   const isComponentMounted = useRef(true);
 
   useEffect(() => {
-    isComponentMounted.current = true;
     if (id) {
+      isComponentMounted.current = true;
       dispatch(fetchOfferById(id)).unwrap()
-        .catch((error: AxiosError) => {
-          if (error.response && error.response.status === 404) {
+        .catch((error: Error) => {
+          if (error.message === 'Not Found') {
             navigate(AppRoute.NotFound);
           }
         });
       dispatch(fetchNearPlaces(id));
       dispatch(fetchReviews(id));
+
+      return () => {
+        isComponentMounted.current = false;
+      };
     }
-    return () => {
-      isComponentMounted.current = false;
-    };
   }, [id, dispatch, navigate]);
 
 
@@ -69,7 +67,7 @@ const Offer = () => {
   }
 
   if (!currentOffer) {
-    return <Navigate to={AppRoute.NotFound} />;
+    return null;
   }
 
   return (
@@ -95,7 +93,7 @@ const Offer = () => {
             <OfferHost host={currentOffer.host} description={currentOffer.description} />
             <section className="offer__reviews reviews">
               <h2 className="reviews__title">
-                Reviews · <span className="reviews__amount">{allReviews.length}</span>
+                Reviews · <span className="reviews__amount">{allReviewsCount}</span>
               </h2>
               <ReviewsList reviews={sortedAndLimitedReviews} />
               {isUserAuthorized && <ReviewsForm />}

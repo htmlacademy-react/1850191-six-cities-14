@@ -19,6 +19,7 @@ import { selectIsAuthCheckedAndAuthorized } from './store/features/auth/selector
 import { fetchFavorites } from './store/features/favorites/thunk-favorites';
 import { Spinner } from './components/commons/spinner';
 import ScrollToTop from './utils/scroll-top';
+import ErrorToast from './components/commons/error-toast/error-toast';
 
 const Main = lazy(() => import('./pages/main/main'));
 const Favorites = lazy(() => import('./pages/favorites/favorites'));
@@ -47,6 +48,7 @@ const App = (): JSX.Element => {
   return (
     <HelmetProvider>
       <HistoryRouter history={browserHistory}>
+        <ErrorToast />
         <ScrollToTop />
         <Routes>
           <Route path={AppRoute.Main} element={

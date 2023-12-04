@@ -5,6 +5,7 @@ import currentOfferReducer from './features/offer-active';
 import hoverOfferIdReducer from './features/offer-card-hover';
 import reviewsReducer from './features/reviews';
 import favoritesReducer from './features/favorites';
+import errorReducer from './features/errors';
 
 import { apiClient } from '../services/api-client';
 
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   hoverOfferId: hoverOfferIdReducer,
   reviews: reviewsReducer,
   favorites: favoritesReducer,
+  error: errorReducer,
 });
 
 export const store = configureStore({
