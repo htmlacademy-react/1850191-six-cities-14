@@ -9,7 +9,7 @@ import { PrivateRoute } from './components/commons/private-route/private-route';
 import { PublicRoute } from './components/commons/public-route';
 
 import browserHistory from './providers/history-route/browser-history';
-import HistoryRouter from './providers/history-route/history-route';
+
 
 import { selectFavoritesOffers } from './store/features/favorites/selectors';
 import { fetchOffers } from './store/features/offers/thunk-offers';
@@ -20,6 +20,7 @@ import { fetchFavorites } from './store/features/favorites/thunk-favorites';
 import { Spinner } from './components/commons/spinner';
 import ScrollToTop from './utils/scroll-top';
 import ErrorToast from './components/commons/error-toast/error-toast';
+import { HistoryRouter } from './providers/history-route';
 
 const Main = lazy(() => import('./pages/main/main'));
 const Favorites = lazy(() => import('./pages/favorites/favorites'));

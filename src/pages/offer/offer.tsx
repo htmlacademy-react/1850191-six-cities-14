@@ -35,6 +35,9 @@ const Offer = () => {
   const requestCompleted = useAppSelector(selectRequestCompleted);
   const isComponentMounted = useRef(true);
 
+  const MAX_NEARBY_OFFERS_FOR_MAP = 3;
+  const MAX_NEARBY_OFFERS_TO_RENDER = 3;
+
   useEffect(() => {
     if (id) {
       isComponentMounted.current = true;
@@ -55,7 +58,7 @@ const Offer = () => {
 
 
   const offersForMap = useMemo(() => {
-    let offers = nearbyOffers.slice(0, 3);
+    let offers = nearbyOffers.slice(0, MAX_NEARBY_OFFERS_FOR_MAP);
     if (currentOffer && !nearbyOffers.some((offer) => offer.id === currentOffer.id)) {
       offers = [currentOffer, ...offers];
     }
@@ -109,7 +112,7 @@ const Offer = () => {
             {isNearbyOffersLoading ? (
               <div>Loading nearby places...</div>
             ) : (
-              <ListOffers offers={nearbyOffers.slice(0, 3)} cardType="offer" />
+              <ListOffers offers={nearbyOffers.slice(0, MAX_NEARBY_OFFERS_TO_RENDER)} cardType="offer" />
             )}
           </div>
         </section>
