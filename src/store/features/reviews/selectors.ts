@@ -1,6 +1,7 @@
 import { createSelector } from '@reduxjs/toolkit';
 import { RootState } from '../../configure-store';
 import { ReviewType } from '../../../types/review-type';
+import { MAX_REVIEWS_TO_RENDER } from '../../../const/const';
 
 export const selectReviewsState = (state: RootState) => state.reviews;
 
@@ -39,5 +40,5 @@ export const selectSortedAndLimitedReviews = createSelector(
   (reviews: ReviewType): ReviewType => reviews
     .slice()
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-    .slice(0, 10)
+    .slice(0, MAX_REVIEWS_TO_RENDER)
 );

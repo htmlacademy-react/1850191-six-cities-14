@@ -57,6 +57,7 @@ export enum APIRoute {
 }
 
 export const RATING_STARS = [5, 4, 3, 2, 1];
+export const MAX_REVIEWS_TO_RENDER = 10;
 
 export enum ErrorTypes {
   NotFound = 404,
